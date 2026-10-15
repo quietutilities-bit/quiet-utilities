@@ -3,7 +3,7 @@ import {
   CATEGORY_LABELS, applyMask
 } from './lib/core.js';
 import { extractFromPage } from './lib/extract.js';
-import { isPro, openUpgrade, TEST_BUILD, PRO_PRICE } from './lib/license.js';
+import { isPro, openUpgrade, openRestore, TEST_BUILD, PRO_PRICE } from './lib/license.js';
 
 const MAX_ROWS = 400;
 const $ = (id) => document.getElementById(id);
@@ -248,10 +248,23 @@ function renderPro() {
   $('mask').disabled = !state.pro;
   $('regex').disabled = !state.pro;
   $('mask').closest('.field').classList.toggle('locked', !state.pro);
+  $('regex').classList.toggle('locked', !state.pro);
   $('pro-note').textContent = TEST_BUILD
     ? 'Test build: Pro features unlocked.'
     : state.pro ? '' : `All tabs, renaming and advanced filters come with Pro (${PRO_PRICE}).`;
+  $('upgrade-row').hidden = state.pro;
 }
+
+// Locked Pro features open the upgrade page instead.
+function proGate(ev) {
+  if (state.pro) return;
+  ev.preventDefault();
+  openUpgrade();
+}
+document.querySelector('#rename summary').addEventListener('click', proGate);
+document.querySelector('#advanced summary').addEventListener('click', proGate);
+$('upgrade').addEventListener('click', () => openUpgrade());
+$('restore').addEventListener('click', () => openRestore());
 
 // ---------- progress ----------
 function showProgress(job) {

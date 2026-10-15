@@ -5,11 +5,17 @@
   "version": "0.1.0",
   "description": "Download every file, image or link on a page in one click. Filter by type, pick what you want, save it all into one folder.",
   "author": "Quiet Utilities",
-  "permissions": ["activeTab", "scripting", "downloads", "storage"],
-  "optional_host_permissions": ["<all_urls>"],
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "downloads",
+    "storage"
+  ],
+  "optional_host_permissions": [
+    "<all_urls>"
+  ],
   "background": {
-    "service_worker": "background.js",
-    "type": "module"
+    "service_worker": "background.js"
   },
   "action": {
     "default_title": "Quiet Bulk Downloader",
@@ -26,5 +32,16 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "minimum_chrome_version": "116"
+  "minimum_chrome_version": "116",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://extensionpay.com/*"
+      ],
+      "js": [
+        "lib/ExtPay.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
 }

@@ -58,8 +58,15 @@
     </div>
     <button id="download" class="primary" disabled>Download</button>
     <p id="pro-note" class="hint pro-note"></p>
+    <div id="upgrade-row" class="upgrade-row" hidden>
+      <button id="upgrade" class="link-btn">Upgrade to Pro</button>
+      <span class="hint">·</span>
+      <button id="restore" class="link-btn">Already paid? Restore</button>
+    </div>
   </footer>
 
+  <script src="lib/ExtPay.js"></script>
+  <script src="lib/config.js"></script>
   <script type="module" src="popup.js"></script>
 </body>
 </html>

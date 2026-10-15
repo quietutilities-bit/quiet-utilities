@@ -1,3 +1,9 @@
+// Payments (ExtensionPay). Must start in the background script.
+importScripts('lib/ExtPay.js', 'lib/config.js');
+if (self.QBD_CONFIG.EXTPAY_ID) {
+  try { ExtPay(self.QBD_CONFIG.EXTPAY_ID).startBackground(); } catch (e) { console.warn('ExtPay', e); }
+}
+
 // Download queue. Runs a few downloads at a time so big batches don't
 // overwhelm the browser or the site. State lives in storage.session so the
 // queue survives the service worker being put to sleep.
