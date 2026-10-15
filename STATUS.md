@@ -5,7 +5,9 @@ Read this first in every session. Update it last.
 ## Accounts (2026-10-15)
 - [x] Gmail: quietutilities@gmail.com (connected to Claude)
 - [x] GitHub: quietutilities-bit / quiet-utilities (private)
-- [ ] Chrome Web Store developer account ($5)
+- [x] Chrome Web Store developer account. Publisher ID 8469b81e-4d26-4a16-af4a-10c9d2d30661
+- [x] Service account `store-publisher` (Google Cloud project quiet-utilities) added to the store dashboard; key stored as GitHub secret CWS_SERVICE_ACCOUNT_KEY; variable CWS_PUBLISHER_ID set
+- [x] Publish workflow (.github/workflows/publish.yml): Claude starts it with `gh api -X POST repos/quietutilities-bit/quiet-utilities/actions/workflows/publish.yml/dispatches`. Test run 2026-10-15: unit tests pass, stops at missing extensionId as designed. Service-account login not yet proven (needs first listing).
 - [ ] Stripe
 - [ ] ExtensionPay
 - [ ] Optional: Chrome profile + Claude in Chrome for self-publishing
@@ -28,4 +30,9 @@ Claude asks first: new extensions, price changes, spending money, legal/policy i
 
 ## Log
 - 2026-10-14: Chose Chrome extension portfolio. Built + tested bulk downloader v0.1.0.
-- 2026-10-15: GitHub repo connected; code uploaded.
+- 2026-10-15: GitHub repo connected; code uploaded. Store developer account, service account and publish workflow set up.
+
+## Notes
+- From Claude sessions: GitHub Actions secrets/variables can't be read or set (proxy blocks it); dispatching workflows and reading runs works via `gh api` REST. GraphQL is blocked.
+- Chrome Web Store API hosts are blocked from the Claude workspace; all store calls go through GitHub Actions.
+- First listing for each new extension must be created in the dashboard by hand (API can't create items). Then put its ID in extensions/<name>/store.json.
