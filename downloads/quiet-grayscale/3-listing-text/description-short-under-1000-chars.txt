@@ -1,0 +1,13 @@
+Color is how websites grab your attention. Quiet Grayscale turns it down.
+
+Switch a site to black and white and the red badges, flashy thumbnails and bright buttons lose their pull. Scrolling gets less tempting and long reading gets easier on the eyes.
+
+• Grayscale this site: one switch, remembered every visit.
+• Every website: go gray everywhere and skip the sites you want in color.
+• Strength slider: from a light fade to full black and white.
+• Alt+Shift+G: gray the current tab for now, or pause a gray site.
+• Light and dark popup.
+
+Private by design: works entirely in your browser. No accounts, analytics, tracking or ads. It asks for access only to the sites you choose, and all sites only if you turn on "Every website".
+
+Free, with no upsells. Questions: quietutilities@gmail.com

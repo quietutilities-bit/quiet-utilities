@@ -47,6 +47,8 @@ Claude asks first: new extensions, price changes, spending money, legal/policy i
 
 - 2026-10-15: Edge Publish API connected (secrets EDGE_CLIENT_ID + EDGE_API_KEY). Read-only check: credentials accepted (HTTP 404 for a dummy operation, not 401/403). Updates: dispatch publish.yml with inputs[store]=edge or both. Note: owner pasted an earlier API key in chat and was told to regenerate it.
 
+- 2026-10-15: Built Quiet Grayscale 1.0.0 (free). 6/6 unit tests and the full browser test pass. Store images, listing, Edge description (803 chars) and Chrome/Edge/Firefox packages are in downloads/quiet-grayscale. Website card and privacy policy updated. Waiting on owner: create the Edge item now, Chrome item after Google identity check, then send back the IDs for extensions/grayscale/store.json.
+
 ## Notes
 - From Claude sessions: GitHub Actions secrets/variables can't be read or set (proxy blocks it); dispatching workflows and reading runs works via `gh api` REST. GraphQL is blocked.
 - Chrome Web Store API hosts are blocked from the Claude workspace; all store calls go through GitHub Actions.

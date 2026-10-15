@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Quiet Grayscale</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="top">
+    <img src="icons/icon32.png" alt="" width="20" height="20">
+    <span>Quiet Grayscale</span>
+  </header>
+
+  <main>
+    <section class="card">
+      <div class="site" id="site-name">This site</div>
+      <label class="row big">
+        <span id="site-label">Grayscale this site</span>
+        <input id="site-toggle" type="checkbox" role="switch" class="switch">
+      </label>
+      <p id="site-note" class="hint" hidden></p>
+    </section>
+
+    <section class="card">
+      <label class="row">
+        <span>Every website</span>
+        <input id="every-toggle" type="checkbox" role="switch" class="switch">
+      </label>
+      <p class="hint">Gray everywhere, and pick sites to skip.</p>
+    </section>
+
+    <section class="card">
+      <label class="row" for="strength">
+        <span>Strength</span>
+        <output id="strength-out">100%</output>
+      </label>
+      <input id="strength" type="range" min="10" max="100" step="5" value="100" aria-label="Strength">
+    </section>
+
+    <p class="hint center"><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd> grays any tab for now.</p>
+  </main>
+
+  <div id="rate" class="rate" hidden>
+    <span>Enjoying it? A rating helps others find it.</span>
+    <span class="rate-actions"><button id="rate-yes" class="link-btn strong">Rate it</button><button id="rate-no" class="link-btn">Not now</button></span>
+  </div>
+
+  <footer>
+    <a id="more" href="#" target="_blank" rel="noopener">More free tools from Quiet Utilities</a>
+  </footer>
+
+  <script src="lib/config.js"></script>
+  <script src="lib/rules.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

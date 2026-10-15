@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Quiet Grayscale",
+  "short_name": "Quiet Gray",
+  "version": "1.0.0",
+  "description": "Turn websites black and white to cut distraction and rest your eyes. Pick the sites, or go gray everywhere.",
+  "author": "Quiet Utilities",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "optional_host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_title": "Quiet Grayscale",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png" }
+  },
+  "commands": {
+    "quick-toggle": {
+      "suggested_key": { "default": "Alt+Shift+G" },
+      "description": "Turn grayscale on or off for the current tab"
+    }
+  },
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "minimum_chrome_version": "116"
+}
