@@ -8,7 +8,8 @@ Read this first in every session. Update it last.
 - [x] Chrome Web Store developer account. Publisher ID 8469b81e-4d26-4a16-af4a-10c9d2d30661
 - [x] Service account `store-publisher` (Google Cloud project quiet-utilities) added to the store dashboard; key stored as GitHub secret CWS_SERVICE_ACCOUNT_KEY; variable CWS_PUBLISHER_ID set
 - [x] Publish workflow (.github/workflows/publish.yml): Claude starts it with `gh api -X POST repos/quietutilities-bit/quiet-utilities/actions/workflows/publish.yml/dispatches`. Test run 2026-10-15: unit tests pass, stops at missing extensionId as designed. Service-account login not yet proven (needs first listing).
-- [ ] Stripe
+- [x] Website: https://quietutilities-bit.github.io (repo quietutilities-bit/quietutilities-bit.github.io, public). Home, privacy.html, terms.html. Privacy URL for store listing: https://quietutilities-bit.github.io/privacy.html
+- [ ] Stripe (in progress: activation asked for a website)
 - [ ] ExtensionPay
 - [ ] Optional: Chrome profile + Claude in Chrome for self-publishing
 
