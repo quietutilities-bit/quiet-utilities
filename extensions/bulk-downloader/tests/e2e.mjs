@@ -89,6 +89,7 @@ fs.cpSync(path.join(ROOT, 'extension'), extDir, { recursive: true });
 const manifest = JSON.parse(fs.readFileSync(path.join(extDir, 'manifest.json'), 'utf8'));
 manifest.host_permissions = ['<all_urls>'];
 fs.writeFileSync(path.join(extDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
+fs.writeFileSync(path.join(extDir, 'lib/config.js'), "self.QBD_CONFIG = { TEST_BUILD: true, EXTPAY_ID: '', PRO_PRICE: '$9.99 one-time' };");
 
 // ---------- launch Chromium ----------
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'qbd-profile-'));

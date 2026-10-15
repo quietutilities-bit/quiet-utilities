@@ -9,7 +9,8 @@ Read this first in every session. Update it last.
 - [x] Service account `store-publisher` (Google Cloud project quiet-utilities) added to the store dashboard; key stored as GitHub secret CWS_SERVICE_ACCOUNT_KEY; variable CWS_PUBLISHER_ID set
 - [x] Publish workflow (.github/workflows/publish.yml): Claude starts it with `gh api -X POST repos/quietutilities-bit/quiet-utilities/actions/workflows/publish.yml/dispatches`. Test run 2026-10-15: unit tests pass, stops at missing extensionId as designed. Service-account login not yet proven (needs first listing).
 - [x] Website: https://quietutilities-bit.github.io (repo quietutilities-bit/quietutilities-bit.github.io, public). Home, privacy.html, terms.html. Privacy URL for store listing: https://quietutilities-bit.github.io/privacy.html
-- [ ] Stripe (in progress: activation asked for a website)
+- [x] Stripe (owner finishing activation: identity + bank)
+- [x] ExtensionPay: extension ID `quiet-bulk-bownloader` (typo in ID is permanent; display name should read "Quiet Bulk Downloader"). Confirm Stripe is connected inside ExtensionPay.
 - [ ] ExtensionPay
 - [ ] Optional: Chrome profile + Claude in Chrome for self-publishing
 
@@ -17,11 +18,12 @@ Read this first in every session. Update it last.
 Claude does without asking: bug fixes, small improvements, review/support replies, weekly report.
 Claude asks first: new extensions, price changes, spending money, legal/policy issues.
 
-## Quiet Bulk Downloader — v0.1.0 test build
+## Quiet Bulk Downloader — v0.2.0 (payments wired)
 - Free: scan current tab, type filters, text filter, select, save into a Downloads subfolder, queued downloads with progress.
 - Pro ($9.99 one-time, planned): all tabs, rename patterns, regex filter.
 - Tests: 10 unit + 22 end-to-end checks in real Chromium, all passing.
-- Before publishing: set TEST_BUILD = false in `extension/lib/license.js`, wire ExtensionPay, write store listing, 1280x800 screenshots, 440x280 tile, privacy policy.
+- Payments: ExtPay.js 3.1.2 bundled; settings in `extension/lib/config.js` (TEST_BUILD false, EXTPAY_ID set).
+- Before publishing: owner tests checkout with Stripe test card; write store listing, 1280x800 screenshots, 440x280 tile, privacy policy.
 - Waiting on: owner's hands-on test on real websites.
 
 ## Backlog
