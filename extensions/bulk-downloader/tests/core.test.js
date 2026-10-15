@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   getExtension, categorize, filenameFromUrl, sanitize, sanitizeFolder,
-  prepareItems, filterItems, applyMask, uniquify, buildJobs, countByCategory, isValidRegex
+  prepareItems, filterItems, applyMask, uniquify, buildJobs, countByCategory, isValidRegex, downloadWarning
 } from '../extension/lib/core.js';
 
 test('getExtension ignores query strings and odd endings', () => {
@@ -99,4 +99,18 @@ test('buildJobs combines folder, mask and unique names', () => {
   assert.deepEqual(jobs.map((j) => j.filename), ['Quiet Downloads/img.png', 'Quiet Downloads/img (2).png']);
   const masked = buildJobs(items, { folder: '', mask: '{domain}' });
   assert.deepEqual(masked.map((j) => j.filename), ['a.com.png', 'b.com.png']);
+});
+
+test('page links get .html and trigger a warning', () => {
+  const items = prepareItems([
+    { url: 'https://www.cnbc.com/bonds/' },
+    { url: 'https://www.cnbc.com/img/chart.png', kind: 'image' }
+  ]);
+  assert.equal(items[0].name, 'bonds.html');
+  assert.equal(items[0].category, 'links');
+  assert.match(downloadWarning(items), /1 is a web page, not a file/);
+  assert.equal(downloadWarning([items[1]]), '');
+  const many = prepareItems(Array.from({ length: 101 }, (_, i) => ({ url: `https://x.com/f${i}.txt` })));
+  assert.match(downloadWarning(many), /101 files/);
+  assert.equal(downloadWarning(many.slice(0, 100)), '');
 });

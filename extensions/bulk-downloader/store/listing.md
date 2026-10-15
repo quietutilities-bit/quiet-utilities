@@ -3,7 +3,7 @@
 Paste these into the Developer Dashboard when creating the item.
 
 ## Package
-Upload: `quiet-bulk-downloader-1.0.0.zip`
+Upload: `quiet-bulk-downloader-1.0.1.zip`
 
 ## Store listing tab
 

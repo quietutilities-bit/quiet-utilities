@@ -1,5 +1,5 @@
 import {
-  prepareItems, filterItems, countByCategory, buildJobs, isValidRegex,
+  prepareItems, filterItems, countByCategory, buildJobs, isValidRegex, downloadWarning,
   CATEGORY_LABELS, applyMask
 } from './lib/core.js';
 import { extractFromPage } from './lib/extract.js';
@@ -228,7 +228,9 @@ function renderFooter() {
   all.checked = selected.length > 0 && selected.length === visible.length;
   all.indeterminate = selected.length > 0 && selected.length < visible.length;
   const btn = $('download');
+  state.confirming = false;
   btn.disabled = selected.length === 0;
+  btn.classList.remove('confirm');
   btn.textContent = selected.length === 1 ? 'Download 1 file' : `Download ${selected.length} files`;
   renderPreview(selected);
 }
@@ -322,6 +324,15 @@ $('cancel').addEventListener('click', () => chrome.runtime.sendMessage({ type: '
 $('download').addEventListener('click', async () => {
   const selected = selectedItems();
   if (!selected.length) return;
+  const warning = downloadWarning(selected);
+  if (warning && !state.confirming) {
+    // First click: explain, second click downloads.
+    state.confirming = true;
+    $('download').classList.add('confirm');
+    $('download').textContent = `${warning} Click again to download`;
+    return;
+  }
+  state.confirming = false;
   const jobs = buildJobs(selected, { folder: state.folder, mask: state.pro ? state.mask : '' });
   $('download').disabled = true;
   const res = await chrome.runtime.sendMessage({ type: 'enqueue', jobs });

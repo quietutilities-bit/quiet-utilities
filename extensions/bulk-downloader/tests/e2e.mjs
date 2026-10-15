@@ -227,10 +227,25 @@ try {
     'rename mask numbers files and keeps extensions');
   await popup.fill('#mask', '');
 
+  // ---- Test 3b: web pages need a second click ----
+  await popup.fill('#mask', '');
+  await popup.click('.chip[data-cat="images"]');           // images off
+  await popup.click('.chip[data-cat="links"]');            // page links on
+  await popup.fill('#folder', 'QA Pages');
+  await popup.click('#download');
+  const warnText = await popup.textContent('#download');
+  check(/web page.*Click again/.test(warnText), `first click warns about web pages ("${warnText}")`);
+  await new Promise((r) => setTimeout(r, 800));
+  check(!fs.existsSync(path.join(downloads, 'QA Pages')), 'nothing downloaded on the first click');
+  await popup.click('#download');
+  const pages = await waitForFiles(path.join(downloads, 'QA Pages'), 1);
+  check(pages.includes('about.html'), `second click downloads the page as about.html (${pages.join(', ')})`);
+  await popup.click('.chip[data-cat="links"]');
+
   // ---- Test 4: settings remembered ----
   await popup.reload();
   await popup.waitForSelector('.chip');
-  check(await popup.inputValue('#folder') === 'QA Renamed', 'folder setting remembered after reopening');
+  check(await popup.inputValue('#folder') === 'QA Pages', 'folder setting remembered after reopening');
 
   // ---- Test 5: big batch through the queue ----
   const many = await ctx.newPage();

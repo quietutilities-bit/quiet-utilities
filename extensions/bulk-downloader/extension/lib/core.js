@@ -108,14 +108,17 @@ export function prepareItems(raw) {
     }
     if (seen.has(url)) continue;
     seen.add(url);
-    const name = filenameFromUrl(url);
+    const category = categorize(url, r.kind);
+    let name = filenameFromUrl(url);
+    // Plain page links download as HTML; give them a proper extension.
+    if (category === 'links' && !getExtension(url)) name = `${name}.html`;
     out.push({
       url,
       name,
       ext: getExtension(url),
       text: (r.text || '').trim().slice(0, 200),
       kind: r.kind || 'link',
-      category: categorize(url, r.kind),
+      category,
       domain: safeHost(url),
       pageUrl: r.pageUrl || ''
     });
@@ -212,4 +215,14 @@ export function buildJobs(items, { folder, mask, date } = {}) {
     url: it.url,
     filename: dir ? `${dir}/${names[i]}` : names[i]
   }));
+}
+
+export const BIG_BATCH = 100;
+
+// Returns a warning to confirm before downloading, or '' if none is needed.
+export function downloadWarning(items) {
+  const pages = items.filter((it) => it.category === 'links').length;
+  if (pages) return pages === 1 ? '1 is a web page, not a file.' : `${pages} are web pages, not files.`;
+  if (items.length > BIG_BATCH) return `That's ${items.length} files.`;
+  return '';
 }

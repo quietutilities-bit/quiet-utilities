@@ -113,3 +113,4 @@ input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); ou
 .upgrade-row { display: flex; justify-content: center; align-items: center; gap: 6px; }
 .folder-row input:focus-visible { outline: none; }
 .folder-row:focus-within { outline: 2px solid var(--accent); outline-offset: 1px; }
+.primary.confirm { background: var(--warn); color: #fff; }
