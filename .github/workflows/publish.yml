@@ -1,0 +1,84 @@
+name: Publish to Chrome Web Store
+
+# Runs on GitHub's servers. Uploads one extension and (optionally) submits it for review.
+# Needs:
+#   secret   CWS_SERVICE_ACCOUNT_KEY  - JSON key of the service account added to the CWS dashboard
+#   variable CWS_PUBLISHER_ID         - from Developer Dashboard > Publisher > Settings
+#   extensions/<name>/store.json      - "extensionId" filled in after the first manual upload
+
+on:
+  workflow_dispatch:
+    inputs:
+      extension:
+        description: Folder name under extensions/
+        required: true
+        default: bulk-downloader
+      submit:
+        description: Submit for review after uploading
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      DIR: extensions/${{ inputs.extension }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run unit tests
+        working-directory: ${{ env.DIR }}
+        run: npm test
+
+      - name: Safety checks
+        run: |
+          set -e
+          ID=$(node -p "require('./$DIR/store.json').extensionId")
+          if [ -z "$ID" ]; then echo "::error::extensionId missing in $DIR/store.json (do the first upload in the dashboard)"; exit 1; fi
+          if [ -z "${{ vars.CWS_PUBLISHER_ID }}" ]; then echo "::error::Repository variable CWS_PUBLISHER_ID is not set"; exit 1; fi
+          if grep -qs "TEST_BUILD = true" $DIR/extension/lib/license.js; then echo "::error::TEST_BUILD is still true; refusing to publish"; exit 1; fi
+          echo "EXT_ID=$ID" >> $GITHUB_ENV
+          echo "VERSION=$(node -p "require('./$DIR/extension/manifest.json').version")" >> $GITHUB_ENV
+
+      - name: Build zip
+        run: cd $DIR/extension && zip -qr $GITHUB_WORKSPACE/package.zip . -x ".*"
+
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.CWS_SERVICE_ACCOUNT_KEY }}
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/chromewebstore
+
+      - name: Upload v${{ env.VERSION }}
+        env:
+          TOKEN: ${{ steps.auth.outputs.access_token }}
+          PUB: ${{ vars.CWS_PUBLISHER_ID }}
+        run: |
+          curl -sS --fail-with-body -H "Authorization: Bearer $TOKEN" -X POST -T package.zip \
+            "https://chromewebstore.googleapis.com/upload/v2/publishers/$PUB/items/$EXT_ID:upload" | tee upload.json
+
+      - name: Submit for review
+        if: ${{ inputs.submit }}
+        env:
+          TOKEN: ${{ steps.auth.outputs.access_token }}
+          PUB: ${{ vars.CWS_PUBLISHER_ID }}
+        run: |
+          curl -sS --fail-with-body -H "Authorization: Bearer $TOKEN" -X POST \
+            "https://chromewebstore.googleapis.com/v2/publishers/$PUB/items/$EXT_ID:publish"
+
+      - name: Current status
+        if: always() && steps.auth.outcome == 'success'
+        env:
+          TOKEN: ${{ steps.auth.outputs.access_token }}
+          PUB: ${{ vars.CWS_PUBLISHER_ID }}
+        run: |
+          curl -sS -H "Authorization: Bearer $TOKEN" \
+            "https://chromewebstore.googleapis.com/v2/publishers/$PUB/items/$EXT_ID:fetchStatus"
