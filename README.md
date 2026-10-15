@@ -16,4 +16,4 @@ npm run e2e     # loads the extension into Chromium and downloads real files (ne
 
 To try one by hand: Chrome → `chrome://extensions` → Developer mode → Load unpacked → pick the `extension` folder.
 
-See `STATUS.md` for the current plan, account checklist and log.
+See `STATUS.md` for the current plan, account checklist and log, `PIPELINE.md` for products in progress, and `PLAYBOOK.md` for how new products are built.
