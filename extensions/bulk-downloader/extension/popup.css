@@ -114,3 +114,10 @@ input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); ou
 .folder-row input:focus-visible { outline: none; }
 .folder-row:focus-within { outline: 2px solid var(--accent); outline-offset: 1px; }
 .primary.confirm { background: var(--warn); color: #fff; }
+.rate { margin: 8px 12px 0; padding: 6px 10px; border-radius: 8px; background: var(--accent-soft); display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; }
+body.rating .list { max-height: 120px; min-height: 96px; }
+.bottom .more { margin: -4px 0 0; }
+.rate-actions { display: flex; gap: 6px; white-space: nowrap; }
+.link-btn.strong { font-weight: 600; padding-left: 0; }
+.more { text-align: center; }
+.more a { color: var(--muted); }

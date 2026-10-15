@@ -106,5 +106,12 @@ chrome.downloads.onChanged.addListener((delta) => {
     else fail(job, item, delta.error?.current || 'Interrupted');
     await pump(job);
     await save(job);
+    // Count finished batches with at least one saved file (used for the one-time rating prompt).
+    if (!job.running && job.done > 0 && !job.counted) {
+      job.counted = true;
+      await chrome.storage.session.set({ job });
+      const { batchesDone = 0 } = await chrome.storage.local.get('batchesDone');
+      await chrome.storage.local.set({ batchesDone: batchesDone + 1 });
+    }
   });
 });

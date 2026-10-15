@@ -92,7 +92,7 @@ fs.cpSync(path.join(ROOT, 'extension'), extDir, { recursive: true });
 const manifest = JSON.parse(fs.readFileSync(path.join(extDir, 'manifest.json'), 'utf8'));
 manifest.host_permissions = ['<all_urls>'];
 fs.writeFileSync(path.join(extDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
-fs.writeFileSync(path.join(extDir, 'lib/config.js'), "self.QBD_CONFIG = { TEST_BUILD: true, EXTPAY_ID: '', PRO_PRICE: '$9.99 one-time' };");
+fs.writeFileSync(path.join(extDir, 'lib/config.js'), "self.QBD_CONFIG = { TEST_BUILD: true, EXTPAY_ID: '', PRO_PRICE: '$9.99 one-time', REVIEW_URL: 'https://example.com/reviews', MORE_URL: 'https://quietutilities-bit.github.io/#extensions', REVIEW_AFTER_BATCHES: 3 };");
 
 // ---------- launch Chromium ----------
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'qbd-profile-'));
@@ -283,6 +283,22 @@ try {
     .catch(() => {});
   const allDocs = await popup.$eval('.chip[data-cat="documents"] .n', (e) => e.textContent).catch(() => 'none');
   check(allDocs === '64', `All tabs combines both pages (documents: ${allDocs}, expected 4 + 60)`);
+
+  // ---- Test 5c: rating prompt appears once after 3 finished batches ----
+  const batches = await sw.evaluate(() => chrome.storage.local.get('batchesDone'));
+  check(batches.batchesDone >= 3, `finished batches are counted (${batches.batchesDone})`);
+  await popup.goto(`chrome-extension://${extId}/popup.html?tab=${siteTab}`);
+  await popup.waitForSelector('.chip');
+  check(await popup.isVisible('#rate'), 'rating prompt shows after 3 batches');
+  check((await popup.getAttribute('#more', 'href')).includes('quietutilities-bit.github.io'), 'cross-promotion link points to the website');
+  await popup.screenshot({ path: path.join(OUT, 'popup-rate.png') });
+  const h = await popup.evaluate(() => Math.ceil(document.querySelector('footer.bottom').getBoundingClientRect().bottom + window.scrollY));
+  check(h <= 600, `popup fits Chrome's 600px limit with the prompt showing (${h}px)`);
+  await popup.click('#rate-no');
+  const h2 = await popup.evaluate(() => Math.ceil(document.querySelector('footer.bottom').getBoundingClientRect().bottom + window.scrollY));
+  check(h2 <= 600, `popup fits without the prompt too (${h2}px)`);
+  await popup.reload(); await popup.waitForSelector('.chip');
+  check(!(await popup.isVisible('#rate')), 'rating prompt never returns after "Not now"');
 
   // ---- Test 6: restricted page gives a friendly message ----
   const settings = await ctx.newPage();

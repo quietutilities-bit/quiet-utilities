@@ -345,6 +345,22 @@ $('download').addEventListener('click', async () => {
   renderFooter();
 });
 
+// ---------- rating prompt + cross-promotion ----------
+const CFG = self.QBD_CONFIG;
+$('more').href = CFG.MORE_URL;
+async function maybeAskForRating() {
+  const { batchesDone = 0, ratingAsked = false } = await chrome.storage.local.get(['batchesDone', 'ratingAsked']);
+  $('rate').hidden = ratingAsked || batchesDone < CFG.REVIEW_AFTER_BATCHES;
+  document.body.classList.toggle('rating', !$('rate').hidden);
+}
+async function closeRating() {
+  await chrome.storage.local.set({ ratingAsked: true });
+  $('rate').hidden = true;
+  document.body.classList.remove('rating');
+}
+$('rate-yes').addEventListener('click', async () => { await closeRating(); chrome.tabs.create({ url: CFG.REVIEW_URL }); });
+$('rate-no').addEventListener('click', closeRating);
+
 // ---------- start ----------
 (async function init() {
   state.pro = await isPro();
@@ -352,5 +368,6 @@ $('download').addEventListener('click', async () => {
   await loadSettings();
   const { job } = await chrome.storage.session.get('job');
   showProgress(job);
+  maybeAskForRating();
   await scan();
 })();

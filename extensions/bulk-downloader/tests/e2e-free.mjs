@@ -25,7 +25,7 @@ fs.cpSync(path.join(ROOT, 'extension'), ext, { recursive: true });
 const m = JSON.parse(fs.readFileSync(path.join(ext, 'manifest.json')));
 m.host_permissions = ['<all_urls>'];
 fs.writeFileSync(path.join(ext, 'manifest.json'), JSON.stringify(m));
-fs.writeFileSync(path.join(ext, 'lib/config.js'), "self.QBD_CONFIG = { TEST_BUILD: false, EXTPAY_ID: '', PRO_PRICE: '$9.99 one-time' };");
+fs.writeFileSync(path.join(ext, 'lib/config.js'), "self.QBD_CONFIG = { TEST_BUILD: false, EXTPAY_ID: '', PRO_PRICE: '$9.99 one-time', REVIEW_URL: 'https://example.com/reviews', MORE_URL: 'https://quietutilities-bit.github.io/#extensions', REVIEW_AFTER_BATCHES: 3 };");
 
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'qbd-fp-'));
 const dl = fs.mkdtempSync(path.join(os.tmpdir(), 'qbd-fdl-'));
@@ -59,6 +59,7 @@ try {
   for (let i = 0; i < 50 && files.length < 2; i++) { await new Promise((r) => setTimeout(r, 200)); try { files = fs.readdirSync(path.join(dl, 'Quiet Downloads')).filter((f) => !f.endsWith('.crdownload')); } catch {} }
   check(files.length === 2, 'free download still works (2 files)');
   await pop.screenshot({ path: path.join(ROOT, 'test-output', 'popup-free.png') });
+  check(!(await pop.isVisible('#rate')), 'no rating prompt for a brand-new user');
   check(errors.length === 0, `no script errors in popup${errors.length ? ': ' + errors.join('; ') : ''}`);
 } catch (e) { failures++; console.log('FAIL  ', e.message); }
 finally { await browser.close().catch(() => {}); proc.kill(); server.close(); }
