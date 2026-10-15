@@ -45,6 +45,8 @@ Claude asks first: new extensions, price changes, spending money, legal/policy i
 
 - 2026-10-15: Edge listing submitted for Microsoft review (v1.0.4; product cee6f808-8a8c-4fe0-8b99-6a06664383fe, CRX cboiddakcfeodjbjgkhampacjakaopaa, Store ID 0RDCKFMQB7HG). Chrome draft holds v1.0.4, waiting on Google identity check. Edge Publish API secrets pending.
 
+- 2026-10-15: Edge Publish API connected (secrets EDGE_CLIENT_ID + EDGE_API_KEY). Read-only check: credentials accepted (HTTP 404 for a dummy operation, not 401/403). Updates: dispatch publish.yml with inputs[store]=edge or both. Note: owner pasted an earlier API key in chat and was told to regenerate it.
+
 ## Notes
 - From Claude sessions: GitHub Actions secrets/variables can't be read or set (proxy blocks it); dispatching workflows and reading runs works via `gh api` REST. GraphQL is blocked.
 - Chrome Web Store API hosts are blocked from the Claude workspace; all store calls go through GitHub Actions.
