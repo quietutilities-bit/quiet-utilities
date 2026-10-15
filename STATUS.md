@@ -35,6 +35,8 @@ Claude asks first: new extensions, price changes, spending money, legal/policy i
 - 2026-10-14: Chose Chrome extension portfolio. Built + tested bulk downloader v0.1.0.
 - 2026-10-15: GitHub repo connected; code uploaded. Store developer account, service account and publish workflow set up.
 
+- 2026-10-15: Owner ran a Stripe test-card purchase of v1.0.0: checkout opened, payment went through, Pro unlocked. Payments confirmed end to end. Owner resubmitted Google identity check.
+
 ## Notes
 - From Claude sessions: GitHub Actions secrets/variables can't be read or set (proxy blocks it); dispatching workflows and reading runs works via `gh api` REST. GraphQL is blocked.
 - Chrome Web Store API hosts are blocked from the Claude workspace; all store calls go through GitHub Actions.
