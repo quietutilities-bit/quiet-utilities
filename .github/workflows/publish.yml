@@ -1,10 +1,9 @@
-name: Publish to Chrome Web Store
+name: Publish extension
 
-# Runs on GitHub's servers. Uploads one extension and (optionally) submits it for review.
-# Needs:
-#   secret   CWS_SERVICE_ACCOUNT_KEY  - JSON key of the service account added to the CWS dashboard
-#   variable CWS_PUBLISHER_ID         - from Developer Dashboard > Publisher > Settings
-#   extensions/<name>/store.json      - "extensionId" filled in after the first manual upload
+# Runs on GitHub's servers. Builds per-store packages and uploads them.
+# Chrome needs: secret CWS_SERVICE_ACCOUNT_KEY, variable CWS_PUBLISHER_ID, store.json "extensionId".
+# Edge needs:   secrets EDGE_API_KEY + EDGE_CLIENT_ID, store.json "edgeProductId" (Partner Center Product ID).
+# First listings are always created by hand in each store's dashboard.
 
 on:
   workflow_dispatch:
@@ -13,12 +12,17 @@ on:
         description: Folder name under extensions/
         required: true
         default: bulk-downloader
+      store:
+        description: Which store
+        type: choice
+        options: [chrome, edge, both]
+        default: chrome
       submit:
         description: Submit for review after uploading
         type: boolean
         default: false
       status_only:
-        description: Only check the item's status (no upload, no changes)
+        description: Only check status / credentials (no upload, no changes)
         type: boolean
         default: false
 
@@ -26,36 +30,60 @@ permissions:
   contents: read
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+      chrome_id: ${{ steps.meta.outputs.chrome_id }}
+      edge_id: ${{ steps.meta.outputs.edge_id }}
     env:
       DIR: extensions/${{ inputs.extension }}
     steps:
       - uses: actions/checkout@v5
-
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-
       - name: Run unit tests
         working-directory: ${{ env.DIR }}
         run: npm test
-
-      - name: Safety checks
+      - id: meta
+        name: Safety checks
         run: |
           set -e
-          ID=$(node -p "require('./$DIR/store.json').extensionId")
-          if [ -z "$ID" ]; then echo "::error::extensionId missing in $DIR/store.json (do the first upload in the dashboard)"; exit 1; fi
-          if [ -z "${{ vars.CWS_PUBLISHER_ID }}" ]; then echo "::error::Repository variable CWS_PUBLISHER_ID is not set"; exit 1; fi
-          if [ "${{ inputs.status_only }}" != "true" ] && grep -qs "TEST_BUILD: true" $DIR/extension/lib/config.js; then echo "::error::TEST_BUILD is still true; refusing to publish"; exit 1; fi
-          if [ "${{ inputs.status_only }}" != "true" ] && grep -qs "EXTPAY_ID: ''" $DIR/extension/lib/config.js; then echo "::error::EXTPAY_ID is empty in lib/config.js"; exit 1; fi
-          echo "EXT_ID=$ID" >> $GITHUB_ENV
-          echo "VERSION=$(node -p "require('./$DIR/extension/manifest.json').version")" >> $GITHUB_ENV
+          if [ "${{ inputs.status_only }}" != "true" ]; then
+            if grep -qs "TEST_BUILD: true" $DIR/extension/lib/config.js; then echo "::error::TEST_BUILD is still true; refusing to publish"; exit 1; fi
+            if grep -qs "EXTPAY_ID: ''" $DIR/extension/lib/config.js && grep -qs "ExtPay" $DIR/extension/background.js; then echo "::error::EXTPAY_ID is empty"; exit 1; fi
+          fi
+          echo "version=$(node -p "require('./$DIR/extension/manifest.json').version")" >> $GITHUB_OUTPUT
+          echo "chrome_id=$(node -p "require('./$DIR/store.json').extensionId || ''")" >> $GITHUB_OUTPUT
+          echo "edge_id=$(node -p "require('./$DIR/store.json').edgeProductId || ''")" >> $GITHUB_OUTPUT
+      - name: Build packages
+        run: node scripts/build.mjs ${{ inputs.extension }} dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: dist/*.zip
 
-      - name: Build zip
-        if: ${{ !inputs.status_only }}
-        run: cd $DIR/extension && zip -qr $GITHUB_WORKSPACE/package.zip . -x ".*"
-
+  chrome:
+    needs: build
+    if: ${{ inputs.store == 'chrome' || inputs.store == 'both' }}
+    runs-on: ubuntu-latest
+    env:
+      EXT_ID: ${{ needs.build.outputs.chrome_id }}
+      PUB: ${{ vars.CWS_PUBLISHER_ID }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: dist
+      - name: Check configuration
+        run: |
+          if [ -z "$EXT_ID" ]; then echo "::error::extensionId missing in store.json"; exit 1; fi
+          if [ -z "$PUB" ]; then echo "::error::CWS_PUBLISHER_ID not set"; exit 1; fi
       - id: auth
         name: Get store access token
         env:
@@ -64,32 +92,90 @@ jobs:
           TOKEN=$(node scripts/cws-token.mjs | tail -1)
           echo "::add-mask::$TOKEN"
           echo "access_token=$TOKEN" >> $GITHUB_OUTPUT
-
-      - name: Upload v${{ env.VERSION }}
+      - name: Upload v${{ needs.build.outputs.version }}
         if: ${{ !inputs.status_only }}
         env:
           TOKEN: ${{ steps.auth.outputs.access_token }}
-          PUB: ${{ vars.CWS_PUBLISHER_ID }}
         run: |
-          curl -sS --fail-with-body -H "Authorization: Bearer $TOKEN" -X POST -T package.zip \
-            "https://chromewebstore.googleapis.com/upload/v2/publishers/$PUB/items/$EXT_ID:upload" | tee upload.json
-
+          curl -sS --fail-with-body -H "Authorization: Bearer $TOKEN" -X POST \
+            -T dist/${{ inputs.extension }}-${{ needs.build.outputs.version }}-chrome.zip \
+            "https://chromewebstore.googleapis.com/upload/v2/publishers/$PUB/items/$EXT_ID:upload"
       - name: Submit for review
         if: ${{ inputs.submit && !inputs.status_only }}
         env:
           TOKEN: ${{ steps.auth.outputs.access_token }}
-          PUB: ${{ vars.CWS_PUBLISHER_ID }}
         run: |
           curl -sS --fail-with-body -H "Authorization: Bearer $TOKEN" -X POST \
             "https://chromewebstore.googleapis.com/v2/publishers/$PUB/items/$EXT_ID:publish"
-
       - name: Current status
         if: always() && steps.auth.outcome == 'success'
         env:
           TOKEN: ${{ steps.auth.outputs.access_token }}
-          PUB: ${{ vars.CWS_PUBLISHER_ID }}
         run: |
           OUT=$(curl -sS --fail-with-body -H "Authorization: Bearer $TOKEN" \
-            "https://chromewebstore.googleapis.com/v2/publishers/$PUB/items/$EXT_ID:fetchStatus") || { echo "::error::Store status check failed: $(echo "$OUT" | tr '\n' ' ')"; exit 1; }
-          echo "$OUT"
-          echo "::notice::Store status: $(echo "$OUT" | tr '\n' ' ' | cut -c1-900)"
+            "https://chromewebstore.googleapis.com/v2/publishers/$PUB/items/$EXT_ID:fetchStatus") || { echo "::error::Chrome status check failed: $(echo "$OUT" | tr '\n' ' ')"; exit 1; }
+          echo "::notice::Chrome status: $(echo "$OUT" | sed 's/"publicKey": "[^"]*",//' | tr '\n' ' ' | cut -c1-900)"
+
+  edge:
+    needs: build
+    if: ${{ inputs.store == 'edge' || inputs.store == 'both' }}
+    runs-on: ubuntu-latest
+    env:
+      PRODUCT: ${{ needs.build.outputs.edge_id }}
+      API: https://api.addons.microsoftedge.microsoft.com
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: dist
+      - name: Check configuration
+        env:
+          KEY: ${{ secrets.EDGE_API_KEY }}
+          CID: ${{ secrets.EDGE_CLIENT_ID }}
+        run: |
+          if [ -z "$PRODUCT" ]; then echo "::error::edgeProductId missing in store.json"; exit 1; fi
+          if [ -z "$KEY" ] || [ -z "$CID" ]; then echo "::error::EDGE_API_KEY / EDGE_CLIENT_ID secrets not set"; exit 1; fi
+      - name: Upload v${{ needs.build.outputs.version }} to Edge draft
+        if: ${{ !inputs.status_only }}
+        env:
+          KEY: ${{ secrets.EDGE_API_KEY }}
+          CID: ${{ secrets.EDGE_CLIENT_ID }}
+        run: |
+          set -e
+          H=$(curl -sS -D - -o /dev/null --fail-with-body -X POST \
+            -H "Authorization: ApiKey $KEY" -H "X-ClientID: $CID" -H "Content-Type: application/zip" \
+            -T dist/${{ inputs.extension }}-${{ needs.build.outputs.version }}-edge.zip \
+            "$API/v1/products/$PRODUCT/submissions/draft/package")
+          OP=$(echo "$H" | grep -i '^location:' | tr -d '\r' | awk -F/ '{print $NF}')
+          for i in $(seq 1 30); do
+            S=$(curl -sS -H "Authorization: ApiKey $KEY" -H "X-ClientID: $CID" "$API/v1/products/$PRODUCT/submissions/draft/package/operations/$OP")
+            echo "$S"
+            echo "$S" | grep -q '"InProgress"' || break
+            sleep 10
+          done
+          echo "$S" | grep -q '"Succeeded"' || { echo "::error::Edge upload: $(echo "$S" | tr '\n' ' ' | cut -c1-800)"; exit 1; }
+          echo "::notice::Edge upload succeeded"
+      - name: Submit to Edge for review
+        if: ${{ inputs.submit && !inputs.status_only }}
+        env:
+          KEY: ${{ secrets.EDGE_API_KEY }}
+          CID: ${{ secrets.EDGE_CLIENT_ID }}
+        run: |
+          set -e
+          H=$(curl -sS -D - -o /dev/null --fail-with-body -X POST \
+            -H "Authorization: ApiKey $KEY" -H "X-ClientID: $CID" -H "Content-Type: application/json" \
+            -d '{"notes":"Update submitted by Quiet Utilities release workflow."}' \
+            "$API/v1/products/$PRODUCT/submissions")
+          OP=$(echo "$H" | grep -i '^location:' | tr -d '\r' | awk -F/ '{print $NF}')
+          S=$(curl -sS -H "Authorization: ApiKey $KEY" -H "X-ClientID: $CID" "$API/v1/products/$PRODUCT/submissions/operations/$OP")
+          echo "::notice::Edge submit: $(echo "$S" | tr '\n' ' ' | cut -c1-800)"
+      - name: Check credentials
+        if: ${{ inputs.status_only }}
+        env:
+          KEY: ${{ secrets.EDGE_API_KEY }}
+          CID: ${{ secrets.EDGE_CLIENT_ID }}
+        run: |
+          CODE=$(curl -sS -o out.json -w '%{http_code}' -H "Authorization: ApiKey $KEY" -H "X-ClientID: $CID" \
+            "$API/v1/products/$PRODUCT/submissions/draft/package/operations/00000000-0000-0000-0000-000000000000")
+          echo "::notice::Edge credential check: HTTP $CODE $(head -c 300 out.json)"
+          [ "$CODE" != "401" ] && [ "$CODE" != "403" ] || exit 1

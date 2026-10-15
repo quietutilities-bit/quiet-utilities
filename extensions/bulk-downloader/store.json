@@ -1,4 +1,7 @@
 {
   "name": "Quiet Bulk Downloader",
-  "extensionId": "egekfgjldnkhelljbpbkgebahhgikjej"
+  "extensionId": "egekfgjldnkhelljbpbkgebahhgikjej",
+  "edgeProductId": "",
+  "edgeId": "",
+  "firefoxSlug": ""
 }
