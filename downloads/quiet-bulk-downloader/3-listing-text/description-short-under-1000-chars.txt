@@ -1,0 +1,20 @@
+Download every file on a page in one click.
+
+Quiet Bulk Downloader lists the documents, images, audio, video and archives on the page you're viewing, sorted by type. Untick what you don't want, pick a folder, and click Download.
+
+• Finds linked and embedded files, including inside frames
+• Grabs full-size and lazy-loaded images
+• Filter by type or name, or untick single files
+• Saves everything into one folder in Downloads
+• Downloads a few files at a time so big batches stay smooth
+• Light and dark mode
+
+PRO (one-time $9.99, no subscription)
+• Collect files from all open tabs at once
+• Rename files with patterns, like trip-001.jpg
+• Advanced regex filters
+30-day refund if Pro isn't for you.
+
+No ads, no tracking. Nothing about your browsing leaves your computer.
+
+Only download content you have the right to download. Questions: quietutilities@gmail.com

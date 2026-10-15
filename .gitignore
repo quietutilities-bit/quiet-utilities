@@ -3,3 +3,6 @@ test-output/
 *.zip
 .DS_Store
 dist/
+
+# Store downloads folder is kept on purpose
+!downloads/**/*.zip
