@@ -47,7 +47,7 @@ Questions or bugs: quietutilities@gmail.com
 - Store icon (128×128): `extension/icons/icon128.png`
 - Screenshots (1280×800): `out-screenshot-1-1280x800.png`, `out-screenshot-2-1280x800.png`, `out-screenshot-3-1280x800.png`
 - Small promo tile (440×280): `out-promo-tile-440x280.png`
-- Marquee: leave empty
+- Marquee (1400×560, optional): `out-marquee-1400x560.png`
 
 **Additional fields**
 - Official URL: none (leave empty unless the site is verified in Search Console)
