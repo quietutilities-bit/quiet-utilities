@@ -43,6 +43,8 @@ Claude asks first: new extensions, price changes, spending money, legal/policy i
 
 - 2026-10-15: v1.0.3 (one-time rating prompt after 3 batches, 'More free tools' link). Uploaded into the Chrome draft through the GitHub workflow (upload path proven). Added scripts/build.mjs for Chrome/Edge/Firefox packages. Owner creating Edge (Microsoft account) and Firefox developer accounts.
 
+- 2026-10-15: Edge listing submitted for Microsoft review (v1.0.4; product cee6f808-8a8c-4fe0-8b99-6a06664383fe, CRX cboiddakcfeodjbjgkhampacjakaopaa, Store ID 0RDCKFMQB7HG). Chrome draft holds v1.0.4, waiting on Google identity check. Edge Publish API secrets pending.
+
 ## Notes
 - From Claude sessions: GitHub Actions secrets/variables can't be read or set (proxy blocks it); dispatching workflows and reading runs works via `gh api` REST. GraphQL is blocked.
 - Chrome Web Store API hosts are blocked from the Claude workspace; all store calls go through GitHub Actions.
