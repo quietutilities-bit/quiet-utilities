@@ -7,7 +7,7 @@ Read this first in every session. Update it last.
 - [x] GitHub: quietutilities-bit / quiet-utilities (private)
 - [x] Chrome Web Store developer account. Publisher ID 8469b81e-4d26-4a16-af4a-10c9d2d30661
 - [x] Service account `store-publisher` (Google Cloud project quiet-utilities) added to the store dashboard; key stored as GitHub secret CWS_SERVICE_ACCOUNT_KEY; variable CWS_PUBLISHER_ID set
-- [x] Publish workflow (.github/workflows/publish.yml): Claude starts it with `gh api -X POST repos/quietutilities-bit/quiet-utilities/actions/workflows/publish.yml/dispatches`. Test run 2026-10-15: unit tests pass, stops at missing extensionId as designed. Service-account login not yet proven (needs first listing).
+- [x] Publish workflow (.github/workflows/publish.yml): Claude starts it with `gh api -X POST repos/quietutilities-bit/quiet-utilities/actions/workflows/publish.yml/dispatches`. PROVEN 2026-10-15: status-only run (inputs[status_only]=true) logged in as the service account and read item egekfgjldnkhelljbpbkgebahhgikjej. Token comes from scripts/cws-token.mjs (JWT signed in the job; no extra Cloud APIs). Store replies appear as a ::notice:: readable via gh api repos/.../check-runs/<job id>/annotations.
 - [x] Website: https://quietutilities-bit.github.io (repo quietutilities-bit/quietutilities-bit.github.io, public). Home, privacy.html, terms.html. Privacy URL for store listing: https://quietutilities-bit.github.io/privacy.html
 - [x] Stripe (owner finishing activation: identity + bank)
 - [x] ExtensionPay: extension ID `quiet-bulk-downloader` (re-registered; old `quiet-bulk-bownloader` entry unused). Confirm Stripe is connected inside ExtensionPay.
@@ -38,6 +38,8 @@ Claude asks first: new extensions, price changes, spending money, legal/policy i
 - 2026-10-15: Owner ran a Stripe test-card purchase of v1.0.0: checkout opened, payment went through, Pro unlocked. Payments confirmed end to end. Owner resubmitted Google identity check.
 
 - 2026-10-15: v1.0.2 checked by owner on cnbc.com (only Images on by default, links off). Restore-purchase flow confirmed working after reinstall. Ready to submit 1.0.2.
+
+- 2026-10-15: Store item created (ID egekfgjldnkhelljbpbkgebahhgikjej, draft with v1.0.2). Automatic publishing proven with a read-only status check. 2-Step Verification on. Waiting on identity verification + Submit for review.
 
 ## Notes
 - From Claude sessions: GitHub Actions secrets/variables can't be read or set (proxy blocks it); dispatching workflows and reading runs works via `gh api` REST. GraphQL is blocked.
