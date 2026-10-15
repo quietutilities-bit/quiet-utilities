@@ -31,6 +31,7 @@ const files = {
   '/files/song.mp3': 'audio/mpeg',
   '/files/clip.mp4': 'video/mp4',
   '/img/one.png': 'image/png',
+  '/img/lazy.png': 'image/png',
   '/img/two.jpg': 'image/jpeg',
   '/img/big.webp': 'image/webp',
   '/img/small.webp': 'image/webp',
@@ -50,6 +51,7 @@ const mainPage = `<!doctype html><title>Test page</title>
 <a href="javascript:void(0)">JS link</a>
 <a href="mailto:hi@example.com">Mail</a>
 <img src="/img/one.png" alt="One">
+<img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" data-src="/img/lazy.png" alt="Lazy">
 <img src="/img/two.jpg" alt="Two">
 <img src="/img/small.webp" srcset="/img/small.webp 1x, /img/big.webp 2x" alt="Responsive">
 <video src="/files/clip.mp4"></video>
@@ -62,6 +64,7 @@ const server = http.createServer((req, res) => {
   const url = req.url.split('?')[0];
   if (url === '/') return send(res, 200, 'text/html', mainPage);
   if (url === '/many') return send(res, 200, 'text/html', manyPage);
+  if (url === '/links-only') return send(res, 200, 'text/html', '<a href="/a/">A</a><a href="/b/">B</a><a href="/about">About</a>');
   if (url === '/frame') return send(res, 200, 'text/html', '<a href="/frame/inside.pdf">Inside frame</a>');
   if (url === '/about') return send(res, 200, 'text/html', '<p>About</p>');
   if (url.startsWith('/many/')) return send(res, 200, 'text/plain', `contents of ${url}`, true);
@@ -172,7 +175,7 @@ try {
   ));
   console.log('      chips:', JSON.stringify(chips));
   check(chips.documents?.n === 4, 'finds 4 documents (incl. one inside an iframe, duplicate removed)');
-  check(chips.images?.n === 3, 'finds 3 images (srcset picks the large version)');
+  check(chips.images?.n === 4, 'finds 4 images (srcset picks the large version, lazy image found)');
   check(chips.archives?.n === 1 && chips.audio?.n === 1 && chips.video?.n === 1, 'finds archive, audio and video');
   check(chips.links?.n >= 1 && chips.links.on === false, 'plain page links are found but off by default');
 
@@ -221,9 +224,9 @@ try {
   const preview = await popup.textContent('#preview');
   check(/QA Renamed\/photo-001\.png$/.test(preview), `preview shows renamed path (${preview})`);
   await popup.click('#download');
-  const renamed = (await waitForFiles(path.join(downloads, 'QA Renamed'), 3)).sort();
+  const renamed = (await waitForFiles(path.join(downloads, 'QA Renamed'), 4)).sort();
   console.log('      saved:', renamed.join(', '));
-  check(JSON.stringify(renamed) === JSON.stringify(['photo-001.png', 'photo-002.jpg', 'photo-003.webp']),
+  check(JSON.stringify(renamed) === JSON.stringify(['photo-001.png', 'photo-002.png', 'photo-003.jpg', 'photo-004.webp']),
     'rename mask numbers files and keeps extensions');
   await popup.fill('#mask', '');
 
@@ -248,6 +251,17 @@ try {
   check(await popup.inputValue('#folder') === 'QA Pages', 'folder setting remembered after reopening');
 
   // ---- Test 5: big batch through the queue ----
+  // ---- Test 4b: a page with only links keeps them off ----
+  const linksOnly = await ctx.newPage();
+  await linksOnly.goto(BASE + '/links-only');
+  const loTab = await tabIdFor(BASE + '/links-only');
+  await popup.goto(`chrome-extension://${extId}/popup.html?tab=${loTab}`);
+  await popup.waitForSelector('.chip');
+  const loOn = await popup.$eval('.chip[data-cat="links"]', (e) => e.classList.contains('on'));
+  const loMsg = await popup.textContent('#empty');
+  check(!loOn && /No files found.*3 page links/.test(loMsg) && await popup.isDisabled('#download'),
+    `links-only page: links off, helpful message ("${loMsg}")`);
+
   const many = await ctx.newPage();
   await many.goto(BASE + '/many');
   const manyTab = await tabIdFor(BASE + '/many');

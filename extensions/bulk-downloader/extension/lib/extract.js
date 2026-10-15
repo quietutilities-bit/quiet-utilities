@@ -31,9 +31,13 @@ export function extractFromPage() {
   });
 
   document.querySelectorAll('img').forEach((img) => {
-    const src = bestFromSrcset(img.getAttribute('srcset')) || img.currentSrc || img.src ||
-      img.getAttribute('data-src') || img.getAttribute('data-original');
-    add(src, img.alt || img.title, 'image');
+    // Lazy-loading sites keep the real address in data-* attributes and show a placeholder.
+    const lazy = bestFromSrcset(img.getAttribute('data-srcset')) || img.getAttribute('data-src') ||
+      img.getAttribute('data-original') || img.getAttribute('data-lazy-src') || img.getAttribute('data-url');
+    const src = bestFromSrcset(img.getAttribute('srcset')) || img.currentSrc || img.src;
+    const isPlaceholder = !src || src.startsWith('data:') || (img.naturalWidth > 0 && img.naturalWidth <= 2);
+    add(lazy && isPlaceholder ? lazy : (src || lazy), img.alt || img.title, 'image');
+    if (lazy && !isPlaceholder) add(lazy, img.alt || img.title, 'image');
   });
 
   document.querySelectorAll('picture source[srcset]').forEach((s) => {

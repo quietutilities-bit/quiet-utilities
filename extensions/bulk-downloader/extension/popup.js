@@ -99,8 +99,8 @@ function friendlyError(e) {
 
 function pickDefaultCategories() {
   const counts = countByCategory(state.items);
-  const fileCats = Object.keys(counts).filter((c) => c !== 'links');
-  state.active = new Set(fileCats.length ? fileCats : Object.keys(counts));
+  // Plain page links are never pre-selected; the user turns them on deliberately.
+  state.active = new Set(Object.keys(counts).filter((c) => c !== 'links'));
 }
 
 // ---------- rendering ----------
@@ -153,6 +153,11 @@ function renderList() {
 
   if (!state.items.length) {
     showEmpty('No files or links found on this page.');
+  } else if (!items.length && !state.active.size) {
+    const pages = countByCategory(state.items).links || 0;
+    showEmpty(state.active.size === 0 && pages && Object.keys(countByCategory(state.items)).length === 1
+      ? `No files found on this page. Turn on "Other links" to see its ${pages} page links.`
+      : 'Pick a file type above to see what\'s on this page.');
   } else if (!items.length) {
     showEmpty('Nothing matches these filters.');
   }
