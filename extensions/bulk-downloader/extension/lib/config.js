@@ -3,6 +3,6 @@
 // The publish workflow refuses to run while it is true.
 self.QBD_CONFIG = {
   TEST_BUILD: false,
-  EXTPAY_ID: 'quiet-bulk-bownloader',
+  EXTPAY_ID: 'quiet-bulk-downloader',
   PRO_PRICE: '$9.99 one-time'
 };

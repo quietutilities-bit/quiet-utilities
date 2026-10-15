@@ -10,7 +10,7 @@ Read this first in every session. Update it last.
 - [x] Publish workflow (.github/workflows/publish.yml): Claude starts it with `gh api -X POST repos/quietutilities-bit/quiet-utilities/actions/workflows/publish.yml/dispatches`. Test run 2026-10-15: unit tests pass, stops at missing extensionId as designed. Service-account login not yet proven (needs first listing).
 - [x] Website: https://quietutilities-bit.github.io (repo quietutilities-bit/quietutilities-bit.github.io, public). Home, privacy.html, terms.html. Privacy URL for store listing: https://quietutilities-bit.github.io/privacy.html
 - [x] Stripe (owner finishing activation: identity + bank)
-- [x] ExtensionPay: extension ID `quiet-bulk-bownloader` (typo in ID is permanent; display name should read "Quiet Bulk Downloader"). Confirm Stripe is connected inside ExtensionPay.
+- [x] ExtensionPay: extension ID `quiet-bulk-downloader` (re-registered; old `quiet-bulk-bownloader` entry unused). Confirm Stripe is connected inside ExtensionPay.
 - [ ] ExtensionPay
 - [ ] Optional: Chrome profile + Claude in Chrome for self-publishing
 
