@@ -31,9 +31,9 @@ jobs:
     env:
       DIR: extensions/${{ inputs.extension }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
 
@@ -57,11 +57,13 @@ jobs:
         run: cd $DIR/extension && zip -qr $GITHUB_WORKSPACE/package.zip . -x ".*"
 
       - id: auth
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.CWS_SERVICE_ACCOUNT_KEY }}
-          token_format: access_token
-          access_token_scopes: https://www.googleapis.com/auth/chromewebstore
+        name: Get store access token
+        env:
+          CWS_KEY: ${{ secrets.CWS_SERVICE_ACCOUNT_KEY }}
+        run: |
+          TOKEN=$(node scripts/cws-token.mjs | tail -1)
+          echo "::add-mask::$TOKEN"
+          echo "access_token=$TOKEN" >> $GITHUB_OUTPUT
 
       - name: Upload v${{ env.VERSION }}
         if: ${{ !inputs.status_only }}
