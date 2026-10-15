@@ -24,6 +24,10 @@ How Quiet Utilities builds a new Chrome extension. The product studio task follo
 - 3 screenshots 1280×800, promo tile 440×280, marquee 1400×560, 128 icon.
 - Add the product to the website repo (quietutilities-bit/quietutilities-bit.github.io): a card on the home page; update privacy.html if the new tool handles data differently.
 
+## 4b. Packages for every store
+- `node scripts/build.mjs <folder> dist` makes Chrome, Edge and Firefox zips from the same code (per-store rating link; Firefox gets an event-page background and a gecko ID).
+- Firefox packages can't be tested in this workspace (no Firefox here); the owner tests them once in Firefox via about:debugging before the first Firefox submission.
+
 ## 5. Hand over
 - Set PIPELINE.md status to `ready-for-owner`, push, and report to the owner: what it does, why (evidence), price, permissions, and the exact steps for them (create store item, ExtensionPay registration if paid). Never create store items, register payments, or submit for review yourself.
 - After the owner sends the item ID: put it in `store.json`; future updates ship through `.github/workflows/publish.yml`.

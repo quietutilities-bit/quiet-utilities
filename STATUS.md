@@ -41,6 +41,8 @@ Claude asks first: new extensions, price changes, spending money, legal/policy i
 
 - 2026-10-15: Store item created (ID egekfgjldnkhelljbpbkgebahhgikjej, draft with v1.0.2). Automatic publishing proven with a read-only status check. 2-Step Verification on. Waiting on identity verification + Submit for review.
 
+- 2026-10-15: v1.0.3 (one-time rating prompt after 3 batches, 'More free tools' link). Uploaded into the Chrome draft through the GitHub workflow (upload path proven). Added scripts/build.mjs for Chrome/Edge/Firefox packages. Owner creating Edge (Microsoft account) and Firefox developer accounts.
+
 ## Notes
 - From Claude sessions: GitHub Actions secrets/variables can't be read or set (proxy blocks it); dispatching workflows and reading runs works via `gh api` REST. GraphQL is blocked.
 - Chrome Web Store API hosts are blocked from the Claude workspace; all store calls go through GitHub Actions.

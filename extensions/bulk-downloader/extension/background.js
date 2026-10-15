@@ -1,5 +1,5 @@
 // Payments (ExtensionPay). Must start in the background script.
-importScripts('lib/ExtPay.js', 'lib/config.js');
+if (typeof importScripts === 'function' && typeof self.ExtPay === 'undefined') importScripts('lib/ExtPay.js', 'lib/config.js');
 if (self.QBD_CONFIG.EXTPAY_ID) {
   try { ExtPay(self.QBD_CONFIG.EXTPAY_ID).startBackground(); } catch (e) { console.warn('ExtPay', e); }
 }
