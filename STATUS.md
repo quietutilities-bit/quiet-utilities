@@ -37,6 +37,8 @@ Claude asks first: new extensions, price changes, spending money, legal/policy i
 
 - 2026-10-15: Owner ran a Stripe test-card purchase of v1.0.0: checkout opened, payment went through, Pro unlocked. Payments confirmed end to end. Owner resubmitted Google identity check.
 
+- 2026-10-15: v1.0.2 checked by owner on cnbc.com (only Images on by default, links off). Restore-purchase flow confirmed working after reinstall. Ready to submit 1.0.2.
+
 ## Notes
 - From Claude sessions: GitHub Actions secrets/variables can't be read or set (proxy blocks it); dispatching workflows and reading runs works via `gh api` REST. GraphQL is blocked.
 - Chrome Web Store API hosts are blocked from the Claude workspace; all store calls go through GitHub Actions.
