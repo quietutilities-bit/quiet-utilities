@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Quiet Bulk Downloader",
+  "short_name": "Bulk Downloader",
+  "version": "0.1.0",
+  "description": "Download every file, image or link on a page in one click. Filter by type, pick what you want, save it all into one folder.",
+  "author": "Quiet Utilities",
+  "permissions": ["activeTab", "scripting", "downloads", "storage"],
+  "optional_host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Quiet Bulk Downloader",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "minimum_chrome_version": "116"
+}

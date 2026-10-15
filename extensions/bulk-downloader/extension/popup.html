@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Quiet Bulk Downloader</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <img src="icons/icon32.png" alt="" width="20" height="20">
+      <span>Bulk Downloader</span>
+    </div>
+    <div class="scope" role="tablist" aria-label="What to scan">
+      <button id="scope-tab" class="seg on" role="tab" aria-selected="true">This tab</button>
+      <button id="scope-all" class="seg" role="tab" aria-selected="false">All tabs <span class="pro-tag">Pro</span></button>
+    </div>
+  </header>
+
+  <section class="filters">
+    <div id="chips" class="chips" aria-label="File types"></div>
+    <input id="search" type="search" placeholder="Filter by name or link text…" autocomplete="off">
+    <details id="advanced" class="advanced">
+      <summary>Advanced filter <span class="pro-tag">Pro</span></summary>
+      <input id="regex" type="text" placeholder="Regular expression, e.g. report-\d+\.pdf" autocomplete="off" spellcheck="false">
+      <p id="regex-error" class="hint error" hidden>That pattern isn't valid.</p>
+    </details>
+  </section>
+
+  <section class="listbar">
+    <label class="check-all"><input id="select-all" type="checkbox" checked> <span id="count-label">Scanning…</span></label>
+    <button id="rescan" class="link-btn" title="Scan again">Rescan</button>
+  </section>
+
+  <ul id="list" class="list" aria-live="polite"></ul>
+  <p id="empty" class="empty" hidden></p>
+
+  <section class="save">
+    <label class="field">
+      <span>Save to folder</span>
+      <div class="folder-row"><span class="prefix">Downloads/</span><input id="folder" type="text" value="Quiet Downloads" spellcheck="false"></div>
+    </label>
+    <details id="rename" class="rename">
+      <summary>Rename files <span class="pro-tag">Pro</span></summary>
+      <label class="field">
+        <input id="mask" type="text" placeholder="Leave empty to keep names, or e.g. {domain}-{n}" spellcheck="false" aria-label="Rename pattern">
+        <span class="hint">Tokens: {name} {n} {domain} {date} {text} {ext}</span>
+      </label>
+    </details>
+    <p id="preview" class="hint preview"></p>
+  </section>
+
+  <footer class="bottom">
+    <div id="progress" class="progress" hidden>
+      <div class="bar"><div id="bar-fill" class="fill"></div></div>
+      <span id="progress-text"></span>
+      <button id="cancel" class="link-btn">Cancel</button>
+    </div>
+    <button id="download" class="primary" disabled>Download</button>
+    <p id="pro-note" class="hint pro-note"></p>
+  </footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
