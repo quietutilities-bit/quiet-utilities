@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Quiet Volume Booster",
+  "short_name": "Quiet Volume",
+  "version": "1.0.0",
+  "description": "Boost quiet videos up to 600%, or turn loud sites down. Remembers each site. No ads, no tracking.",
+  "author": "Quiet Utilities",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "optional_host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_title": "Quiet Volume Booster",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png" }
+  },
+  "commands": {
+    "volume-up": {
+      "suggested_key": { "default": "Alt+Shift+Up" },
+      "description": "Turn this site up"
+    },
+    "volume-down": {
+      "suggested_key": { "default": "Alt+Shift+Down" },
+      "description": "Turn this site down"
+    }
+  },
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "minimum_chrome_version": "116",
+  "content_scripts": [
+    { "matches": ["https://extensionpay.com/*"], "js": ["lib/ExtPay.js"], "run_at": "document_start" }
+  ]
+}

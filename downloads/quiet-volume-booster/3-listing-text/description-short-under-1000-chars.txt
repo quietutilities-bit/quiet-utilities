@@ -1,0 +1,12 @@
+Some videos are too quiet even at full volume. Some sites are always too loud. Quiet Volume Booster fixes both and remembers each site.
+
+• Boost up to 600%, or turn a site down below 100%
+• Remembers the level for each site
+• Built-in limiter keeps big boosts clean
+• Badge shows the level of the current tab
+• Alt+Shift+Up / Down turns any site up or down
+• Optional: apply your settings on every website
+
+Pro (one-time purchase, no subscription): equalizer presets (bass boost, voice clarity, treble, less bass), mono for one earbud, and quiet hours that cap the volume at night.
+
+Private by design: all sound processing happens in your browser. No ads, no analytics, no tracking. Asks only for the sites you set.

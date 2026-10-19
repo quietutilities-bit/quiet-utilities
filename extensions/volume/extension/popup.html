@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Quiet Volume Booster</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="top">
+    <img src="icons/icon32.png" alt="" width="20" height="20">
+    <span>Quiet Volume Booster</span>
+  </header>
+
+  <main>
+    <section class="card">
+      <div class="site-row">
+        <span class="site" id="site-name">This site</span>
+        <output id="level-out" class="level">100%</output>
+      </div>
+      <input id="level" type="range" min="0" max="600" step="5" value="100" aria-label="Volume for this site">
+      <div class="presets" role="group" aria-label="Quick levels">
+        <button type="button" data-level="50">50%</button>
+        <button type="button" data-level="100">100%</button>
+        <button type="button" data-level="200">200%</button>
+        <button type="button" data-level="400">400%</button>
+        <button type="button" data-level="600">600%</button>
+      </div>
+      <p id="site-note" class="hint"></p>
+      <button id="remember" type="button" class="link-btn strong left" hidden>Remember this site</button>
+    </section>
+
+    <section class="card">
+      <label class="row">
+        <span>Every website</span>
+        <input id="every-toggle" type="checkbox" role="switch" class="switch">
+      </label>
+      <p class="hint">Apply your levels and sound settings without opening this first.</p>
+    </section>
+
+    <section class="card" id="pro-card">
+      <div class="row">
+        <span class="title">Sound <span class="badge">Pro</span></span>
+        <button id="upgrade" type="button" class="btn" hidden>Unlock</button>
+      </div>
+      <label class="row">
+        <span>Equalizer</span>
+        <select id="eq" aria-label="Equalizer preset"></select>
+      </label>
+      <label class="row">
+        <span>Mono (one earbud)</span>
+        <input id="mono" type="checkbox" role="switch" class="switch">
+      </label>
+      <label class="row">
+        <span>Quiet hours</span>
+        <input id="quiet-on" type="checkbox" role="switch" class="switch">
+      </label>
+      <div class="quiet" id="quiet-detail">
+        <input id="quiet-from" type="time" aria-label="Quiet hours start"><span>to</span><input id="quiet-to" type="time" aria-label="Quiet hours end">
+      </div>
+      <label class="row sub" id="quiet-cap-row">
+        <span>Loudest during quiet hours</span>
+        <select id="quiet-cap" aria-label="Maximum level during quiet hours">
+          <option value="25">25%</option><option value="50">50%</option><option value="75">75%</option><option value="100">100%</option>
+        </select>
+      </label>
+      <p id="pro-note" class="hint" hidden></p>
+    </section>
+
+    <p class="hint center"><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>↑</kbd>/<kbd>↓</kbd> turns any site up or down.</p>
+  </main>
+
+  <div id="rate" class="rate" hidden>
+    <span>Enjoying it? A rating helps others find it.</span>
+    <span class="rate-actions"><button id="rate-yes" class="link-btn strong">Rate it</button><button id="rate-no" class="link-btn">Not now</button></span>
+  </div>
+
+  <footer>
+    <a id="more" href="#" target="_blank" rel="noopener">More free tools from Quiet Utilities</a>
+  </footer>
+
+  <script src="lib/ExtPay.js"></script>
+  <script src="lib/config.js"></script>
+  <script src="lib/rules.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
