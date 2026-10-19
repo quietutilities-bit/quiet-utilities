@@ -67,6 +67,6 @@ Quiet Grayscale is free and has no account, payment or network requests. To test
 1. `screenshot-1-1280x800.png` — before and after
 2. `screenshot-2-1280x800.png` — pick sites, or everywhere
 3. `screenshot-3-1280x800.png` — keyboard shortcut, dark mode
-- Small promo tile: `promo-tile-440x280.png`
-- Marquee: `marquee-1400x560.png`
-- Store icon: `store-icon-512.png` (Chrome uses the 128 icon from the package; Edge wants `edge-logo-300.png`)
+- Small promo tile: `promo-small-440x280.png`
+- Marquee: `promo-large-1400x560.png`
+- Store icon: `icon-128x128.png` (Chrome); Edge logo: `logo-300x300-edge.png`
