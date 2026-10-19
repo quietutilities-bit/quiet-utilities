@@ -49,6 +49,7 @@ Claude asks first: new extensions, price changes, spending money, legal/policy i
 
 - 2026-10-15: Built Quiet Grayscale 1.0.0 (free). 6/6 unit tests and the full browser test pass. Store images, listing, Edge description (803 chars) and Chrome/Edge/Firefox packages are in downloads/quiet-grayscale. Website card and privacy policy updated. Waiting on owner: create the Edge item now, Chrome item after Google identity check, then send back the IDs for extensions/grayscale/store.json.
 - 2026-10-19: Edge published Bulk Downloader 1.0.4 (10-15). Google identity verified; owner submitted Bulk Downloader 1.0.4 to Chrome review. Quiet Grayscale Chrome item ogbffiiboabbpcjgekdkackmgfhfggkl created and submitted for review (store.json updated). Website links the Edge listing. Waiting on owner: Grayscale Edge item, Firefox account + Grayscale Firefox submission.
+- 2026-10-19: Quiet Grayscale submitted to Edge (product 085fbdd1-d83f-49fd-9752-15f5dce16a2f); CRX ID to follow once published.
 
 ## Notes
 - From Claude sessions: GitHub Actions secrets/variables can't be read or set (proxy blocks it); dispatching workflows and reading runs works via `gh api` REST. GraphQL is blocked.
