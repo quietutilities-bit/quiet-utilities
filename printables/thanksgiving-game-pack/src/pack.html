@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" data-size="letter">
+<head>
+<meta charset="utf-8">
+<title>Thanksgiving Family Game Pack</title>
+<link rel="stylesheet" href="../../_brand/brand.css">
+<script src="../../_brand/art/autumn.js"></script>
+<script src="content.js"></script>
+<style>
+  /* cover */
+  .cover { align-items: center; text-align: center; justify-content: center; }
+  .cover .art { width: 3.6in; margin: 0 auto 0.15in; }
+  .cover h1 { font-size: 46pt; color: var(--ink); }
+  .cover h1 em { color: var(--pumpkin); font-style: italic; font-weight: 500; display: block; font-size: 30pt; margin-bottom: 4pt; }
+  .cover .sub { font-size: 13pt; color: var(--ink-soft); margin-top: 10pt; }
+  .cover .games { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt 16pt; margin: 0.35in auto 0; width: 6in; text-align: left; }
+  .cover .games div { background: #fff; border: 1pt solid var(--line); border-radius: 10pt; padding: 10pt 12pt; }
+  .cover .games b { font-family: var(--serif); font-size: 13pt; font-weight: 600; display: block; }
+  .cover .games span { font-size: 9pt; color: var(--ink-soft); }
+  .corner { position: absolute; width: 1.1in; opacity: .95; }
+
+  /* how-to */
+  .howto { display: grid; grid-template-columns: 1fr 1fr; gap: 14pt 20pt; }
+  .howto h3 { color: var(--cranberry); margin-bottom: 4pt; }
+  .howto p, .howto li { font-size: 10.5pt; margin-bottom: 2pt; }
+  .howto ol, .howto ul { margin: 0; padding-left: 14pt; }
+  .tips { margin-top: 22pt; background: var(--cream); border-radius: 10pt; padding: 12pt 14pt; font-size: 10pt; }
+  .tips b { color: var(--pumpkin); }
+
+  /* bingo */
+  .bingo-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .bingo { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 4pt 0.15in 6pt; }
+  .bingo + .cut { border-top: 1pt dashed #B9A995; margin: 4pt 0; position: relative; }
+  .bingo + .cut::after { content: "\2702"; position: absolute; left: 0; top: -9pt; font-size: 11pt; color: #B9A995; background: #fff; padding-right: 4pt; }
+  .bingo .top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6pt; }
+  .bingo .top h3 { font-size: 17pt; }
+  .bingo .top .no { font-size: 8.5pt; color: var(--ink-soft); letter-spacing: .08em; text-transform: uppercase; }
+  .grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: 0.46in repeat(5, 1fr); border: 1.5pt solid var(--ink); border-radius: 6pt; overflow: hidden; }
+  .grid .h { background: var(--pumpkin); color: #fff; font-family: var(--serif); font-weight: 700; font-size: 22pt; display: flex; align-items: center; justify-content: center; }
+  .grid .h:nth-child(even) { background: var(--cranberry); }
+  .grid .c { border-right: 1pt solid var(--line); border-top: 1pt solid var(--line); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 11.5pt; font-weight: 500; line-height: 1.15; padding: 4pt; }
+  .grid .c:nth-child(5n) { border-right: 0; }
+  .grid .free { background: var(--cream); flex-direction: column; font-family: var(--serif); font-style: italic; font-size: 11pt; color: var(--cranberry); }
+  .grid .free svg { width: 0.36in; height: 0.36in; }
+
+  /* call slips */
+  .slips { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; border: 0.75pt dashed #B9A995; }
+  .slips div { border: 0.75pt dashed #B9A995; display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: 11pt; }
+  .board { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6pt 14pt; align-content: start; }
+  .board div { display: flex; align-items: center; gap: 8pt; font-size: 12pt; padding: 11pt 0; border-bottom: 1pt solid var(--line); }
+  .board i { width: 12pt; height: 12pt; border: 1.3pt solid var(--ink); border-radius: 3pt; flex: none; }
+
+  /* trivia */
+  .quiz { display: grid; grid-template-columns: 1fr 1fr; gap: 11pt 20pt; flex: 1; align-content: start; }
+  .q { break-inside: avoid; font-size: 10pt; }
+  .q .qt { font-weight: 500; margin-bottom: 3pt; }
+  .q .qt b { color: var(--pumpkin); font-family: var(--serif); font-size: 11pt; margin-right: 3pt; }
+  .q ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1pt 8pt; }
+  .q li { color: var(--ink); }
+  .q li::before { content: attr(data-l) "  "; font-weight: 700; color: var(--sage); }
+  .teamline { display: flex; gap: 18pt; font-size: 9.5pt; margin-bottom: 10pt; }
+  .teamline span { flex: 1; border-bottom: 1pt solid var(--ink-soft); padding-bottom: 2pt; }
+  .key { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(15, auto); grid-auto-flow: column; gap: 0 18pt; align-content: start; }
+  .key div { font-size: 10pt; padding: 6pt 0; border-bottom: 1pt solid var(--line); }
+  .key b { color: var(--pumpkin); font-family: var(--serif); }
+  .key em { color: var(--ink-soft); font-size: 8.8pt; display: block; }
+
+  /* prompt cards */
+  .pc { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); border: 0.75pt dashed #B9A995; }
+  .pc > div { border: 0.75pt dashed #B9A995; padding: 12pt 14pt; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8pt; }
+  .pc .lab { font-size: 7.5pt; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
+  .pc .txt { font-family: var(--serif); font-size: 15.5pt; line-height: 1.25; }
+  .pc svg { width: 0.62in; height: 0.62in; }
+  .pc.likely .txt { font-family: var(--sans); font-size: 13pt; font-weight: 500; }
+  .pc.likely .lead { font-family: var(--serif); font-style: italic; color: var(--cranberry); font-size: 14.5pt; }
+</style>
+</head>
+<body>
+<div id="pages"></div>
+<script>
+(function () {
+  const P = window.PACK, A = window.ART;
+  const out = [];
+  const foot = (label) => `<div class="pf"><span>Thanksgiving Family Game Pack · ${label}</span><span>© 2026 Quiet Table Co. · personal use only</span></div>`;
+  const head = (title, eyebrow) => `<div class="ph"><h2>${title}</h2><span class="eyebrow">${eyebrow}</span></div>`;
+
+  // seeded RNG so the 30 bingo cards are the same every render
+  let seed = 1121;
+  const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+  const shuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+  // 1. cover
+  out.push(`<section class="page tint cover">
+    <div class="corner" style="top:.45in;left:.45in">${A.leaf({ color: '#D9A441', rotate: -30 })}</div>
+    <div class="corner" style="top:.6in;right:.5in;width:.8in">${A.acorn()}</div>
+    <div class="corner" style="bottom:.55in;left:.6in;width:.9in">${A.pumpkin()}</div>
+    <div class="corner" style="bottom:.5in;right:.45in">${A.leaf({ color: '#9E3B3B', rotate: 35 })}</div>
+    <div class="art">${A.turkey()}</div>
+    <div class="eyebrow">Printable · for kids &amp; adults</div>
+    <h1 style="margin-top:8pt"><em>Thanksgiving</em>Family Game Pack</h1>
+    <div class="sub">Four games to keep the whole table laughing</div>
+    <div class="games">
+      <div><b>Thanksgiving Bingo</b><span>30 different cards + caller slips</span></div>
+      <div><b>Thanksgiving Trivia</b><span>30 questions + answer key</span></div>
+      <div><b>The Gratitude Game</b><span>36 conversation cards</span></div>
+      <div><b>Who’s Most Likely To…</b><span>36 Thanksgiving cards</span></div>
+    </div>
+  </section>`);
+
+  // 2. how to play
+  out.push(`<section class="page">${head('How to play', 'Read me first')}
+    <div class="howto">
+      <div><h3>Thanksgiving Bingo</h3>
+        <ol><li>Give each player a card and a few markers (dried beans, corn kernels or candy work well).</li>
+        <li>Cut out the caller slips, fold them and put them in a bowl. Or tick words off the caller board.</li>
+        <li>The caller draws one slip at a time and reads it out. Players cover that word.</li>
+        <li>The middle square is free. First to get five in a row (across, down or diagonal) shouts “Gobble!” and wins the round.</li></ol>
+        <p class="muted" style="margin-top:4pt">Twist: play “four corners” or “full card” for a longer game.</p></div>
+      <div><h3>Thanksgiving Trivia</h3>
+        <ol><li>Print one quiz per player or team.</li>
+        <li>Circle one answer for each question. Set a timer (15 minutes is plenty) or play at your own pace.</li>
+        <li>Swap papers and mark them with the answer key. One point per correct answer.</li>
+        <li>Read out the fun facts as you go: they start great table conversations.</li></ol></div>
+      <div><h3>The Gratitude Game</h3>
+        <ol><li>Cut out the 36 cards and stack them face down by the pie.</li>
+        <li>Take turns drawing a card and answering it out loud. There are no wrong answers.</li>
+        <li>Pass to the left. Keep going until dessert is served (or the cards run out).</li></ol>
+        <p class="muted" style="margin-top:4pt">Little ones can answer with a drawing on the back of a card.</p></div>
+      <div><h3>Who’s Most Likely To…</h3>
+        <ol><li>Cut out the 36 cards and shuffle them.</li>
+        <li>One person reads a card aloud: “Who’s most likely to…”</li>
+        <li>On “3, 2, 1” everyone points at the person they think fits best.</li>
+        <li>The person with the most fingers pointing at them keeps the card. Most cards at the end is crowned Table Champion.</li></ol>
+        <p class="muted" style="margin-top:4pt">Keep it kind: it’s all in good fun.</p></div>
+    </div>
+    <div class="tips"><b>Printing tips.</b> Print on plain paper or card stock, at “Actual size” or “100%” (not “Fit to page”). Choose the US Letter file in the US and Canada, A4 everywhere else. Print only the pages you need: bingo cards are pages 3–17, caller slips 18–19, trivia 20–22, gratitude cards 23–26, “Most likely” cards 27–30.</div>
+    <div class="tips" style="margin-top:8pt"><b>What’s inside.</b> 30 unique bingo cards (2 per page), caller slips + caller board, a 30-question trivia quiz with answer key, 36 gratitude cards and 36 “Who’s most likely to” cards.</div>
+    ${foot('How to play')}</section>`);
+
+  // 3-17. bingo cards (30 unique, 2 per page)
+  const cards = []; const seen = new Set();
+  while (cards.length < 30) {
+    const w = shuffle(P.bingoWords).slice(0, 24);
+    const key = w.slice().sort().join('|');
+    if (seen.has(key)) continue;
+    seen.add(key); cards.push(w);
+  }
+  window.BINGO_CARDS = cards;
+  const headers = ['T', 'H', 'A', 'N', 'K'];
+  const card = (w, n) => {
+    const cells = [];
+    for (let i = 0; i < 25; i++) {
+      if (i === 12) cells.push(`<div class="c free">${A.leaf({ color: '#D2733A' })}Grateful<br>(free)</div>`);
+      else cells.push(`<div class="c">${w[i < 12 ? i : i - 1]}</div>`);
+    }
+    return `<div class="bingo"><div class="top"><h3>Thanksgiving Bingo</h3><span class="no">Card ${n} of 30</span></div>
+      <div class="grid">${headers.map((h) => `<div class="h">${h}</div>`).join('')}${cells.join('')}</div></div>`;
+  };
+  for (let p = 0; p < 15; p++) {
+    out.push(`<section class="page"><div class="bingo-wrap">${card(cards[p * 2], p * 2 + 1)}<div class="cut"></div>${card(cards[p * 2 + 1], p * 2 + 2)}</div>${foot('Bingo')}</section>`);
+  }
+
+  // 18. caller slips, 19. caller board
+  out.push(`<section class="page">${head('Bingo caller slips', 'Cut out · fold · draw')}
+    <div class="slips">${P.bingoWords.map((w) => `<div>${w}</div>`).join('')}</div>${foot('Bingo caller slips')}</section>`);
+  out.push(`<section class="page">${head('Bingo caller board', 'Tick each word as you call it')}
+    <div class="board">${P.bingoWords.slice().sort().map((w) => `<div><i></i>${w}</div>`).join('')}</div>
+    <div class="tips" style="margin-top:auto"><b>Caller tip.</b> Use the slips <i>or</i> this board. With the board, close your eyes and point at a word you haven\u2019t called yet. Every card has the free “Grateful” square in the middle.</div>
+    ${foot('Bingo caller board')}</section>`);
+
+  // 20-21. trivia quiz, 22. answer key
+  const L = ['A', 'B', 'C', 'D'];
+  const qhtml = (q, i) => `<div class="q"><div class="qt"><b>${i + 1}.</b>${q[0]}</div><ol>${q[1].map((o, j) => `<li data-l="${L[j]}">${o}</li>`).join('')}</ol></div>`;
+  for (let p = 0; p < 2; p++) {
+    out.push(`<section class="page">${head('Thanksgiving Trivia', `Questions ${p * 15 + 1}–${p * 15 + 15}`)}
+      ${p === 0 ? '<div class="teamline"><span>Name / team:</span><span style="flex:.5">Score:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ 30</span></div><p class="muted" style="font-size:8.5pt;margin:-4pt 0 8pt">Circle one answer for each question.</p>' : ''}
+      <div class="quiz">${P.trivia.slice(p * 15, p * 15 + 15).map((q, i) => qhtml(q, p * 15 + i)).join('')}</div>
+      ${p === 1 ? '<p class="muted" style="font-size:8.5pt;margin-top:8pt">Circle one answer for each question.</p>' : ''}${foot('Trivia')}</section>`);
+  }
+  out.push(`<section class="page">${head('Trivia answer key', 'No peeking!')}
+    <div class="key">${P.trivia.map((q, i) => `<div><b>${i + 1}. ${L[q[2]]}</b>  ${q[1][q[2]]}<em>${q[3]}</em></div>`).join('')}</div>
+    ${foot('Trivia answer key')}</section>`);
+
+  // 23-26 gratitude cards, 27-30 most likely cards
+  const icons = [() => A.leaf({ color: '#D2733A' }), () => A.acorn(), () => A.leaf({ color: '#9E3B3B', rotate: 20 }), () => A.pumpkin(), () => A.leaf({ color: '#D9A441', rotate: -20 }), () => A.cranberries()];
+  for (let p = 0; p < 4; p++) {
+    out.push(`<section class="page">${head('The Gratitude Game', `Cards ${p * 9 + 1}–${p * 9 + 9}`)}
+      <div class="pc">${P.gratitude.slice(p * 9, p * 9 + 9).map((t, i) => `<div>${icons[(p * 9 + i) % icons.length]()}<div class="lab">I’m grateful for…</div><div class="txt">${t}</div></div>`).join('')}</div>
+      ${foot('Gratitude Game')}</section>`);
+  }
+  for (let p = 0; p < 4; p++) {
+    out.push(`<section class="page">${head('Who’s Most Likely To…', `Cards ${p * 9 + 1}–${p * 9 + 9}`)}
+      <div class="pc likely">${P.likely.slice(p * 9, p * 9 + 9).map((t) => `<div><div class="lab">Thanksgiving edition</div><div class="lead">Who’s most likely to…</div><div class="txt">${t}?</div></div>`).join('')}</div>
+      ${foot('Who’s Most Likely To')}</section>`);
+  }
+
+  document.getElementById('pages').innerHTML = out.join('');
+})();
+</script>
+</body>
+</html>

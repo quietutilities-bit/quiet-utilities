@@ -8,7 +8,7 @@
 //
 // render.json:
 // { "pdfs":   [{ "src": "pack.html", "name": "Thanksgiving-Game-Pack", "sizes": ["letter","a4"] }],
-//   "images": [{ "src": "listing-1.html", "out": "listing/01-cover.jpg", "w": 3000, "h": 2250 }] }
+//   "images": [{ "src": "listing.html#1", "out": "listing/01-cover.jpg", "w": 3000, "h": 2250 }] }
 // PDFs land in <slug>/out/<name>-US-Letter.pdf and <name>-A4.pdf; images in <slug>/out/<out>.
 // Pages get <html data-size="..."> so brand.css switches --pw/--ph.
 
@@ -43,7 +43,8 @@ async function getBrowser() {
 async function openPage(html, { size, viewport } = {}) {
   const b = await getBrowser();
   const page = await b.newPage({ viewport: viewport || { width: 1200, height: 1600 } });
-  await page.goto(pathToFileURL(resolve(html)).href + (size ? `?size=${size}` : ''), { waitUntil: 'networkidle' });
+  const [file, hash] = html.split('#'); // "listing.html#3" -> variant 3 (page reads location.hash)
+  await page.goto(pathToFileURL(resolve(file)).href + (size ? `?size=${size}` : '') + (hash ? `#${hash}` : ''), { waitUntil: 'networkidle' });
   if (size) {
     await page.evaluate(([s, css]) => {
       document.documentElement.dataset.size = s;
