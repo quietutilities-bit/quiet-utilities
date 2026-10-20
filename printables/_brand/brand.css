@@ -1,0 +1,93 @@
+/* Quiet Table Co. (by Quiet Utilities): shared print styles.
+   Every product page links this file: <link rel="stylesheet" href="../../_brand/brand.css">
+   The render script sets <html data-size="letter|a4"> and the @page size. */
+
+@font-face { font-family: "Lora"; src: url("fonts/Lora-Variable.ttf") format("truetype"); font-weight: 400 700; font-style: normal; }
+@font-face { font-family: "Lora"; src: url("fonts/Lora-Italic-Variable.ttf") format("truetype"); font-weight: 400 700; font-style: italic; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Italic.ttf") format("truetype"); font-weight: 400; font-style: italic; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Medium.ttf") format("truetype"); font-weight: 500; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+
+:root {
+  /* palette: see palette.json */
+  --cream: #FBF6EE;
+  --paper: #FFFDF9;
+  --ink: #3B2F2A;
+  --ink-soft: #6E5F57;
+  --line: #E4D8C8;
+  --pumpkin: #D2733A;
+  --cranberry: #9E3B3B;
+  --sage: #7D8F69;
+  --gold: #D9A441;
+  --bark: #8A5A3B;
+  --pine: #2F5D50;
+  --berry: #B23A3A;
+  --frost: #EAF1EE;
+
+  --accent: var(--pumpkin);
+  --accent-2: var(--sage);
+
+  --serif: "Lora", Georgia, serif;
+  --sans: "Poppins", "Helvetica Neue", Arial, sans-serif;
+
+  /* page size; overridden for A4 */
+  --pw: 8.5in;
+  --ph: 11in;
+  --safe: 0.5in; /* inner margin; 0.25in is the printer minimum */
+}
+html[data-size="a4"] { --pw: 210mm; --ph: 297mm; }
+html[data-theme="christmas"] { --accent: var(--berry); --accent-2: var(--pine); }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: #fff;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  font-size: 11pt;
+  line-height: 1.4;
+}
+
+/* one printed page */
+.page {
+  width: var(--pw);
+  height: var(--ph);
+  padding: var(--safe);
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+  break-after: page;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.page:last-child { page-break-after: auto; break-after: auto; }
+.page.tint { background: var(--cream); }
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; line-height: 1.1; }
+h1 { font-size: 40pt; }
+h2 { font-size: 24pt; }
+h3 { font-size: 14pt; }
+p { margin: 0 0 0.5em; }
+
+.eyebrow { font-family: var(--sans); font-size: 9pt; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.muted { color: var(--ink-soft); }
+.serif { font-family: var(--serif); }
+.italic { font-style: italic; }
+.center { text-align: center; }
+
+/* standard page header + footer */
+.ph { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1.5pt solid var(--line); padding-bottom: 8pt; margin-bottom: 14pt; }
+.ph h2 { font-size: 22pt; }
+.pf { margin-top: auto; padding-top: 8pt; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--ink-soft); letter-spacing: 0.04em; }
+
+/* cut-out cards: a grid of dashed boxes */
+.cards { flex: 1; display: grid; gap: 0; border: 0.75pt dashed #B9A995; }
+.cards > .card { border: 0.75pt dashed #B9A995; padding: 14pt; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; }
+.scissors { font-size: 8pt; color: var(--ink-soft); margin-bottom: 4pt; }
+
+.rule { height: 1pt; background: var(--line); margin: 10pt 0; }
+.pill { display: inline-block; padding: 2pt 9pt; border-radius: 99pt; background: var(--accent); color: #fff; font-size: 8pt; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }

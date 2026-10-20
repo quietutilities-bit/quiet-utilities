@@ -1,0 +1,7 @@
+{
+  "shop": "Quiet Table Co. (by Quiet Utilities)",
+  "neutral": { "cream": "#FBF6EE", "paper": "#FFFDF9", "ink": "#3B2F2A", "inkSoft": "#6E5F57", "line": "#E4D8C8" },
+  "thanksgiving": { "pumpkin": "#D2733A", "cranberry": "#9E3B3B", "sage": "#7D8F69", "gold": "#D9A441", "bark": "#8A5A3B" },
+  "christmas": { "pine": "#2F5D50", "berry": "#B23A3A", "gold": "#D9A441", "frost": "#EAF1EE" },
+  "fonts": { "display": "Lora (SIL OFL 1.1)", "body": "Poppins (SIL OFL 1.1)" }
+}
