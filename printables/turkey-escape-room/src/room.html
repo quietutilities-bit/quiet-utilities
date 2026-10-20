@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en" data-size="letter">
+<head>
+<meta charset="utf-8">
+<title>Turkey Trouble Escape Room</title>
+<link rel="stylesheet" href="../../_brand/brand.css">
+<script src="../../_brand/art/autumn.js"></script>
+<style>
+  .cover { align-items: center; justify-content: center; text-align: center; }
+  .cover h1 { font-size: 50pt; }
+  .cover h1 em { display: block; color: var(--pumpkin); font-size: 30pt; font-weight: 500; }
+  .cover .sub { font-size: 13pt; color: var(--ink-soft); margin-top: 10pt; }
+  .cover .facts { display: flex; gap: 10pt; justify-content: center; margin-top: 22pt; flex-wrap: wrap; }
+  .cover .facts span { background: #fff; border: 1pt solid var(--line); border-radius: 99pt; padding: 6pt 14pt; font-size: 10pt; font-weight: 500; }
+  .corner { position: absolute; width: 1in; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14pt 22pt; }
+  .cols h3 { color: var(--cranberry); margin: 0 0 5pt; }
+  .cols p, .cols li { font-size: 11pt; }
+  .cols ul, .cols ol { margin: 0 0 6pt; padding-left: 15pt; }
+  .box { background: var(--cream); border-radius: 10pt; padding: 12pt 14pt; font-size: 10.8pt; margin-top: 12pt; }
+  .box b { color: var(--pumpkin); }
+
+  /* puzzle page */
+  .pz-top { display: flex; align-items: center; gap: 14pt; border-bottom: 1.5pt solid var(--line); padding-bottom: 8pt; margin-bottom: 12pt; }
+  .pz-top .num { width: 0.62in; height: 0.62in; border-radius: 50%; background: var(--pumpkin); color: #fff; font-family: var(--serif); font-weight: 700; font-size: 24pt; display: flex; align-items: center; justify-content: center; flex: none; }
+  .pz-top h2 { font-size: 23pt; }
+  .pz-top .eyebrow { margin-bottom: 2pt; }
+  .story { font-family: var(--serif); font-style: italic; font-size: 11.5pt; color: var(--ink-soft); margin-bottom: 10pt; }
+  .task { font-size: 11pt; margin-bottom: 10pt; }
+  .answer { flex: none; margin-top: auto; display: flex; align-items: center; gap: 12pt; background: var(--cream); border-radius: 10pt; padding: 10pt 14pt; font-size: 11pt; }
+  .answer .lbox { width: 0.55in; height: 0.55in; border: 2pt solid var(--ink); border-radius: 6pt; background: #fff; flex: none; }
+  .blank { display: inline-block; border-bottom: 1.3pt solid var(--ink); min-width: 0.7in; height: 16pt; vertical-align: bottom; }
+  .keystrip { flex: none; display: grid; grid-template-columns: repeat(13, 1fr); border: 1pt solid var(--line); border-radius: 6pt; overflow: hidden; margin-top: 10pt; }
+  .keystrip div { text-align: center; font-size: 9pt; padding: 3pt 0; border-right: 1pt solid var(--line); border-bottom: 1pt solid var(--line); }
+  .keystrip div b { display: block; font-family: var(--serif); font-size: 12pt; }
+  .keystrip div:nth-child(13n) { border-right: 0; }
+  .keytitle { font-size: 8.5pt; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin-top: 10pt; }
+
+  /* P1 equations */
+  .eq { display: flex; align-items: center; justify-content: center; gap: 12pt; font-family: var(--serif); font-size: 28pt; font-weight: 600; margin: 8pt 0; }
+  .eq svg { width: 0.75in; height: 0.75in; }
+  .eq .q { color: var(--pumpkin); }
+
+  /* P2 cipher */
+  .ckey { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6pt; margin-bottom: 14pt; }
+  .ckey div { border: 1pt solid var(--line); border-radius: 8pt; padding: 6pt; display: flex; align-items: center; justify-content: center; gap: 8pt; font-family: var(--serif); font-size: 18pt; font-weight: 700; }
+  .ckey svg { width: 0.5in; height: 0.5in; }
+  .cmsg { display: flex; flex-wrap: wrap; gap: 14pt 34pt; justify-content: center; }
+  .cword { display: flex; gap: 5pt; }
+  .csym { display: flex; flex-direction: column; align-items: center; gap: 4pt; }
+  .csym svg { width: 0.52in; height: 0.52in; }
+  .csym i { width: 0.45in; height: 0.45in; border-bottom: 1.5pt solid var(--ink); }
+
+  /* P3 maze */
+  .maze { display: flex; justify-content: center; flex: 1; min-height: 0; }
+  .maze svg { height: 100%; max-width: 100%; }
+
+  /* P4 scramble */
+  .scr { display: grid; grid-template-columns: 1.6in 1fr; gap: 16pt 14pt; align-items: center; }
+  .scr .s { font-family: var(--serif); font-weight: 700; font-size: 18pt; letter-spacing: .12em; color: var(--cranberry); }
+  .scr .clue { font-size: 10.5pt; color: var(--ink-soft); }
+  .boxes { display: flex; gap: 4pt; margin-top: 3pt; }
+  .boxes i { width: 0.42in; height: 0.42in; border: 1.3pt solid var(--ink); border-radius: 4pt; }
+  .boxes i.first { background: #F4D9B8; }
+
+  /* P5 sudoku */
+  .sud { display: grid; grid-template-columns: repeat(4, 1.05in); grid-template-rows: repeat(4, 1.05in); border: 2.5pt solid var(--ink); margin: 6pt auto; }
+  .sud div { border: 0.75pt solid #BBAE9E; display: flex; align-items: center; justify-content: center; }
+  .sud div:nth-child(4n+2) { border-right: 2.5pt solid var(--ink); }
+  .sud div:nth-child(n+5):nth-child(-n+8) { border-bottom: 2.5pt solid var(--ink); }
+  .sud div.shade { background: #F4D9B8; }
+  .sud svg { width: 0.75in; height: 0.75in; }
+  .symkey { display: flex; justify-content: center; gap: 18pt; margin-top: 10pt; }
+  .symkey div { display: flex; align-items: center; gap: 6pt; font-family: var(--serif); font-size: 16pt; font-weight: 700; }
+  .symkey svg { width: 0.45in; height: 0.45in; }
+
+  /* P6 spot the difference */
+  .scene { flex: none; width: 70%; margin-left: auto; margin-right: auto; border: 1.5pt solid var(--ink); border-radius: 8pt; overflow: hidden; margin-bottom: 8pt; }
+  .scene > svg { display: block; width: 100%; }
+
+  /* P7 logic grid */
+  .clues li { font-size: 11pt; margin-bottom: 4pt; }
+  table.lg { border-collapse: collapse; margin: 10pt auto; }
+  table.lg td, table.lg th { border: 1pt solid var(--ink-soft); width: 0.75in; height: 0.48in; text-align: center; font-size: 10.5pt; }
+  table.lg th { background: var(--cream); font-weight: 500; }
+  table.lg th.rh { width: 0.9in; }
+
+  /* P8 patterns */
+  .pat { display: flex; align-items: center; gap: 12pt; font-family: var(--serif); font-size: 24pt; font-weight: 600; margin: 8pt 0 14pt; }
+  .pat b { color: var(--pumpkin); width: 0.45in; }
+  .pat span { width: 0.7in; height: 0.6in; border: 1.3pt solid var(--line); border-radius: 8pt; display: flex; align-items: center; justify-content: center; background: #fff; }
+  .pat span.q { border: 2pt dashed var(--pumpkin); }
+
+  /* lock sheet */
+  .lock { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8pt; margin: 14pt 0; }
+  .lock div { text-align: center; }
+  .lock i { display: block; height: 0.9in; border: 2.5pt solid var(--ink); border-radius: 10pt; background: #fff; }
+  .lock span { font-size: 9pt; color: var(--ink-soft); letter-spacing: .1em; text-transform: uppercase; }
+  .tick { display: grid; grid-template-columns: 1fr 1fr; gap: 6pt 18pt; font-size: 10.5pt; }
+  .tick div { display: flex; gap: 8pt; align-items: center; padding: 5pt 0; border-bottom: 1pt solid var(--line); }
+  .tick i { width: 12pt; height: 12pt; border: 1.3pt solid var(--ink); border-radius: 3pt; }
+
+  /* story + cut cards */
+  .letter { flex: 1; display: flex; flex-direction: column; padding: 14pt 20pt; }
+  .letter p { font-family: var(--serif); font-size: 13pt; line-height: 1.5; }
+  .halves { flex: 1; display: grid; grid-template-rows: 1fr 1fr; border: 0.75pt dashed #B9A995; }
+  .halves > div { border: 0.75pt dashed #B9A995; padding: 18pt 24pt; display: flex; flex-direction: column; }
+  .halves p { font-family: var(--serif); font-size: 14pt; line-height: 1.5; }
+  .grid8 { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 1fr); border: 0.75pt dashed #B9A995; }
+  .grid8 > div { border: 0.75pt dashed #B9A995; padding: 12pt 16pt; display: flex; flex-direction: column; justify-content: center; }
+  .grid8 .t { font-family: var(--serif); font-weight: 600; font-size: 13pt; color: var(--cranberry); margin-bottom: 4pt; }
+  .grid8 p { font-size: 10.3pt; margin: 0; }
+  .labels { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(5, 1fr); gap: 10pt; }
+  .labels div { border: 1.5pt solid var(--ink); border-radius: 12pt; display: flex; align-items: center; gap: 12pt; padding: 0 16pt; }
+  .labels .n { font-family: var(--serif); font-weight: 700; font-size: 30pt; color: var(--pumpkin); width: 0.6in; text-align: center; }
+  .labels b { font-family: var(--serif); font-size: 14pt; display: block; }
+  .labels span { font-size: 9pt; color: var(--ink-soft); }
+
+  .key2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt 20pt; }
+  .key2 > div { font-size: 9.6pt; border-bottom: 1pt solid var(--line); padding-bottom: 6pt; }
+  .key2 b.l { font-family: var(--serif); font-size: 15pt; color: var(--pumpkin); margin-right: 6pt; }
+  .key2 .mini > svg { width: 100%; height: auto; display: block; margin-top: 4pt; }
+
+  .sudmini { display: grid; grid-template-columns: repeat(4, 0.34in); margin-top: 5pt; border: 1.5pt solid var(--ink); width: max-content; }
+  .sudmini i { height: 0.34in; border: 0.5pt solid #BBAE9E; display: flex; align-items: center; justify-content: center; }
+  .sudmini i.sh { background: #F4D9B8; }
+  .sudmini svg { width: 0.26in; height: 0.26in; }
+  .cert { align-items: center; justify-content: center; text-align: center; border: 10pt solid var(--cream); }
+  .cert .frame { flex: 1; width: 100%; border: 2pt solid var(--pumpkin); border-radius: 14pt; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24pt; }
+  .cert h1 { font-size: 40pt; }
+  .cert .line { width: 4.5in; border-bottom: 1.5pt solid var(--ink); height: 40pt; margin: 10pt auto 4pt; }
+</style>
+</head>
+<body>
+<div id="pages"></div>
+<script>
+(function () {
+  const A = window.ART, C = A.C;
+  const out = [];
+  const foot = (label) => `<div class="pf"><span>Turkey Trouble Escape Room · ${label}</span><span>© 2026 Quiet Table Co. · personal use only</span></div>`;
+  const head = (title, eyebrow) => `<div class="ph"><h2>${title}</h2><span class="eyebrow">${eyebrow}</span></div>`;
+  const pzTop = (n, title, sub) => `<div class="pz-top"><div class="num">${n}</div><div><div class="eyebrow">Puzzle ${n} of 8 · ${sub}</div><h2>${title}</h2></div></div>`;
+  const answer = (n, text) => `<div class="answer"><div class="lbox"></div><div><b>Letter ${n} of the pantry code.</b> ${text}</div></div>`;
+  const keystrip = () => `<div class="keytitle">Turkey number code</div><div class="keystrip">${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((l, i) => `<div><b>${l}</b>${i + 1}</div>`).join('')}</div>`;
+  let seed = 2026;
+  const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+
+  // ---------- 1. cover
+  out.push(`<section class="page tint cover">
+    <div class="corner" style="top:.5in;left:.5in">${A.leaf({ color: C.gold, rotate: -25 })}</div>
+    <div class="corner" style="top:.55in;right:.55in;width:.8in">${A.acorn()}</div>
+    <div class="corner" style="bottom:.55in;left:.55in;width:1.1in">${A.pie()}</div>
+    <div class="corner" style="bottom:.5in;right:.5in">${A.leaf({ color: C.cranberry, rotate: 30 })}</div>
+    <div style="width:3.3in;margin:0 auto 10pt">${A.turkey()}</div>
+    <div class="eyebrow">Printable escape room for kids · ages 7–12</div>
+    <h1 style="margin-top:8pt"><em>Turkey Trouble</em>Escape Room</h1>
+    <div class="sub">Gus the turkey has locked the pantry. Can you crack his 8 puzzles before dinner?</div>
+    <div class="facts"><span>8 puzzles</span><span>45–60 minutes</span><span>1–8 players</span><span>Host guide + answer key</span></div>
+  </section>`);
+
+  // ---------- 2-3. host guide
+  out.push(`<section class="page">${head('Host guide', 'Read before the party')}
+    <div class="cols">
+      <div><h3>The story</h3><p>Gus the turkey would very much prefer that Thanksgiving dinner is <i>pie</i>, not turkey. So he has locked the pantry with an 8-letter code and hidden the clues all over the house. The players solve 8 puzzles. Each one reveals one letter of the code. When they have all 8 letters, they say the code word to you, and the pantry (and the pie) is theirs.</p>
+        <h3 style="margin-top:10pt">Who it’s for</h3><p>Kids 7–12, alone or in teams of 2–4. Younger kids do great with an older helper. Plan on 45–60 minutes.</p></div>
+      <div><h3>What you need</h3><ul><li>This file, printed (pages 4–16; one copy per team)</li><li>9 envelopes (or folders), and tape</li><li>Pencils, scissors for the host</li><li>A small treat or the real pie to “unlock” at the end</li><li>Optional: a timer, and a box or bag that closes, as the “pantry”</li></ul>
+        <h3 style="margin-top:10pt">Printing</h3><p>Print at “Actual size”. Color is best (puzzle 2 uses colored leaves), but black and white works for everything else.</p></div>
+    </div>
+    <div class="box"><b>Set-up (15 minutes).</b>
+      <ol style="margin:6pt 0 0;padding-left:15pt"><li>Cut out the envelope labels (page 15) and stick one on each envelope.</li>
+      <li>Put each puzzle page (pages 6–13) in the envelope with its number. Put the Pantry Lock sheet (page 5) in the START envelope.</li>
+      <li>Hide envelopes 1–8 around the room or house. Keep the START envelope and the story card in your hand.</li>
+      <li>Cut out the hint cards (page 14) and keep them in your pocket.</li>
+      <li>Put the treat in the “pantry” and keep the FINALE half of the story card with it.</li></ol></div>
+    ${foot('Host guide')}</section>`);
+  out.push(`<section class="page">${head('Host guide', 'Running the game')}
+    <div class="cols">
+      <div><h3>How to play</h3><ol><li>Gather the players and read Gus’s letter aloud (page 4, top half).</li><li>Hand over the START envelope and say “Go!” Start the timer if you like.</li><li>Players search for envelopes and solve the puzzles in any order. Each puzzle tells them which letter of the code they found (letter 1, letter 2…).</li><li>They write each letter in its box on the Pantry Lock sheet.</li><li>When all 8 boxes are filled, they read the code word to you. If it’s right, they open the pantry and you read the FINALE.</li></ol></div>
+      <div><h3>Hints</h3><p>Every puzzle has a hint card. A good rule: a team can ask for a hint after trying a puzzle for 5 minutes, or trade a hint for a silly task (gobble like a turkey, name 5 pies).</p>
+        <h3 style="margin-top:10pt">Making it easier</h3><ul><li>Don’t hide the envelopes; lay them on the table.</li><li>Tell younger players the code is a word that means “thankful”.</li><li>Solve puzzles 2 and 7 together, out loud.</li></ul>
+        <h3 style="margin-top:10pt">Making it harder</h3><ul><li>Set a 30-minute timer.</li><li>Hide envelopes inside each other: envelope 5 is only found after solving 4, and so on.</li><li>No hint cards.</li></ul></div>
+    </div>
+    <div class="box"><b>Answers are on page 16.</b> Keep that page (and the hint cards) away from the players. Each puzzle can also be checked on its own: the letter goes in the box at the bottom of the puzzle page.</div>
+    ${foot('Host guide')}</section>`);
+
+  // ---------- 4. story card
+  out.push(`<section class="page">${head('Story cards', 'Host reads aloud · cut in half')}
+    <div class="halves">
+      <div><div class="eyebrow" style="margin-bottom:6pt">Read first</div>
+        <p>Dear Thanksgiving guests,</p>
+        <p>It’s me, Gus. Yes, <i>that</i> turkey. I have heard some very worrying talk about “dinner”, so I have locked the pantry with my secret 8-letter code. Nobody gets dessert until you crack it!</p>
+        <p>I have hidden 8 puzzles. Each one gives you one letter of the code. Solve them in any order, write each letter on the Pantry Lock sheet, and say the word out loud. If you’re clever enough, maybe I’ll share the pie.</p>
+        <p style="margin-top:auto">Gobble gobble (good luck),<br><b>Gus</b></p></div>
+      <div><div class="eyebrow" style="margin-bottom:6pt">Read at the end</div>
+        <p>You did it! The code was <b>GRATEFUL</b>, and that is exactly what I am: grateful you cracked it, grateful for all of you, and very grateful that this year we’re having pie.</p>
+        <p>The pantry is open. Please enjoy your treat, and save me a seat at the table. I’ll be the one with the feathers.</p>
+        <p style="margin-top:auto">Your friend,<br><b>Gus</b></p></div>
+    </div>${foot('Story cards')}</section>`);
+
+  // ---------- 5. pantry lock sheet
+  out.push(`<section class="page tint">${head('The Pantry Lock', 'Start here')}
+    <p class="story">Gus has locked the pantry with an 8-letter code. Find the 8 envelopes, solve each puzzle and write its letter in the matching box.</p>
+    <div class="lock">${[1, 2, 3, 4, 5, 6, 7, 8].map((n) => `<div><i></i><span>Letter ${n}</span></div>`).join('')}</div>
+    <p class="task" style="text-align:center">When every box is full, read the word out loud to your host.</p>
+    <h3 style="margin:10pt 0 6pt">Puzzle checklist</h3>
+    <div class="tick">${['1 · Pie Math', '2 · Gus’s Secret Code', '3 · The Corn Maze', '4 · Mixed-Up Kitchen', '5 · Harvest Grid', '6 · Spot the Difference', '7 · Who Brought the Pie?', '8 · What Comes Next?'].map((t) => `<div><i></i>${t}</div>`).join('')}</div>
+    <div style="display:flex;justify-content:center;margin-top:auto"><div style="width:1.6in">${A.turkey()}</div></div>
+    ${foot('Pantry Lock')}</section>`);
+
+  // ---------- puzzles
+  // P1 pie math
+  const ic = { pie: A.pie(), acorn: A.acorn(), leaf: A.leaf({ color: C.pumpkin }), pumpkin: A.pumpkin() };
+  out.push(`<section class="page">${pzTop(1, 'Pie Math', 'numbers')}
+    <p class="story">Gus counts everything in pies. Each picture stands for a number. Work out what each one is worth.</p>
+    <div class="eq">${ic.pie} + ${ic.pie} = 8</div>
+    <div class="eq">${ic.pie} + ${ic.acorn} = 6</div>
+    <div class="eq">${ic.acorn} + ${ic.leaf} = 3</div>
+    <div class="rule"></div>
+    <div class="eq">${ic.pie} + ${ic.acorn} + ${ic.leaf} = <span class="q">?</span></div>
+    ${keystrip()}
+    <p class="task" style="margin-top:8pt">Find your answer in the Turkey number code. The letter above it is your letter.</p>
+    ${answer(1, 'Write it in box 1 on the Pantry Lock.')}
+    ${foot('Puzzle 1')}</section>`);
+
+  // P2 cipher: LETTER TWO IS R
+  const cmap = { L: A.leaf({ color: C.pumpkin }), E: A.acorn(), T: A.pumpkin(), R: A.pie(), W: A.wheat(), O: A.cranberries(), I: A.turkey(), S: A.leaf({ color: C.cranberry, rotate: 30 }), A: A.leaf({ color: C.gold, rotate: -30 }), N: A.leaf({ color: C.sage, rotate: 60 }) };
+  const keyOrder = ['A', 'E', 'I', 'L', 'N', 'O', 'R', 'S', 'T', 'W'];
+  const msg = ['LETTER', 'TWO', 'IS', 'R'];
+  out.push(`<section class="page">${pzTop(2, 'Gus’s Secret Code', 'codes')}
+    <p class="story">Gus wrote a note in his secret picture code. Use the code key to turn each picture into a letter.</p>
+    <h3 style="margin-bottom:6pt">Code key</h3>
+    <div class="ckey">${keyOrder.map((l) => `<div>${cmap[l]}<span>${l}</span></div>`).join('')}</div>
+    <h3 style="margin:6pt 0 10pt">Gus’s note</h3>
+    <div class="cmsg">${msg.map((w) => `<div class="cword">${w.split('').map((l) => `<div class="csym">${cmap[l]}<i></i></div>`).join('')}</div>`).join('')}</div>
+    <p class="muted" style="font-size:9pt;margin-top:10pt;text-align:center">Look closely: the four leaves are different colors.</p>
+    ${answer(2, 'The note tells you which letter it is. Write it in box 2.')}
+    ${foot('Puzzle 2')}</section>`);
+
+  // P3 maze (perfect maze, letters A U T U M N along the solution path)
+  const MW = 9, MH = 11;
+  const cells = Array.from({ length: MW * MH }, () => ({ n: true, s: true, e: true, w: true, v: false }));
+  const id = (x, y) => y * MW + x;
+  const stack = [[0, 0]]; cells[0].v = true;
+  while (stack.length) {
+    const [x, y] = stack[stack.length - 1];
+    const nb = [[0, -1, 'n', 's'], [1, 0, 'e', 'w'], [0, 1, 's', 'n'], [-1, 0, 'w', 'e']].filter(([dx, dy]) => { const nx = x + dx, ny = y + dy; return nx >= 0 && ny >= 0 && nx < MW && ny < MH && !cells[id(nx, ny)].v; });
+    if (!nb.length) { stack.pop(); continue; }
+    const [dx, dy, a, b] = nb[Math.floor(rnd() * nb.length)];
+    cells[id(x, y)][a] = false; cells[id(x + dx, y + dy)][b] = false; cells[id(x + dx, y + dy)].v = true; stack.push([x + dx, y + dy]);
+  }
+  // BFS path from (0,0) to (MW-1,MH-1)
+  const prev = new Array(MW * MH).fill(-1); const q = [0]; const seen = new Set([0]);
+  while (q.length) { const c = q.shift(); const x = c % MW, y = Math.floor(c / MW);
+    for (const [dx, dy, wall] of [[0, -1, 'n'], [1, 0, 'e'], [0, 1, 's'], [-1, 0, 'w']]) { if (cells[c][wall]) continue; const nc = id(x + dx, y + dy); if (!seen.has(nc)) { seen.add(nc); prev[nc] = c; q.push(nc); } } }
+  const path = []; for (let c = id(MW - 1, MH - 1); c !== -1; c = prev[c]) path.unshift(c);
+  const pathSet = new Set(path);
+  const word = 'AUTUMN'; const letters = {};
+  word.split('').forEach((l, i) => { letters[path[Math.round((i + 1) * path.length / (word.length + 1))]] = l; });
+  const off = [...Array(MW * MH).keys()].filter((c) => !pathSet.has(c));
+  const decoyL = 'BKPZRDOS'.split('');
+  for (const l of decoyL) { const c = off.splice(Math.floor(rnd() * off.length), 1)[0]; letters[c] = l; }
+  window.MAZE = { path, letters, word: path.filter((c) => letters[c] && word.includes(letters[c])).map((c) => letters[c]).join('') };
+  const mazeSvg = (solution) => {
+    const S = 40, P = 30; let g = '';
+    for (let y = 0; y < MH; y++) for (let x = 0; x < MW; x++) { const c = cells[id(x, y)], X = P + x * S, Y = P + y * S;
+      if (c.n && !(x === 0 && y === 0)) g += `M${X} ${Y}h${S}`; if (c.w) g += `M${X} ${Y}v${S}`;
+      if (y === MH - 1 && !(x === MW - 1)) g += `M${X} ${Y + S}h${S}`; if (x === MW - 1 && !(y === MH - 1)) g += `M${X + S} ${Y}v${S}`; }
+    let sol = '';
+    if (solution) sol = `<polyline points="${path.map((c) => `${P + (c % MW) * S + S / 2},${P + Math.floor(c / MW) * S + S / 2}`).join(' ')}" fill="none" stroke="${C.pumpkin}" stroke-width="8" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const lt = Object.entries(letters).map(([c, l]) => `<text x="${P + (c % MW) * S + S / 2}" y="${P + Math.floor(c / MW) * S + S / 2 + 8}" text-anchor="middle" font-family="Lora" font-weight="700" font-size="24" fill="${C.cranberry}">${l}</text>`).join('');
+    return `<svg viewBox="0 0 ${MW * S + 2 * P} ${MH * S + 2 * P + 10}" xmlns="http://www.w3.org/2000/svg">${sol}<path d="${g}" stroke="${C.ink}" stroke-width="3" stroke-linecap="round" fill="none"/>${lt}
+      <text x="${P + 4}" y="${P - 8}" font-family="Poppins" font-size="13" fill="${C.ink}">↓ START</text><text x="${P + MW * S - 4}" y="${P + MH * S + 22}" text-anchor="end" font-family="Poppins" font-size="13" fill="${C.ink}">PANTRY ↓</text></svg>`;
+  };
+  window.MAZE_SVG = mazeSvg;
+  out.push(`<section class="page">${pzTop(3, 'The Corn Maze', 'paths')}
+    <p class="story">Gus ran through the corn maze to the pantry. Follow the only path from START to PANTRY. Collect the letters you pass, in order. (The letters off the path are corn-fusing decoys!)</p>
+    <div class="maze">${mazeSvg(false)}</div>
+    <p class="task" style="margin-top:8pt">Letters I collected: <span class="blank" style="min-width:3in"></span></p>
+    ${answer(3, 'It’s the <b>first</b> letter of the word you collected. Write it in box 3.')}
+    ${foot('Puzzle 3')}</section>`);
+
+  // P4 scramble: TURKEY OVEN ACORN STUFFING THANKS -> TOAST
+  const scr = [['YRKTEU', 'TURKEY', 'He is hiding from dinner!'], ['NEVO', 'OVEN', 'Where the pie bakes'], ['CRONA', 'ACORN', 'A squirrel’s favorite snack'], ['FUSGNIFT', 'STUFFING', 'Bread and herbs, in or beside the bird'], ['SKNAHT', 'THANKS', 'What we give on the fourth Thursday']];
+  out.push(`<section class="page">${pzTop(4, 'Mixed-Up Kitchen', 'words')}
+    <p class="story">Gus scrambled the words on the kitchen labels. Unscramble each one and write it in the boxes. The clue will help.</p>
+    <div class="scr">${scr.map(([s, w, c]) => `<div class="s">${s}</div><div><div class="clue">${c}</div><div class="boxes">${w.split('').map((_, i) => `<i class="${i === 0 ? 'first' : ''}"></i>`).join('')}</div></div>`).join('')}</div>
+    <p class="task" style="margin-top:14pt">Now read the <b>shaded</b> boxes from top to bottom. They spell something you can make from bread (and say at the dinner table!): <span class="blank" style="min-width:1.6in"></span></p>
+    ${answer(4, 'It’s the first (and last) letter of that word. Write it in box 4.')}
+    ${foot('Puzzle 4')}</section>`);
+
+  // P5 sudoku
+  const sud = [[1, 2, 3, 4], [3, 4, 1, 2], [2, 1, 4, 3], [4, 3, 2, 1]];
+  const giv = ['0,0', '0,3', '1,1', '1,2', '2,1', '2,3', '3,0', '3,2'];
+  const sym = { 1: A.pumpkin(), 2: A.pie(), 3: A.leaf({ color: C.pumpkin }), 4: A.acorn() };
+  window.SUDOKU = { sud, giv };
+  const sudHtml = (all) => `<div class="sud">${sud.flatMap((r, y) => r.map((v, x) => `<div class="${y === 2 && x === 0 ? 'shade' : ''}">${all || giv.includes(`${y},${x}`) ? sym[v] : ''}</div>`)).join('')}</div>`;
+  out.push(`<section class="page">${pzTop(5, 'Harvest Grid', 'logic')}
+    <p class="story">Gus planted his garden in a very particular way. Every row, every column and every 2×2 box must have one pumpkin, one pie, one leaf and one acorn.</p>
+    <p class="task">Draw the missing pictures (a quick sketch is fine). Which picture goes in the <b>shaded</b> square?</p>
+    ${sudHtml(false)}
+    <p class="task" style="text-align:center;margin-top:8pt">Each picture is a letter:</p>
+    <div class="symkey"><div>${sym[1]} B</div><div>${sym[2]} E</div><div>${sym[3]} S</div><div>${sym[4]} W</div></div>
+    ${answer(5, 'The shaded square’s letter goes in box 5.')}
+    ${foot('Puzzle 5')}</section>`);
+
+  // P6 spot the difference (6 differences)
+  const scene = (d) => {
+    const nest = (svg, x, y, w) => svg.replace('<svg ', `<svg x="${x}" y="${y}" width="${w}" height="${w}" `);
+    return `<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="600" height="300" fill="#FFF8EC"/><rect y="236" width="600" height="64" fill="#DCE3CF"/>
+      ${d ? '' : `<circle cx="545" cy="52" r="26" fill="${C.gold}"/>`}
+      <g fill="#fff" stroke="${C.line || '#E4D8C8'}" stroke-width="2"><ellipse cx="95" cy="52" rx="44" ry="17"/>${d ? '' : '<ellipse cx="260" cy="40" rx="40" ry="15"/>'}<ellipse cx="410" cy="62" rx="36" ry="14"/></g>
+      ${nest(A.leaf({ color: C.gold, rotate: 20 }), 160, 96, 34)}${d ? '' : nest(A.leaf({ color: C.cranberry, rotate: -30 }), 360, 100, 34)}${nest(A.leaf({ color: C.pumpkin, rotate: 50 }), 500, 130, 34)}
+      ${nest(A.turkey(), 215, 80, 170)}
+      ${d ? `<g><rect x="281" y="122" width="38" height="26" rx="3" fill="${C.ink}"/><rect x="270" y="145" width="60" height="8" rx="4" fill="${C.ink}"/><rect x="292" y="136" width="16" height="9" fill="${C.gold}"/></g>` : ''}
+      ${nest(A.pumpkin({ color: d ? C.gold : C.pumpkin }), 40, 170, 110)}
+      ${nest(A.pie(), 420, 196, 80)}
+      ${d ? '' : nest(A.acorn(), 528, 220, 44)}
+      ${nest(A.cranberries(), 140, 236, 56)}
+    </svg>`;
+  };
+  window.SCENE = scene;
+  out.push(`<section class="page">${pzTop(6, 'Spot the Difference', 'looking')}
+    <p class="story">Gus took two photos of his harvest picnic, but someone changed the second one! Circle every difference in the bottom picture.</p>
+    <div class="scene">${scene(false)}</div><div class="scene">${scene(true)}</div>
+    <p class="task">Number of differences I found: <span class="blank"></span></p>
+    ${keystrip()}
+    ${answer(6, 'Find your number in the Turkey number code. That letter goes in box 6.')}
+    ${foot('Puzzle 6')}</section>`);
+
+  // P7 logic grid
+  const names = ['Ana', 'Ben', 'Uma', 'Cole'], dishes = ['Pie', 'Rolls', 'Corn', 'Salad'];
+  out.push(`<section class="page">${pzTop(7, 'Who Brought the Pie?', 'detective')}
+    <p class="story">Four cousins each brought one dish to dinner. Gus wants to know who brought the pie, so he can sit next to them. Read the clues and fill in the grid: put ✗ for “no” and ✓ for “yes”.</p>
+    <ol class="clues"><li>Cole brought the rolls.</li><li>Ana did not bring the pie.</li><li>Ana did not bring the corn either.</li><li>Ben is not a baker: he did not bring the pie.</li></ol>
+    <table class="lg"><tr><th class="rh"></th>${dishes.map((d) => `<th>${d}</th>`).join('')}</tr>${names.map((n) => `<tr><th class="rh">${n}</th>${dishes.map(() => '<td></td>').join('')}</tr>`).join('')}</table>
+    <p class="task"><b>Tip:</b> each cousin brought exactly one dish, and each dish was brought by exactly one cousin. When a row has three ✗, the last square must be ✓.</p>
+    <p class="task">The pie was brought by: <span class="blank" style="min-width:1.6in"></span></p>
+    ${answer(7, 'It’s the first letter of that cousin’s name. Write it in box 7.')}
+    ${foot('Puzzle 7')}</section>`);
+
+  // P8 patterns
+  out.push(`<section class="page">${pzTop(8, 'What Comes Next?', 'patterns')}
+    <p class="story">Gus lines things up in patterns while he waits for dinner. Find the missing number in each row.</p>
+    <div class="pat"><b>A</b><span>2</span><span>4</span><span>6</span><span class="q"></span></div>
+    <div class="pat"><b>B</b><span>10</span><span>9</span><span>8</span><span class="q"></span></div>
+    <div class="pat"><b>C</b><span>9</span><span>7</span><span>5</span><span class="q"></span></div>
+    <p class="task" style="margin-top:6pt">Now do Gus’s sum: <b>A + B − C</b> = <span class="blank"></span></p>
+    ${keystrip()}
+    ${answer(8, 'Find your answer in the Turkey number code. That letter goes in box 8.')}
+    <div style="display:flex;justify-content:center;gap:18pt;margin:10pt 0 6pt"><div style="width:.7in">${A.acorn()}</div><div style="width:.9in">${A.pie()}</div><div style="width:.9in">${A.pumpkin()}</div></div>
+    ${foot('Puzzle 8')}</section>`);
+
+  // ---------- 14. hint cards
+  const hints = [
+    ['Pie Math', 'Two pies make 8, so one pie is 4. Now use the pie to find the acorn.'],
+    ['Secret Code', 'Match each picture to the key one at a time. The pumpkin is T and the acorn is E.'],
+    ['Corn Maze', 'Try the maze backwards: start at the PANTRY and work toward START.'],
+    ['Mixed-Up Kitchen', 'Every answer is something from Thanksgiving. The first word is TURKEY.'],
+    ['Harvest Grid', 'Row 3 already has a pumpkin and a leaf, so the shaded square is a pie or an acorn. Column 1 already has an acorn.'],
+    ['Spot the Difference', 'Check the sky, the turkey’s head, the colors and the ground. There are 6 changes.'],
+    ['Who Brought the Pie?', 'Cole brought the rolls, so he did not bring the pie. Neither Ana nor Ben did. Who is left?'],
+    ['What Comes Next?', 'Row A counts up by 2. Row B counts down by 1. Row C counts down by 2.'],
+  ];
+  out.push(`<section class="page">${head('Hint cards', 'Host keeps · cut out')}
+    <div class="grid8">${hints.map(([t, h], i) => `<div><div class="t">Hint for puzzle ${i + 1}: ${t}</div><p>${h}</p></div>`).join('')}</div>${foot('Hint cards')}</section>`);
+
+  // ---------- 15. envelope labels
+  const lab = [['★', 'START', 'Open first'], ...['Pie Math', 'Secret Code', 'Corn Maze', 'Mixed-Up Kitchen', 'Harvest Grid', 'Spot the Difference', 'Who Brought the Pie?', 'What Comes Next?'].map((t, i) => [i + 1, t, 'Puzzle ' + (i + 1) + ' of 8']), ['♥', 'FINALE', 'Host only']];
+  out.push(`<section class="page">${head('Envelope labels', 'Cut out · tape on envelopes')}
+    <div class="labels">${lab.map(([n, t, s]) => `<div><span class="n">${n}</span><span><b>${t}</b><span>${s}</span></span></div>`).join('')}</div>${foot('Envelope labels')}</section>`);
+
+  // ---------- 16. answer key
+  out.push(`<section class="page">${head('Answer key', 'Host only')}
+    <div class="key2">
+      <div><b class="l">1 = G</b>Pie = 4, acorn = 2, leaf = 1. Pie + acorn + leaf = 7, and 7 = G.</div>
+      <div><b class="l">2 = R</b>The note says LETTER TWO IS R.</div>
+      <div><b class="l">3 = A</b>The path collects A-U-T-U-M-N (AUTUMN). First letter: A.<div class="mini" style="width:2.3in">${mazeSvg(true)}</div></div>
+      <div><b class="l">4 = T</b>TURKEY, OVEN, ACORN, STUFFING, THANKS. Shaded letters spell TOAST. First letter: T.</div>
+      <div><b class="l">5 = E</b>The shaded square (row 3, column 1) is the pie, and pie = E.<div class="sudmini">${sud.flatMap((r, y) => r.map((v, x) => `<i class="${y === 2 && x === 0 ? 'sh' : ''}">${sym[v]}</i>`)).join('')}</div></div>
+      <div><b class="l">6 = F</b>6 differences: sun, middle cloud, red leaf and acorn are missing; the turkey wears a hat; the pumpkin is yellow. 6 = F.</div>
+      <div><b class="l">7 = U</b>Cole: rolls. Ana: not pie, not corn, so salad. Ben: not pie, so corn. Uma brought the pie: U.</div>
+      <div><b class="l">8 = L</b>A = 8, B = 7, C = 3. 8 + 7 − 3 = 12, and 12 = L.</div>
+    </div>
+    <div class="box" style="font-size:12pt;text-align:center"><b>The code word:</b> <span style="font-family:var(--serif);font-size:20pt;font-weight:700;letter-spacing:.2em">G R A T E F U L</span></div>
+    ${foot('Answer key')}</section>`);
+
+  // ---------- 17. certificate
+  out.push(`<section class="page cert"><div class="frame">
+    <div style="width:2in">${A.turkey()}</div>
+    <div class="eyebrow" style="margin-top:8pt">Official certificate</div>
+    <h1 style="margin:6pt 0">Pantry Unlocked!</h1>
+    <p style="font-size:13pt">This certifies that</p><div class="line"></div><p class="muted" style="font-size:9pt">name(s)</p>
+    <p style="font-size:13pt;margin-top:10pt">cracked all 8 of Gus’s puzzles and saved Thanksgiving dessert.</p>
+    <p style="font-size:11pt;margin-top:10pt">Time: <span class="blank" style="min-width:1in"></span> &nbsp;&nbsp; Date: <span class="blank" style="min-width:1.3in"></span></p>
+    <div style="display:flex;gap:20pt;margin-top:16pt"><div style="width:.8in">${A.pie()}</div><div style="width:.6in">${A.acorn()}</div><div style="width:.9in">${A.pumpkin()}</div></div>
+    <p class="serif italic" style="margin-top:10pt;color:var(--cranberry);font-size:13pt">Signed, Gus the Turkey</p>
+  </div></section>`);
+
+  document.getElementById('pages').innerHTML = out.join('');
+})();
+</script>
+</body>
+</html>

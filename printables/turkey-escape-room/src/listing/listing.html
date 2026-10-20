@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Listing images</title>
+<link rel="stylesheet" href="../../../_brand/brand.css">
+<script src="../../../_brand/art/autumn.js"></script>
+<style>
+  html, body { margin: 0; background: var(--cream); }
+  .stage { position: relative; overflow: hidden; background: var(--cream); font-family: var(--sans); color: var(--ink); }
+  .l { width: 3000px; height: 2250px; }
+  .pin { width: 1000px; height: 1500px; }
+  .sheet { position: absolute; background: #fff; box-shadow: 0 30px 70px rgba(59,47,42,.22), 0 6px 16px rgba(59,47,42,.12); border-radius: 6px; overflow: hidden; }
+  .sheet img { width: 100%; display: block; }
+  .t { font-family: var(--serif); font-weight: 600; line-height: 1.02; }
+  .t em { font-style: italic; font-weight: 500; color: var(--pumpkin); }
+  .badge { display: inline-flex; align-items: center; gap: 18px; background: #fff; border: 3px solid var(--line); border-radius: 999px; padding: 22px 44px; font-size: 54px; font-weight: 500; margin: 0 20px 24px 0; }
+  .badge i { width: 26px; height: 26px; border-radius: 50%; background: var(--sage); display: inline-block; }
+  .deco { position: absolute; }
+  .brand { position: absolute; font-size: 40px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  ul.get { list-style: none; padding: 0; margin: 0; }
+  ul.get li { font-size: 64px; padding: 30px 0; border-bottom: 3px solid var(--line); display: flex; gap: 34px; align-items: center; }
+  ul.get li b { font-family: var(--serif); font-size: 84px; color: var(--pumpkin); min-width: 150px; }
+  .step { background: #fff; border-radius: 40px; padding: 70px 60px; border: 3px solid var(--line); text-align: center; }
+  .step .n { width: 140px; height: 140px; border-radius: 50%; background: var(--pumpkin); color: #fff; font-family: var(--serif); font-size: 84px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 40px; }
+  .step h3 { font-size: 80px; margin-bottom: 24px; }
+  .step p { font-size: 50px; color: var(--ink-soft); line-height: 1.35; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const A = window.ART;
+const img = (p) => `<img src="img/${p}.png">`;
+const sheet = (p, x, y, w, rot = 0, z = 1) => `<div class="sheet" style="left:${x}px;top:${y}px;width:${w}px;transform:rotate(${rot}deg);z-index:${z}">${img(p)}</div>`;
+const deco = (svg, x, y, w, extra = '') => `<div class="deco" style="left:${x}px;top:${y}px;width:${w}px;${extra}">${svg}</div>`;
+const brand = (x, y) => `<div class="brand" style="left:${x}px;top:${y}px">Quiet Table Co.</div>`;
+
+const V = {
+  1: () => `<div class="stage l">
+    ${deco(A.leaf({ color: '#D9A441', rotate: -30 }), 120, 110, 260)}
+    ${deco(A.leaf({ color: '#9E3B3B', rotate: 40 }), 2660, 1850, 260)}
+    ${sheet('p08', 330, 330, 1080, -7, 1)}
+    ${sheet('p11', 560, 260, 1080, 4, 2)}
+    ${sheet('p01', 420, 190, 1180, -1.5, 3)}
+    <div style="position:absolute;left:1770px;top:300px;width:1120px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Printable escape room · ages 7–12</div>
+      <div class="t" style="font-size:190px"><em>Turkey Trouble</em><br>Escape Room</div>
+      <p style="font-size:68px;color:var(--ink-soft);margin:60px 0 70px;line-height:1.3">Gus the turkey locked the pantry. Kids crack 8 puzzles to win dessert.</p>
+      <span class="badge"><i></i>8 puzzles</span><span class="badge"><i></i>45–60 min</span><span class="badge"><i></i>Host guide + answers</span><span class="badge"><i></i>US Letter + A4</span>
+    </div>
+    ${brand(1780, 2090)}
+  </div>`,
+  2: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:150px;width:3000px;text-align:center">
+      <div class="t" style="font-size:150px">8 puzzles, 8 ways to <em>think</em></div>
+    </div>
+    ${sheet('p06', 170, 520, 860, -3, 1)}
+    ${sheet('p07', 640, 600, 860, 3, 2)}
+    ${sheet('p08', 1260, 560, 860, -2, 3)}
+    ${sheet('p11', 1980, 520, 860, 3, 4)}
+    <div style="position:absolute;left:0;top:1880px;width:3000px;display:flex;justify-content:space-around;font-family:var(--serif);font-size:76px;font-weight:600">
+      <span>Math</span><span>Secret codes</span><span>Mazes</span><span>Word puzzles</span><span>Logic</span><span>Spot the difference</span>
+    </div>
+  </div>`,
+  3: () => `<div class="stage l">
+    ${sheet('p02', 1500, 300, 1080, 6, 1)}
+    ${sheet('p05', 1240, 220, 1080, -3, 2)}
+    ${sheet('p14', 2230, 1180, 640, 8, 3)}
+    <div style="position:absolute;left:170px;top:360px;width:1000px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Easy for the host</div>
+      <div class="t" style="font-size:150px">Set up in<br><em>15 minutes</em></div>
+      <p style="font-size:64px;color:var(--ink-soft);margin:60px 0;line-height:1.35">Step-by-step host guide, envelope labels, hint cards and a full answer key.</p>
+      <p style="font-size:64px;color:var(--ink-soft);line-height:1.35">Easier and harder versions included.</p>
+    </div>
+    ${brand(170, 2120)}
+  </div>`,
+  4: () => `<div class="stage l">
+    ${sheet('p01', 2010, 260, 820, 4, 1)}
+    ${sheet('p17', 1840, 1080, 720, -5, 2)}
+    <div style="position:absolute;left:190px;top:200px;width:1600px">
+      <div class="t" style="font-size:150px;margin-bottom:60px">What you <em>get</em></div>
+      <ul class="get">
+        <li><b>8</b>puzzle pages (each reveals one code letter)</li>
+        <li><b>2</b>host guide pages + story cards to read aloud</li>
+        <li><b>1</b>Pantry Lock sheet, 8 hint cards, 10 labels</li>
+        <li><b>1</b>answer key + “Pantry Unlocked” certificate</li>
+        <li><b>17</b>pages in all, for 1–8 kids</li>
+        <li><b>2</b>PDFs: US Letter and A4</li>
+      </ul>
+    </div>
+    ${brand(190, 2100)}
+  </div>`,
+  5: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:200px;width:3000px;text-align:center">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:30px">Digital download · nothing is shipped</div>
+      <div class="t" style="font-size:150px">How it <em>works</em></div>
+    </div>
+    <div style="position:absolute;left:200px;top:720px;width:2600px;display:grid;grid-template-columns:repeat(3,1fr);gap:80px">
+      <div class="step"><div class="n">1</div><h3>Download</h3><p>Get the PDFs from your Etsy Purchases page right after checkout.</p></div>
+      <div class="step"><div class="n">2</div><h3>Print &amp; hide</h3><p>Print, put each puzzle in an envelope and hide them around the house.</p></div>
+      <div class="step"><div class="n">3</div><h3>Play</h3><p>Read Gus’s letter, start the timer, and watch the kids crack the code.</p></div>
+    </div>
+    <div style="position:absolute;left:0;top:1640px;width:3000px;text-align:center">
+      <span class="badge"><i></i>US Letter (8.5 × 11 in)</span><span class="badge"><i></i>A4 (210 × 297 mm)</span><span class="badge"><i></i>Personal use</span>
+    </div>
+    ${deco(A.sprig(), 1200, 1960, 600)}
+  </div>`,
+  6: () => `<div class="stage pin">
+    ${deco(A.leaf({ color: '#D9A441', rotate: -30 }), 40, 40, 120)}
+    ${deco(A.leaf({ color: '#9E3B3B', rotate: 30 }), 840, 60, 110)}
+    <div style="position:absolute;left:0;top:80px;width:1000px;text-align:center">
+      <div class="t" style="font-size:92px"><em>Thanksgiving</em><br>Escape Room<br>for Kids</div>
+      <p style="font-size:38px;color:var(--ink-soft);margin-top:24px">8 puzzles · ages 7–12 · print at home</p>
+    </div>
+    ${sheet('p08', 330, 640, 540, 6, 1)}
+    ${sheet('p01', 110, 600, 540, -4, 2)}
+  </div>`,
+  7: () => `<div class="stage pin" style="background:#fff">
+    <div style="position:absolute;left:0;top:0;width:1000px;height:430px;background:var(--pumpkin)"></div>
+    <div style="position:absolute;left:0;top:70px;width:1000px;text-align:center;color:#fff">
+      <div style="font-size:34px;letter-spacing:.2em;text-transform:uppercase;font-weight:500">Keep kids busy on Thanksgiving</div>
+      <div class="t" style="font-size:92px;margin-top:26px">Turkey Trouble<br>Escape Room</div>
+    </div>
+    ${sheet('p11', 180, 480, 640, -2, 1)}
+    <div style="position:absolute;left:0;bottom:50px;width:1000px;text-align:center;font-size:36px;color:var(--ink-soft)">Codes · mazes · logic · instant download</div>
+  </div>`,
+};
+document.getElementById('root').innerHTML = V[(location.hash || '#1').slice(1)]();
+</script>
+</body>
+</html>
