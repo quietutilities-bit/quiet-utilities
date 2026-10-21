@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en" data-size="letter">
+<head>
+<meta charset="utf-8">
+<title>Thanksgiving Host Planner</title>
+<link rel="stylesheet" href="../../_brand/brand.css">
+<script src="../../_brand/art/autumn.js"></script>
+<style>
+  .cover { align-items: center; justify-content: center; text-align: center; }
+  .cover h1 { font-size: 52pt; }
+  .cover h1 em { display: block; color: var(--pumpkin); font-size: 30pt; font-weight: 500; margin-bottom: 4pt; }
+  .cover .sub { font-size: 13pt; color: var(--ink-soft); margin-top: 12pt; max-width: 5.4in; }
+  .cover .facts { display: flex; gap: 9pt; justify-content: center; margin-top: 22pt; flex-wrap: wrap; max-width: 6in; }
+  .cover .facts span { background: #fff; border: 1pt solid var(--line); border-radius: 99pt; padding: 6pt 14pt; font-size: 10pt; font-weight: 500; }
+  .corner { position: absolute; width: 1in; }
+  .hostline { margin-top: 26pt; font-size: 11pt; display: flex; gap: 8pt; align-items: flex-end; }
+
+  .ph { flex: none; }
+  .ph .art { width: 0.42in; flex: none; margin-left: 8pt; }
+  .ph .right { display: flex; align-items: flex-end; }
+  .intro { flex: none; font-size: 10.3pt; color: var(--ink-soft); margin: -4pt 0 10pt; }
+
+  /* fill-in tables that stretch to the page */
+  .tbl { flex: 1; min-height: 0; display: grid; border-top: 1.5pt solid var(--ink); }
+  .tbl > div { border-bottom: 0.9pt solid var(--line); border-right: 0.9pt solid var(--line); padding: 3pt 6pt; font-size: 9.5pt; display: flex; align-items: center; min-height: 0; }
+  .tbl > div.r { border-right: 0; }
+  .tbl > div.h { font-size: 8pt; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; background: var(--cream); border-bottom: 1.2pt solid var(--ink-soft); padding: 5pt 6pt; }
+  .tbl > div.c { justify-content: center; }
+  .tbl > div.t { font-family: var(--serif); font-weight: 600; font-size: 10.5pt; }
+  .tbl > div.sec { background: #FBF0E4; font-family: var(--serif); font-weight: 600; font-size: 11pt; color: var(--cranberry); }
+  .ck { width: 10pt; height: 10pt; border: 1.2pt solid var(--ink); border-radius: 2.5pt; display: inline-block; flex: none; }
+
+  /* checklists in columns */
+  .ck2 { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10pt 22pt; align-content: start; }
+  .ckbox h3 { color: var(--cranberry); font-size: 13pt; margin-bottom: 4pt; display: flex; justify-content: space-between; align-items: baseline; }
+  .ckbox h3 small { font-family: var(--sans); font-size: 8pt; font-weight: 500; color: var(--ink-soft); letter-spacing: .1em; text-transform: uppercase; }
+  .ckbox ul { list-style: none; margin: 0; padding: 0; }
+  .ckbox li { display: flex; gap: 8pt; align-items: flex-start; font-size: 9.8pt; padding: 3.6pt 0; border-bottom: 0.8pt solid var(--line); line-height: 1.3; }
+  .ckbox li .ck { margin-top: 1.5pt; }
+  .ckbox li.blank { height: 19pt; }
+  .sup .ckbox li { font-size: 10.6pt; padding: 6.5pt 0; }
+  .sup .ckbox li.blank { height: 26pt; }
+  .sup .ckbox h3 { font-size: 14pt; margin-bottom: 6pt; }
+  .sup { gap: 16pt 22pt; }
+
+  /* countdown */
+  .cd { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; gap: 10pt 22pt; }
+  .cd .when { display: inline-block; background: var(--pumpkin); color: #fff; font-size: 7.5pt; letter-spacing: .12em; text-transform: uppercase; padding: 2pt 8pt; border-radius: 99pt; font-weight: 500; margin-bottom: 3pt; }
+
+  /* shopping */
+  .shop { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 1fr); gap: 10pt 18pt; }
+  .shop > div { display: flex; flex-direction: column; min-height: 0; }
+  .shop h3 { font-size: 12pt; color: var(--cranberry); border-bottom: 1.3pt solid var(--ink); padding-bottom: 2pt; display: flex; justify-content: space-between; align-items: baseline; flex: none; }
+  .shop h3 small { font-family: var(--sans); font-size: 7.5pt; color: var(--ink-soft); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
+  .shop .rows { flex: 1; display: grid; grid-auto-rows: 1fr; }
+  .shop .rows div { border-bottom: 0.8pt solid var(--line); display: flex; align-items: center; gap: 7pt; font-size: 9pt; color: var(--ink-soft); }
+  .shop .rows div .q { margin-left: auto; width: 0.45in; border-left: 0.8pt solid var(--line); height: 100%; }
+
+  /* turkey guide */
+  .tg { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.08fr 1fr; gap: 12pt 20pt; align-content: start; }
+  .tg h3 { color: var(--cranberry); font-size: 13pt; margin-bottom: 5pt; }
+  .tg p, .tg li { font-size: 10.4pt; }
+  .tg ul { margin: 0; padding-left: 14pt; }
+  table.mini { border-collapse: collapse; width: 100%; font-size: 10.2pt; margin-bottom: 4pt; }
+  table.mini th { background: var(--cream); font-weight: 500; font-size: 8pt; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); text-align: left; padding: 4pt 6pt; border-bottom: 1.2pt solid var(--ink-soft); }
+  table.mini td { padding: 4pt 6pt; border-bottom: 0.8pt solid var(--line); }
+  .note { font-size: 8.5pt; color: var(--ink-soft); }
+  .my { background: var(--cream); border-radius: 10pt; padding: 10pt 14pt; flex: none; margin-top: 10pt; }
+  .my h3 { color: var(--pumpkin); font-size: 13pt; margin-bottom: 6pt; }
+  .my .f { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10pt 16pt; font-size: 9.5pt; }
+  .my .f div { border-bottom: 1.1pt solid var(--ink); padding-bottom: 12pt; }
+  .hot { display: flex; gap: 10pt; align-items: center; background: #F7E3D3; border-radius: 10pt; padding: 8pt 12pt; margin-top: 8pt; }
+  .hot b.big { font-family: var(--serif); font-size: 26pt; color: var(--cranberry); line-height: 1; }
+
+  /* sample timeline */
+  .tl { flex: 1; min-height: 0; display: grid; grid-template-columns: 0.95in 1fr; grid-auto-rows: 1fr; border-left: 2pt solid var(--pumpkin); margin-left: 6pt; }
+  .tl > div { display: flex; align-items: center; font-size: 10pt; border-bottom: 0.8pt solid var(--line); padding: 0 8pt; }
+  .tl > .tm { font-family: var(--serif); font-weight: 700; color: var(--pumpkin); font-size: 11pt; position: relative; }
+  .tl > .tm::before { content: ""; position: absolute; left: -6.2pt; width: 9pt; height: 9pt; border-radius: 50%; background: var(--pumpkin); border: 2pt solid #fff; }
+  .tl > .big { font-weight: 600; color: var(--cranberry); }
+
+  /* seating */
+  .seat { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+  .seat > svg { width: 100%; height: 100%; }
+  .seat-notes { flex: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6pt 18pt; font-size: 9.5pt; margin-top: 6pt; }
+  .seat-notes div { border-bottom: 1pt solid var(--line); padding: 10pt 0 3pt; color: var(--ink-soft); }
+
+  /* tent cards */
+  .tents { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr); border: 0.75pt dashed #B9A995; }
+  .tent { border: 0.75pt dashed #B9A995; display: grid; grid-template-rows: 1fr 1fr; position: relative; min-height: 0; }
+  .tent .fold { position: absolute; left: 0; right: 0; top: 50%; border-top: 0.75pt dotted #B9A995; }
+  .tent .fold span { position: absolute; right: 4pt; top: -9pt; font-size: 6pt; color: #A99885; letter-spacing: .1em; text-transform: uppercase; }
+  .tent .back, .tent .front { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8pt 16pt; min-height: 0; overflow: hidden; }
+  .tent .back { transform: rotate(180deg); }
+  .tent .nameline { width: 80%; border-bottom: 1.2pt solid var(--ink); height: 26pt; flex: none; }
+  .tent .small { font-size: 7.5pt; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); margin-top: 4pt; }
+  .tent .row { display: flex; align-items: center; gap: 10pt; }
+  .tent .dish { font-family: var(--serif); font-size: 10pt; color: var(--ink-soft); }
+  .tent .tags { display: flex; flex-wrap: wrap; gap: 4pt 10pt; justify-content: center; font-size: 7.6pt; margin-top: 6pt; }
+  .tent .tags span { display: flex; align-items: center; gap: 3pt; }
+  .tent .tags .ck { width: 7.5pt; height: 7.5pt; border-width: 1pt; border-radius: 2pt; }
+
+  /* notes page */
+  .two { flex: 1; min-height: 0; display: grid; grid-template-rows: 1fr 1fr; gap: 14pt; }
+  .two > div { display: flex; flex-direction: column; min-height: 0; }
+  .lined { flex: 1; min-height: 0; display: grid; grid-auto-rows: 1fr; }
+  .lined div { border-bottom: 0.9pt solid var(--line); }
+  .sech { flex: none; font-family: var(--serif); font-weight: 600; font-size: 14pt; color: var(--cranberry); margin-bottom: 4pt; }
+
+  .welcome { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14pt 24pt; align-content: start; }
+  .welcome h3 { color: var(--cranberry); margin-bottom: 5pt; }
+  .welcome p, .welcome li { font-size: 10.3pt; }
+  .welcome ol, .welcome ul { margin: 0 0 6pt; padding-left: 15pt; }
+  .contents { list-style: none; padding: 0 !important; margin: 0; }
+  .contents li { display: flex; gap: 8pt; border-bottom: 0.8pt solid var(--line); padding: 3.2pt 0; font-size: 10pt; }
+  .contents li b { color: var(--pumpkin); width: 18pt; font-family: var(--serif); }
+  .blank { display: inline-block; border-bottom: 1.2pt solid var(--ink); min-width: 0.8in; height: 14pt; vertical-align: bottom; }
+  .glance { margin-top: 12pt; background: var(--cream); border-radius: 10pt; padding: 10pt 14pt; }
+  .glance h3 { color: var(--pumpkin); margin-bottom: 4pt; }
+  .glance div.f { border-bottom: 1.1pt solid var(--ink); padding: 12pt 0 2pt; font-size: 9.8pt; }
+  .box { background: var(--cream); border-radius: 10pt; padding: 12pt 14pt; font-size: 10.3pt; margin-top: 12pt; flex: none; }
+  .box b { color: var(--pumpkin); }
+</style>
+</head>
+<body>
+<div id="pages"></div>
+<script>
+(function () {
+  const A = window.ART, C = A.C;
+  const out = [];
+  const foot = (label) => `<div class="pf"><span>Thanksgiving Host Planner · ${label}</span><span>© 2026 Quiet Table Co. · personal use only</span></div>`;
+  const head = (title, eyebrow, art) => `<div class="ph"><h2>${title}</h2><div class="right"><span class="eyebrow">${eyebrow}</span>${art ? `<div class="art">${art}</div>` : ''}</div></div>`;
+  const ck = '<i class="ck"></i>';
+
+  // fill-in table: cols = [{h, w, cls}], n blank rows, prefill = optional rows of cell text
+  function tbl(cols, n, prefill = []) {
+    const tpl = cols.map((c) => c.w).join(' ');
+    let cells = cols.map((c, i) => `<div class="h ${i === cols.length - 1 ? 'r' : ''}">${c.h}</div>`).join('');
+    for (let r = 0; r < n; r++) {
+      const row = prefill[r];
+      if (row && row.sec) { cells += `<div class="sec r" style="grid-column:1 / -1">${row.sec}</div>`; continue; }
+      cells += cols.map((c, i) => `<div class="${c.cls || ''} ${i === cols.length - 1 ? 'r' : ''}">${row && row[i] != null ? row[i] : (c.ck ? ck : '')}</div>`).join('');
+    }
+    return `<div class="tbl" style="grid-template-columns:${tpl};grid-template-rows:auto repeat(${n}, 1fr)">${cells}</div>`;
+  }
+  const list = (title, items, blanks = 0, pre = '') => `<div class="ckbox">${pre}<h3>${title}</h3><ul>${items.map((t) => `<li>${ck}<span>${t}</span></li>`).join('')}${Array.from({ length: blanks }, () => `<li class="blank">${ck}<span></span></li>`).join('')}</ul></div>`;
+
+  // ---------- 1. cover
+  out.push(`<section class="page tint cover">
+    <div class="corner" style="top:.5in;left:.5in">${A.leaf({ color: C.gold, rotate: -25 })}</div>
+    <div class="corner" style="top:.55in;right:.55in;width:.75in">${A.acorn()}</div>
+    <div class="corner" style="bottom:.55in;left:.6in;width:.9in">${A.wheat()}</div>
+    <div class="corner" style="bottom:.5in;right:.5in">${A.leaf({ color: C.cranberry, rotate: 30 })}</div>
+    <div style="display:flex;align-items:flex-end;gap:14pt;margin-bottom:16pt">
+      <div style="width:1.3in">${A.pumpkin()}</div><div style="width:1.6in">${A.pie()}</div><div style="width:1.05in">${A.cranberries()}</div>
+    </div>
+    <div class="eyebrow">Printable planner · 19 pages</div>
+    <h1 style="margin-top:8pt"><em>Thanksgiving</em>Host Planner</h1>
+    <div class="sub">Everything you need to plan a calm, delicious Thanksgiving: menu, countdown, hour-by-hour timeline, shopping list, seating chart and place cards.</div>
+    <div class="facts"><span>Menu + potluck sign-up</span><span>Turkey guide</span><span>Hour-by-hour timeline</span><span>Shopping list</span><span>Seating chart</span><span>Place cards + food labels</span></div>
+    <div class="hostline"><span class="serif italic" style="font-size:13pt">Hosted by</span><span class="blank" style="min-width:2.4in"></span><span class="serif italic" style="font-size:13pt">in</span><span class="blank" style="min-width:0.9in"></span></div>
+  </section>`);
+
+  // ---------- 2. welcome + contents
+  out.push(`<section class="page">${head('Welcome, host', 'How to use this planner', A.leaf({ color: C.gold, rotate: -20 }))}
+    <div class="welcome">
+      <div>
+        <h3>Plan it in four steps</h3>
+        <ol>
+          <li><b>Three weeks out:</b> fill in the guest list, the menu and the potluck sign-up. Decide on your turkey size with the turkey guide.</li>
+          <li><b>Two weeks out:</b> work through the countdown checklist and plan what you can make ahead.</li>
+          <li><b>The week of:</b> write the shopping list by aisle, plan your seating and print the place cards and food labels.</li>
+          <li><b>The day before:</b> fill in your own timeline and oven schedule (the sample timeline shows how), then set the table and relax.</li>
+        </ol>
+        <h3 style="margin-top:10pt">Printing tips</h3>
+        <ul>
+          <li>Print at “Actual size” or “100%”.</li>
+          <li>Print only the pages you need; print the place cards and food labels on card stock if you have it.</li>
+          <li>Pages look great in color and work fine in black and white.</li>
+          <li>Keep the pages together in a folder or on a clipboard in the kitchen.</li>
+        </ul>
+        <div class="glance"><h3>Our Thanksgiving at a glance</h3>
+          ${['Date', 'Dinner time', 'Number of guests', 'Turkey size', 'Guests arrive at'].map((t) => `<div class="f">${t}:</div>`).join('')}</div>
+      </div>
+      <div>
+        <h3>What’s inside</h3>
+        <ul class="contents">
+          ${['Cover', 'Welcome', 'Countdown checklist', 'Guest list &amp; RSVPs', 'Menu planner', 'Potluck sign-up', 'Make-ahead plan', 'Shopping list by aisle', 'Turkey guide', 'Sample timeline (3 PM dinner)', 'My Thanksgiving Day timeline', 'Oven &amp; stovetop schedule', 'Table &amp; supplies checklist', 'Seating chart: long table', 'Seating chart: round tables', 'Place cards: pumpkin', 'Place cards: leaves', 'Buffet food labels', 'Leftovers &amp; notes for next year'].map((t, i) => `<li><b>${i + 1}</b><span>${t}</span></li>`).join('')}
+        </ul>
+      </div>
+    </div>
+    <div class="box"><b>A host’s secret:</b> label every serving dish with a sticky note the day before (“green beans”, “gravy”), with the serving spoon inside. On the day, anyone can help you plate up.</div>
+    ${foot('Welcome')}</section>`);
+
+  // ---------- 3. countdown
+  const cdBlock = (when, title, items, blanks) => list(title, items, blanks, `<span class="when">${when}</span>`);
+  out.push(`<section class="page">${head('Countdown checklist', 'Three weeks to dinner', A.acorn())}
+    <div class="cd">
+      ${cdBlock('3 weeks before', 'Invite &amp; decide', ['Set the date, time and guest list', 'Send invitations (text, call or card)', 'Plan the menu; ask guests what they’d like to bring', 'Order a fresh turkey or buy a frozen one', 'Check chairs, plates, glasses, serving dishes, roasting pan and a meat thermometer'], 1)}
+      ${cdBlock('2 weeks before', 'Shop the basics', ['Buy drinks and pantry staples', 'Plan the table, decorations and seating', 'Make and freeze what you can (pie dough, rolls, soup)', 'Borrow or buy anything missing from the supplies list'], 2)}
+      ${cdBlock('1 week before', 'Confirm &amp; clear', ['Confirm RSVPs and dietary needs', 'Confirm the potluck sign-up with each guest', 'Write the fresh-food shopping list', 'Clear space in the fridge and freezer', 'Frozen turkey? Count back the thawing days (turkey guide)'], 1)}
+      ${cdBlock('2–3 days before', 'Shop &amp; prep', ['Shop for produce, dairy and bread', 'Make cranberry sauce and dips', 'Chop onions, celery and herbs; store in containers', 'Print place cards and food labels'], 2)}
+      ${cdBlock('The day before', 'Get ahead', ['Bake pies; assemble casseroles to bake tomorrow', 'Set the table and arrange the decorations', 'Label serving dishes with sticky notes', 'Chill drinks; make ice', 'Fill in your timeline and oven schedule'], 1)}
+      ${cdBlock('Thanksgiving Day', 'Enjoy it', ['Follow your timeline', 'Empty the dishwasher before guests arrive', 'Set out appetizers and drinks', 'Refrigerate leftovers within 2 hours of serving'], 2)}
+    </div>
+    ${foot('Countdown checklist')}</section>`);
+
+  // ---------- 4. guest list
+  out.push(`<section class="page">${head('Guest list &amp; RSVPs', 'Who’s coming', A.leaf({ color: C.cranberry, rotate: 20 }))}
+    ${tbl([{ h: 'Name / household', w: '2.1fr', cls: 't' }, { h: 'RSVP', w: '0.55fr', cls: 'c', ck: 1 }, { h: 'Adults', w: '0.6fr' }, { h: 'Kids', w: '0.55fr' }, { h: 'Bringing', w: '1.4fr' }, { h: 'Allergies / diet', w: '1.3fr' }], 22)}
+    <div style="flex:none;display:flex;gap:18pt;margin-top:8pt;font-size:10pt"><span>Total adults: <span class="blank"></span></span><span>Total kids: <span class="blank"></span></span><span>Total guests: <span class="blank"></span></span><span>High chairs / kids’ table: <span class="blank"></span></span></div>
+    ${foot('Guest list')}</section>`);
+
+  // ---------- 5. menu
+  const menuSec = (t) => ({ sec: t });
+  out.push(`<section class="page">${head('Menu planner', 'What we’re serving', A.pie())}
+    ${tbl([{ h: 'Dish', w: '2.2fr', cls: 't' }, { h: 'Made by', w: '1.1fr' }, { h: 'Recipe / source', w: '1.3fr' }, { h: 'Serves', w: '0.55fr' }, { h: 'GF', w: '0.4fr', cls: 'c', ck: 1 }, { h: 'Veg', w: '0.4fr', cls: 'c', ck: 1 }],
+      26, [menuSec('Appetizers'), null, null, null, menuSec('Main'), null, null, menuSec('Sides'), null, null, null, null, null, null, menuSec('Bread &amp; sauces'), null, null, null, menuSec('Desserts'), null, null, null, menuSec('Drinks'), null, null, null])}
+    ${foot('Menu planner')}</section>`);
+
+  // ---------- 6. potluck
+  out.push(`<section class="page">${head('Potluck sign-up', 'Who brings what', A.cranberries())}
+    <div class="intro">Hang this on the fridge or send a photo to your guests. Fill in the dishes you need first, then let guests sign up.</div>
+    ${tbl([{ h: 'Category', w: '1fr' }, { h: 'Dish needed', w: '1.6fr', cls: 't' }, { h: 'Name', w: '1.2fr' }, { h: 'Serves', w: '0.6fr' }, { h: 'Needs oven?', w: '0.75fr', cls: 'c', ck: 1 }, { h: 'Confirmed', w: '0.75fr', cls: 'c', ck: 1 }], 22,
+      [['Appetizer'], ['Appetizer'], ['Side'], ['Side'], ['Side'], ['Side'], ['Salad'], ['Bread / rolls'], ['Dessert'], ['Dessert'], ['Drinks'], ['Drinks'], ['Ice'], ['Extra chairs'], ['To-go containers']])}
+    ${foot('Potluck sign-up')}</section>`);
+
+  // ---------- 7. make-ahead
+  out.push(`<section class="page">${head('Make-ahead plan', 'Cook early, relax later', A.wheat())}
+    <div class="intro">Pies, cranberry sauce, dips, casseroles and rolls are easy to make 1–3 days early. Write each dish here and the day you’ll make it.</div>
+    ${tbl([{ h: 'Dish', w: '2fr', cls: 't' }, { h: 'Make on (day)', w: '1fr' }, { h: 'Store in', w: '0.95fr' }, { h: 'Reheat / finish', w: '1.45fr' }, { h: 'Done', w: '0.45fr', cls: 'c', ck: 1 }], 20,
+      [['<span class="muted" style="font-weight:400;font-style:italic">e.g. Pumpkin pie</span>', '<span class="muted"><i>Tuesday</i></span>', '<span class="muted"><i>Fridge</i></span>', '<span class="muted"><i>Serve at room temp</i></span>']])}
+    ${foot('Make-ahead plan')}</section>`);
+
+  // ---------- 8. shopping
+  const aisle = (t, n, small = 'qty') => `<div><h3>${t}<small>${small}</small></h3><div class="rows">${Array.from({ length: n }, () => `<div>${ck}<span class="q"></span></div>`).join('')}</div></div>`;
+  out.push(`<section class="page">${head('Shopping list', 'By aisle', A.leaf({ color: C.sage, rotate: -10 }))}
+    <div class="shop">
+      ${aisle('Produce', 8)}${aisle('Meat &amp; turkey', 8)}
+      ${aisle('Dairy &amp; eggs', 8)}${aisle('Bakery', 8)}
+      ${aisle('Pantry &amp; baking', 8)}${aisle('Spices &amp; sauces', 8)}
+      ${aisle('Drinks', 8)}${aisle('Paper goods &amp; other', 8)}
+    </div>
+    <div style="flex:none;display:flex;gap:18pt;margin-top:8pt;font-size:10pt"><span>Store(s): <span class="blank" style="min-width:2in"></span></span><span>Budget: <span class="blank"></span></span><span>Spent: <span class="blank"></span></span></div>
+    ${foot('Shopping list')}</section>`);
+
+  // ---------- 9. turkey guide
+  out.push(`<section class="page">${head('Turkey guide', 'Size · thaw · roast', A.turkey())}
+    <div class="tg">
+      <div>
+        <h3>How big?</h3>
+        <p>Plan on about <b>1 lb per person</b>, or <b>1½ lb per person</b> if you want leftovers. (A 14 lb turkey feeds about 10–14.)</p>
+        <h3 style="margin-top:10pt">Thawing in the fridge</h3>
+        <p>Allow about <b>1 day for every 4–5 lb</b>, in a pan, in a fridge at 40°F or colder.</p>
+        <table class="mini"><tr><th>Turkey</th><th>Days to thaw</th></tr>
+          <tr><td>4–12 lb</td><td>1–3 days</td></tr><tr><td>12–16 lb</td><td>3–4 days</td></tr><tr><td>16–20 lb</td><td>4–5 days</td></tr><tr><td>20–24 lb</td><td>5–6 days</td></tr></table>
+        <p class="note">Running late? Thaw in cold water in its wrapper: about 30 minutes per lb, changing the water every 30 minutes, and cook it right away.</p>
+        <h3 style="margin-top:10pt">Before it goes in</h3>
+        <ul><li>Take the neck and giblets out of both cavities.</li><li>Don’t rinse the raw turkey; pat it dry with paper towels.</li><li>Roast breast-side up on a rack in a shallow pan.</li></ul>
+        <div class="hot"><b class="big">165°F</b><span style="font-size:9.6pt">The turkey is done when a food thermometer reads <b>165°F</b> in the thickest part of the thigh, the wing and the breast. Let it rest 20–30 minutes before carving.</span></div>
+      </div>
+      <div>
+        <h3>Roasting times at 325°F</h3>
+        <table class="mini"><tr><th>Turkey</th><th>Unstuffed</th><th>Stuffed</th></tr>
+          <tr><td>8–12 lb</td><td>2¾–3 hr</td><td>3–3½ hr</td></tr>
+          <tr><td>12–14 lb</td><td>3–3¾ hr</td><td>3½–4 hr</td></tr>
+          <tr><td>14–18 lb</td><td>3¾–4¼ hr</td><td>4–4¼ hr</td></tr>
+          <tr><td>18–20 lb</td><td>4¼–4½ hr</td><td>4¼–4¾ hr</td></tr>
+          <tr><td>20–24 lb</td><td>4½–5 hr</td><td>4¾–5¼ hr</td></tr></table>
+        <p class="note">Times are for a fully thawed turkey and are only a guide (based on USDA guidance). Ovens vary: start checking the temperature 30–45 minutes early. If you stuff the bird, the center of the stuffing must also reach 165°F.</p>
+        <h3 style="margin-top:10pt">Leftovers</h3>
+        <ul><li>Refrigerate within 2 hours of serving.</li><li>Carve the meat off the bone and store it in shallow containers.</li><li>Eat within 3–4 days, or freeze.</li><li>Reheat leftovers until hot (165°F).</li></ul>
+      </div>
+    </div>
+    <div class="my"><h3>My turkey</h3><div class="f">
+      <div>Weight: </div><div>Fresh / frozen: </div><div>Pick up / buy on: </div>
+      <div>Start thawing on: </div><div>Oven on at: </div><div>Turkey in at: </div>
+      <div>Check temp at: </div><div>Out to rest at: </div><div>Carve at: </div></div></div>
+    ${foot('Turkey guide')}</section>`);
+
+  // ---------- 10. sample timeline
+  const S = [
+    ['7:30 AM', 'Coffee first. Read through today’s timeline and oven schedule.'],
+    ['8:00 AM', 'Set out serving dishes (labeled the day before). Chill drinks.'],
+    ['9:30 AM', 'Prep stuffing to bake in a dish; peel potatoes and keep them in cold water.'],
+    ['10:00 AM', 'Preheat the oven to 325°F. Pat the turkey dry and season it.'],
+    ['10:45 AM', 'Turkey in the oven (14 lb, unstuffed: about 3–3¾ hours).', 1],
+    ['11:30 AM', 'Prep vegetables and salad. Wash up as you go.'],
+    ['12:30 PM', 'Shower and get dressed while the turkey roasts.'],
+    ['1:15 PM', 'Set out appetizers and the drinks station.'],
+    ['1:45 PM', 'Start checking the turkey temperature (aim for 165°F).'],
+    ['2:00 PM', 'Guests arrive. Put the potatoes on to boil.'],
+    ['2:15 PM', 'Turkey out; cover loosely with foil to rest. Oven up for sides and rolls.', 1],
+    ['2:30 PM', 'Make gravy from the drippings. Mash the potatoes.'],
+    ['2:45 PM', 'Carve the turkey. Warm rolls. Fill water glasses.'],
+    ['3:00 PM', 'Dinner is served!', 1],
+    ['4:30 PM', 'Coffee and pie. Pack leftovers within 2 hours.'],
+  ];
+  out.push(`<section class="page">${head('Sample timeline', 'Dinner at 3 PM · 14 lb turkey', A.pumpkin())}
+    <div class="intro">Use this as a model for your own timeline on the next page. Work backward from your dinner time: rest + roast time + 45 minutes to preheat and prep the turkey.</div>
+    <div class="tl">${S.map(([t, x, b]) => `<div class="tm">${t}</div><div class="${b ? 'big' : ''}">${x}</div>`).join('')}</div>
+    ${foot('Sample timeline')}</section>`);
+
+  // ---------- 11. my timeline
+  out.push(`<section class="page">${head('My Thanksgiving Day', 'Hour by hour', A.leaf({ color: C.pumpkin, rotate: 15 }))}
+    <div style="flex:none;display:flex;gap:18pt;margin-bottom:8pt;font-size:10pt"><span>Dinner at: <span class="blank"></span></span><span>Turkey weight: <span class="blank"></span></span><span>Turkey in at: <span class="blank"></span></span><span>Guests arrive: <span class="blank"></span></span></div>
+    ${tbl([{ h: 'Time', w: '0.8fr', cls: 't' }, { h: 'To do', w: '3fr' }, { h: 'Who', w: '0.9fr' }, { h: 'Done', w: '0.45fr', cls: 'c', ck: 1 }], 22)}
+    ${foot('My timeline')}</section>`);
+
+  // ---------- 12. oven schedule
+  out.push(`<section class="page">${head('Oven &amp; stovetop schedule', 'Who gets the heat, when', A.pie())}
+    <div class="intro">The oven is the bottleneck on Thanksgiving. Write each dish in its slot (with temperature) so nothing fights for space. Slow cookers, the microwave and a grill can take the overflow.</div>
+    ${tbl([{ h: 'Time', w: '0.75fr', cls: 't' }, { h: 'Oven (temp)', w: '1.5fr' }, { h: 'Stovetop', w: '1.4fr' }, { h: 'Slow cooker / micro / other', w: '1.4fr' }], 18)}
+    ${foot('Oven schedule')}</section>`);
+
+  // ---------- 13. supplies
+  out.push(`<section class="page">${head('Table &amp; supplies', 'Check it off', A.acorn())}
+    <div class="ck2 sup">
+      ${list('On the table', ['Tablecloth or runner, napkins', 'Dinner plates and salad / dessert plates', 'Forks, knives, spoons, dessert forks', 'Water glasses and wine / drink glasses', 'Salt and pepper, butter dish', 'Centerpiece and candles', 'Place cards (pages 16–17)'], 2)}
+      ${list('Serving', ['Turkey platter and carving board', 'Serving bowls and spoons (one per dish)', 'Gravy boat and ladle', 'Bread basket', 'Pie server and cake knife', 'Food labels for the buffet (page 18)', 'Trivets'], 2)}
+      ${list('Kitchen tools', ['Roasting pan with rack', 'Meat thermometer', 'Carving knife and fork', 'Baster or large spoon', 'Foil, plastic wrap, parchment', 'Potato masher, whisk for gravy', 'Timer (or two)'], 2)}
+      ${list('Hosting extras', ['Extra chairs and a kids’ table', 'Coat space and a spot for shoes', 'Ice and a cooler for drinks', 'Coffee, tea, cream and sugar', 'To-go containers for leftovers', 'Trash and recycling bags', 'Games or a playlist'], 2)}
+    </div>
+    ${foot('Table &amp; supplies')}</section>`);
+
+  // ---------- 14. seating: long table
+  function seatSvg(cx, cy, n) {
+    return `<circle cx="${cx}" cy="${cy}" r="${n}" fill="#fff" stroke="${C.pumpkin}" stroke-width="2.5"/><line x1="${cx - n * 0.62}" y1="${cy + n * 0.25}" x2="${cx + n * 0.62}" y2="${cy + n * 0.25}" stroke="${C.ink}" stroke-opacity=".45" stroke-width="1.2"/>`;
+  }
+  {
+    const W = 700, H = 760, tw = 210, th = 560, tx = (W - tw) / 2, ty = 100, r = 52;
+    let s = `<rect x="${tx}" y="${ty}" width="${tw}" height="${th}" rx="18" fill="${C.cream}" stroke="${C.bark}" stroke-width="3"/>`;
+    s += `<text x="${W / 2}" y="${ty + th / 2}" text-anchor="middle" font-family="Lora" font-size="26" fill="${C.bark}" transform="rotate(-90 ${W / 2} ${ty + th / 2})">Thanksgiving table</text>`;
+    for (let i = 0; i < 5; i++) { const y = ty + 60 + i * 110; s += seatSvg(tx - 78, y, r) + seatSvg(tx + tw + 78, y, r); }
+    s += seatSvg(W / 2, ty - 50, r - 4) + seatSvg(W / 2, ty + th + 50, r - 4);
+    out.push(`<section class="page">${head('Seating chart', 'Long table · 12 seats', A.leaf({ color: C.gold, rotate: -15 }))}
+      <div class="intro">Write a name on each seat. Tip: seat the cooks nearest the kitchen and seat new friends next to someone chatty.</div>
+      <div class="seat"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${s}</svg></div>
+      <div class="seat-notes"><div>Head of the table:</div><div>Nearest the kitchen:</div><div>Kids’ table:</div><div>High chair / extra seats:</div></div>
+      ${foot('Seating chart')}</section>`);
+  }
+
+  // ---------- 15. seating: round tables
+  {
+    const W = 700, H = 920, R = 108, r = 42;
+    const round = (cx, cy, label) => {
+      let s = `<circle cx="${cx}" cy="${cy}" r="${R}" fill="${C.cream}" stroke="${C.bark}" stroke-width="3"/><text x="${cx}" y="${cy + 9}" text-anchor="middle" font-family="Lora" font-size="26" fill="${C.bark}">${label}</text>`;
+      for (let i = 0; i < 8; i++) { const a = (i / 8) * Math.PI * 2 - Math.PI / 2; s += seatSvg(cx + Math.cos(a) * (R + 58), cy + Math.sin(a) * (R + 58), r); }
+      return s;
+    };
+    out.push(`<section class="page">${head('Seating chart', 'Two round tables · 8 seats each', A.leaf({ color: C.sage, rotate: 25 }))}
+      <div class="intro">Use one or both tables (for example, grown-ups and kids). Write a name on each seat.</div>
+      <div class="seat"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${round(W / 2, 222, 'Table 1')}${round(W / 2, 698, 'Table 2')}</svg></div>
+      ${foot('Seating chart')}</section>`);
+  }
+
+  // ---------- 16-17. place cards
+  const tents = (front, back) => `<div class="tents">${Array.from({ length: 6 }, () => `<div class="tent"><div class="back">${back}</div><div class="front">${front}</div><div class="fold"><span>fold</span></div></div>`).join('')}</div>`;
+  out.push(`<section class="page">${head('Place cards', 'Cut on dashed lines · fold on dotted', A.pumpkin())}
+    ${tents(`<div class="row"><div style="width:.5in">${A.pumpkin()}</div><div class="nameline" style="width:2.2in"></div></div><div class="small">Happy Thanksgiving</div>`,
+      `<div style="width:1.25in">${A.sprig()}</div><div class="serif italic" style="font-size:12pt;color:var(--cranberry);margin-top:2pt">So glad you’re here</div>`)}
+    ${foot('Place cards')}</section>`);
+  out.push(`<section class="page">${head('Place cards', 'Cut on dashed lines · fold on dotted', A.leaf({ color: C.cranberry, rotate: 20 }))}
+    ${tents(`<div class="row"><div style="width:.38in">${A.leaf({ color: C.gold, rotate: -30 })}</div><div class="nameline" style="width:2in"></div><div style="width:.38in">${A.leaf({ color: C.cranberry, rotate: 30 })}</div></div><div class="small">Grateful for you</div>`,
+      `<div class="row"><div style="width:.4in">${A.acorn()}</div><div style="width:.45in">${A.leaf({ color: C.pumpkin })}</div><div style="width:.4in">${A.acorn()}</div></div>`)}
+    ${foot('Place cards')}</section>`);
+
+  // ---------- 18. food labels
+  out.push(`<section class="page">${head('Buffet food labels', 'Cut on dashed lines · fold on dotted', A.cranberries())}
+    ${tents(`<div class="dish">This dish is</div><div class="nameline" style="width:80%;height:22pt"></div><div class="tags"><span>${ck}Gluten-free</span><span>${ck}Vegetarian</span><span>${ck}Dairy-free</span><span>${ck}Contains nuts</span></div>`,
+      `<div class="row"><div style="width:.35in">${A.leaf({ color: C.gold, rotate: -20 })}</div><div class="serif italic" style="font-size:12pt;color:var(--cranberry)">Help yourself!</div><div style="width:.35in">${A.leaf({ color: C.pumpkin, rotate: 20 })}</div></div>`)}
+    ${foot('Food labels')}</section>`);
+
+  // ---------- 19. leftovers + notes
+  out.push(`<section class="page">${head('After the feast', 'Leftovers · thank-yous · next year', A.wheat())}
+    <div class="two">
+      <div><div class="sech">Leftovers: who takes what</div>
+        ${tbl([{ h: 'Dish', w: '1.6fr', cls: 't' }, { h: 'Going home with', w: '1.4fr' }, { h: 'Container returned', w: '0.8fr', cls: 'c', ck: 1 }], 8)}</div>
+      <div><div class="sech">Notes for next year</div>
+        <div class="intro" style="margin:0 0 2pt">What was a hit? What would you skip, buy more of or start earlier? Who should get a thank-you?</div>
+        <div class="lined">${'<div></div>'.repeat(10)}</div></div>
+    </div>
+    ${foot('After the feast')}</section>`);
+
+  document.getElementById('pages').innerHTML = out.join('');
+})();
+</script>
+</body>
+</html>
