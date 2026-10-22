@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Listing images</title>
+<link rel="stylesheet" href="../../../_brand/brand.css">
+<script src="../../../_brand/art/autumn.js"></script>
+<style>
+  html, body { margin: 0; background: var(--cream); }
+  .stage { position: relative; overflow: hidden; background: var(--cream); font-family: var(--sans); color: var(--ink); }
+  .l { width: 3000px; height: 2250px; }
+  .pin { width: 1000px; height: 1500px; }
+  .sheet { position: absolute; background: #fff; box-shadow: 0 30px 70px rgba(59,47,42,.22), 0 6px 16px rgba(59,47,42,.12); border-radius: 6px; overflow: hidden; }
+  .sheet img { width: 100%; display: block; }
+  .t { font-family: var(--serif); font-weight: 600; line-height: 1.02; }
+  .t em { font-style: italic; font-weight: 500; color: var(--pumpkin); }
+  .badge { display: inline-flex; align-items: center; gap: 18px; background: #fff; border: 3px solid var(--line); border-radius: 999px; padding: 22px 44px; font-size: 54px; font-weight: 500; margin: 0 20px 24px 0; }
+  .badge i { width: 26px; height: 26px; border-radius: 50%; background: var(--sage); display: inline-block; }
+  .deco { position: absolute; }
+  .brand { position: absolute; font-size: 40px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  ul.get { list-style: none; padding: 0; margin: 0; }
+  ul.get li { font-size: 64px; padding: 30px 0; border-bottom: 3px solid var(--line); display: flex; gap: 34px; align-items: center; }
+  ul.get li b { font-family: var(--serif); font-size: 84px; color: var(--pumpkin); min-width: 150px; }
+  .step { background: #fff; border-radius: 40px; padding: 70px 60px; border: 3px solid var(--line); text-align: center; }
+  .step .n { width: 140px; height: 140px; border-radius: 50%; background: var(--pumpkin); color: #fff; font-family: var(--serif); font-size: 84px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 40px; }
+  .step h3 { font-size: 80px; margin-bottom: 24px; }
+  .step p { font-size: 50px; color: var(--ink-soft); line-height: 1.35; }
+  .col { position: absolute; text-align: center; }
+  .col h4 { font-family: var(--serif); font-size: 78px; font-weight: 600; margin: 0 0 14px; line-height: 1.05; }
+  .col p { font-size: 46px; color: var(--ink-soft); margin: 0; line-height: 1.35; }
+  .lbl { position: absolute; font-family: var(--serif); font-size: 64px; font-weight: 600; text-align: center; }
+  .save { position: absolute; width: 360px; height: 360px; border-radius: 50%; background: var(--cranberry); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: rotate(-10deg); z-index: 10; box-shadow: 0 16px 40px rgba(59,47,42,.25); }
+  .save b { font-family: var(--serif); font-size: 120px; line-height: 1; }
+  .save span { font-size: 40px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+  .file { display: flex; align-items: center; gap: 40px; background: #fff; border: 3px solid var(--line); border-radius: 28px; padding: 34px 46px; font-size: 52px; margin-bottom: 30px; }
+  .file .ic { flex: none; width: 96px; height: 120px; border-radius: 12px; background: var(--pumpkin); color: #fff; font-size: 30px; font-weight: 600; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 16px; box-sizing: border-box; }
+  .file .ic.zip { background: var(--sage); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const A = window.ART;
+const img = (p) => `<img src="img/${p}.png">`;
+const sheet = (p, x, y, w, rot = 0, z = 1) => `<div class="sheet" style="left:${x}px;top:${y}px;width:${w}px;transform:rotate(${rot}deg);z-index:${z}">${img(p)}</div>`;
+const deco = (svg, x, y, w, extra = '') => `<div class="deco" style="left:${x}px;top:${y}px;width:${w}px;${extra}">${svg}</div>`;
+const brand = (x, y) => `<div class="brand" style="left:${x}px;top:${y}px">Quiet Table Co.</div>`;
+const file = (name, kind = 'PDF') => `<div class="file"><div class="ic ${kind === 'ZIP' ? 'zip' : ''}">${kind}</div><div>${name}</div></div>`;
+
+const V = {
+  1: () => `<div class="stage l">
+    ${deco(A.leaf({ color: '#D9A441', rotate: -30 }), 110, 100, 240)}
+    ${deco(A.leaf({ color: '#9E3B3B', rotate: 40 }), 2680, 1870, 240)}
+    ${sheet('h-p01', 160, 470, 900, -8, 1)}
+    ${sheet('e-p01', 900, 470, 900, 7, 2)}
+    ${sheet('g-p01', 500, 330, 960, -1, 3)}
+    <div class="save" style="left:1330px;top:1640px"><span>Save</span><b>28%</b><span style="font-size:30px;letter-spacing:.04em">bundle deal</span></div>
+    <div style="position:absolute;left:1840px;top:300px;width:1060px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">3-in-1 printable bundle</div>
+      <div class="t" style="font-size:158px"><em>Thanksgiving</em><br>Bundle</div>
+      <p style="font-size:66px;color:var(--ink-soft);margin:56px 0 64px;line-height:1.3">Family games, a kids' escape room and a host planner. Everything for the big day.</p>
+      <span class="badge"><i></i>Game pack</span><span class="badge"><i></i>Escape room</span><span class="badge"><i></i>Host planner</span><span class="badge"><i></i>US Letter + A4</span>
+    </div>
+    ${brand(1850, 2090)}
+  </div>`,
+  2: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:140px;width:3000px;text-align:center">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:30px">One download, three printables</div>
+      <div class="t" style="font-size:150px">Three printables, <em>one table</em></div>
+    </div>
+    ${sheet('g-p01', 250, 640, 680, -2, 1)}
+    ${sheet('e-p01', 1160, 640, 680, 2, 1)}
+    ${sheet('h-p01', 2070, 640, 680, -2, 1)}
+    <div class="col" style="left:190px;top:1610px;width:800px"><h4>Family Game Pack</h4><p>Bingo (30 cards), trivia, gratitude game, Who's Most Likely To. 30 pages.</p></div>
+    <div class="col" style="left:1100px;top:1610px;width:800px"><h4>Turkey Trouble Escape Room</h4><p>8 puzzles for ages 7–12, story, hints, answer key. 17 pages.</p></div>
+    <div class="col" style="left:2010px;top:1610px;width:800px"><h4>Host Planner</h4><p>Menu, timeline, shopping list, seating chart, place cards. 19 pages.</p></div>
+  </div>`,
+  3: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:130px;width:3000px;text-align:center">
+      <div class="t" style="font-size:140px">From the guest list to the <em>last game</em></div>
+    </div>
+    ${sheet('h-p10', 70, 440, 700, -4, 1)}
+    ${sheet('h-p16', 330, 540, 700, 3, 2)}
+    ${sheet('e-p05', 1060, 440, 700, -3, 1)}
+    ${sheet('e-p06', 1290, 540, 700, 3, 2)}
+    ${sheet('g-p18', 2040, 440, 700, -3, 1)}
+    ${sheet('g-p23', 2240, 540, 700, 4, 2)}
+    <div class="lbl" style="left:250px;top:1720px;width:800px">Plan the day</div>
+    <div class="lbl" style="left:1150px;top:1720px;width:800px">Keep kids busy</div>
+    <div class="lbl" style="left:2070px;top:1720px;width:800px">Play after pie</div>
+    ${deco(A.sprig(), 1200, 1960, 600)}
+  </div>`,
+  4: () => `<div class="stage l">
+    ${sheet('g-p20', 2110, 230, 760, 4, 1)}
+    ${sheet('e-p08', 1960, 1040, 700, -5, 2)}
+    <div style="position:absolute;left:190px;top:190px;width:1620px">
+      <div class="t" style="font-size:150px;margin-bottom:50px">What you <em>get</em></div>
+      <ul class="get">
+        <li><b>66</b>printable pages in 3 products</li>
+        <li><b>30</b>game pages: bingo, trivia and more</li>
+        <li><b>17</b>escape room pages: 8 kid puzzles</li>
+        <li><b>19</b>planner pages: menu to place cards</li>
+        <li><b>2</b>sizes: US Letter and A4</li>
+      </ul>
+    </div>
+    ${brand(190, 2100)}
+  </div>`,
+  5: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:170px;width:3000px;text-align:center">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:30px">Digital download · nothing is shipped</div>
+      <div class="t" style="font-size:150px">How it <em>works</em></div>
+    </div>
+    <div style="position:absolute;left:200px;top:640px;width:1420px;display:grid;grid-template-columns:1fr;gap:50px">
+      <div class="step" style="text-align:left;display:flex;gap:50px;align-items:center;padding:50px 60px"><div class="n" style="margin:0;flex:none">1</div><div><h3>Download</h3><p>Get the files from your Etsy Purchases page right after checkout.</p></div></div>
+      <div class="step" style="text-align:left;display:flex;gap:50px;align-items:center;padding:50px 60px"><div class="n" style="margin:0;flex:none">2</div><div><h3>Print</h3><p>Print the pages you need at home or at a print shop, at 100%.</p></div></div>
+      <div class="step" style="text-align:left;display:flex;gap:50px;align-items:center;padding:50px 60px"><div class="n" style="margin:0;flex:none">3</div><div><h3>Enjoy</h3><p>Plan the dinner, hide the puzzles, play the games.</p></div></div>
+    </div>
+    <div style="position:absolute;left:1760px;top:640px;width:1060px">
+      <div style="font-family:var(--serif);font-size:72px;font-weight:600;margin-bottom:40px">Your files</div>
+      ${file('Family Game Pack (US Letter)')}
+      ${file('Escape Room (US Letter)')}
+      ${file('Host Planner (US Letter)')}
+      ${file('All 3 in A4 size', 'ZIP')}
+    </div>
+    ${deco(A.sprig(), 1200, 1980, 600)}
+  </div>`,
+  6: () => `<div class="stage pin">
+    ${deco(A.leaf({ color: '#D9A441', rotate: -30 }), 40, 40, 120)}
+    ${deco(A.leaf({ color: '#9E3B3B', rotate: 30 }), 840, 60, 110)}
+    <div style="position:absolute;left:0;top:80px;width:1000px;text-align:center">
+      <div class="t" style="font-size:96px"><em>Thanksgiving</em><br>Printables<br>Bundle</div>
+      <p style="font-size:38px;color:var(--ink-soft);margin-top:24px">games · kids' escape room · host planner</p>
+    </div>
+    ${sheet('h-p01', 60, 720, 420, -7, 1)}
+    ${sheet('e-p01', 520, 720, 420, 7, 2)}
+    ${sheet('g-p01', 270, 640, 460, -1, 3)}
+  </div>`,
+  7: () => `<div class="stage pin" style="background:#fff">
+    <div style="position:absolute;left:0;top:0;width:1000px;height:430px;background:var(--pumpkin)"></div>
+    <div style="position:absolute;left:0;top:70px;width:1000px;text-align:center;color:#fff">
+      <div style="font-size:34px;letter-spacing:.2em;text-transform:uppercase;font-weight:500">Hosting Thanksgiving?</div>
+      <div class="t" style="font-size:84px;margin-top:26px">Plan it, play it:<br>66 printable pages</div>
+    </div>
+    ${sheet('g-p18', 90, 500, 430, -4, 1)}
+    ${sheet('e-p05', 480, 520, 430, 4, 2)}
+    <div style="position:absolute;left:0;bottom:50px;width:1000px;text-align:center;font-size:36px;color:var(--ink-soft)">Thanksgiving Bundle · instant download</div>
+  </div>`,
+};
+document.getElementById('root').innerHTML = V[(location.hash || '#1').slice(1)]();
+</script>
+</body>
+</html>
