@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en" data-size="letter" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Christmas Family Game Night</title>
+<link rel="stylesheet" href="../../_brand/brand.css">
+<script src="../../_brand/art/winter.js"></script>
+<script src="content.js"></script>
+<style>
+  .page.tint { background: #F4F7F3; }
+  .eyebrow { color: var(--berry); }
+  .ph h2 { color: var(--ink); }
+  .how { flex: none; background: var(--frost); border-radius: 9pt; padding: 8pt 12pt; font-size: 9.6pt; line-height: 1.38; margin-bottom: 12pt; }
+  .how b { color: var(--pine); font-family: var(--serif); font-size: 10.5pt; margin-right: 4pt; }
+  .blank { display: inline-block; border-bottom: 1pt solid var(--ink-soft); min-width: 1.2in; height: 1.1em; vertical-align: bottom; }
+  .muted-s { font-size: 8.5pt; color: var(--ink-soft); }
+
+  /* cover */
+  .cover { align-items: center; text-align: center; justify-content: center; }
+  .cover .art { width: 2.6in; margin: 0 auto 0.12in; }
+  .cover h1 { font-size: 50pt; color: var(--ink); }
+  .cover h1 em { color: var(--berry); font-style: italic; font-weight: 500; display: block; font-size: 32pt; margin-bottom: 4pt; }
+  .cover .sub { font-size: 13pt; color: var(--ink-soft); margin-top: 10pt; }
+  .cover .games { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt 16pt; margin: 0.32in auto 0; width: 6in; text-align: left; }
+  .cover .games div { background: #fff; border: 1pt solid var(--line); border-radius: 10pt; padding: 10pt 12pt; }
+  .cover .games b { font-family: var(--serif); font-size: 13pt; font-weight: 600; display: block; }
+  .cover .games span { font-size: 9pt; color: var(--ink-soft); }
+  .corner { position: absolute; width: 1in; }
+
+  /* contents */
+  .toc { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22pt; }
+  .toc div { display: grid; grid-template-columns: 20pt 1fr auto; gap: 0 6pt; padding: 5.2pt 0; border-bottom: 1pt solid var(--line); font-size: 9.6pt; align-items: baseline; }
+  .toc .n { font-family: var(--serif); font-weight: 700; color: var(--berry); font-size: 11pt; }
+  .toc b { font-weight: 500; }
+  .toc small { display: block; color: var(--ink-soft); font-size: 8pt; }
+  .toc .p { font-size: 8.5pt; color: var(--ink-soft); }
+  .tips { flex: none; margin-top: 14pt; background: var(--frost); border-radius: 10pt; padding: 10pt 14pt; font-size: 9.6pt; }
+  .tips b { color: var(--pine); }
+
+  /* bingo */
+  .bingo-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .bingo { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 4pt 0.15in 6pt; }
+  .bingo + .cut { border-top: 1pt dashed #B9A995; margin: 4pt 0; position: relative; }
+  .bingo + .cut::after { content: "\2702"; position: absolute; left: 0; top: -9pt; font-size: 11pt; color: #B9A995; background: #fff; padding-right: 4pt; }
+  .bingo .top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6pt; }
+  .bingo .top h3 { font-size: 17pt; }
+  .bingo .top .no { font-size: 8.5pt; color: var(--ink-soft); letter-spacing: .08em; text-transform: uppercase; }
+  .grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: 0.46in repeat(5, 1fr); border: 1.5pt solid var(--ink); border-radius: 6pt; overflow: hidden; }
+  .grid .h { background: var(--berry); color: #fff; font-family: var(--serif); font-weight: 700; font-size: 22pt; display: flex; align-items: center; justify-content: center; }
+  .grid .h:nth-child(even) { background: var(--pine); }
+  .grid .c { border-right: 1pt solid var(--line); border-top: 1pt solid var(--line); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 11pt; font-weight: 500; line-height: 1.15; padding: 4pt; }
+  .grid .c:nth-child(5n) { border-right: 0; }
+  .grid .free { background: var(--frost); flex-direction: column; font-family: var(--serif); font-style: italic; font-size: 11pt; color: var(--berry); }
+  .grid .free svg { width: 0.36in; height: 0.36in; }
+  .slips { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; border: 0.75pt dashed #B9A995; }
+  .slips div { border: 0.75pt dashed #B9A995; display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: 10.5pt; text-align: center; }
+
+  /* trivia */
+  .quiz { display: grid; grid-template-columns: 1fr 1fr; gap: 11pt 20pt; flex: 1; align-content: start; }
+  .q { break-inside: avoid; font-size: 10pt; }
+  .q .qt { font-weight: 500; margin-bottom: 3pt; }
+  .q .qt b { color: var(--berry); font-family: var(--serif); font-size: 11pt; margin-right: 3pt; }
+  .q ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1pt 8pt; }
+  .q li::before { content: attr(data-l) "  "; font-weight: 700; color: var(--pine); }
+  .teamline { display: flex; gap: 18pt; font-size: 9.5pt; margin-bottom: 10pt; }
+  .teamline span { flex: 1; border-bottom: 1pt solid var(--ink-soft); padding-bottom: 2pt; }
+  .key { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(15, auto); grid-auto-flow: column; gap: 0 18pt; align-content: start; }
+  .key div { font-size: 9.6pt; padding: 5.5pt 0; border-bottom: 1pt solid var(--line); }
+  .key b { color: var(--berry); font-family: var(--serif); }
+  .key em { color: var(--ink-soft); font-size: 8.4pt; display: block; }
+
+  /* cut-out card grids */
+  .pc { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); border: 0.75pt dashed #B9A995; }
+  .pc.two { grid-template-columns: repeat(2, 1fr); }
+  .pc.r2 { grid-template-rows: repeat(2, 1fr); }
+  .pc > div { border: 0.75pt dashed #B9A995; padding: 12pt 14pt; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 7pt; position: relative; min-height: 0; }
+  .pc .lab { font-size: 7.5pt; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
+  .pc .txt { font-family: var(--serif); font-size: 15pt; line-height: 1.25; }
+  .pc .lead { font-family: var(--serif); font-style: italic; color: var(--berry); font-size: 14pt; }
+  .pc > div > svg { width: 0.78in; height: 0.78in; flex: none; }
+  .pc.sans .txt { font-family: var(--sans); font-size: 12.5pt; font-weight: 500; }
+  .pc .id { position: absolute; right: 8pt; bottom: 6pt; font-size: 7pt; color: #B9A995; }
+  .pc .num { position: absolute; left: 10pt; top: 8pt; font-size: 8pt; color: var(--ink-soft); }
+  .pc .rhyme { font-family: var(--serif); font-size: 16.5pt; line-height: 1.3; }
+  .pc .wl { width: 85%; border-bottom: 1pt solid var(--ink-soft); height: 20pt; }
+  .pc .chal h4 { margin: 0; font-family: var(--serif); font-size: 17pt; color: var(--pine); }
+  .pc .muted-s { font-size: 10pt; }
+  .pc .need { font-size: 8.5pt; color: var(--ink-soft); }
+  .pc .need b { color: var(--berry); font-weight: 500; }
+
+  /* hunt planner */
+  table.plan { width: 100%; border-collapse: collapse; font-size: 10pt; }
+  table.plan th { text-align: left; font-size: 8pt; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; padding: 4pt 6pt; border-bottom: 1.5pt solid var(--ink); }
+  table.plan td { border-bottom: 1pt solid var(--line); padding: 0 6pt; height: 0.33in; }
+  table.plan td:first-child { font-family: var(--serif); font-weight: 700; color: var(--berry); width: 0.5in; }
+  .steps { display: grid; grid-template-columns: 1fr 1fr; gap: 6pt 20pt; font-size: 9.8pt; margin-bottom: 12pt; }
+  .steps div b { color: var(--berry); font-family: var(--serif); font-size: 13pt; margin-right: 5pt; }
+  .idkey { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2pt 12pt; font-size: 9pt; background: var(--frost); border-radius: 8pt; padding: 8pt 12pt; margin-bottom: 12pt; }
+  .idkey b { color: var(--pine); }
+
+  /* story */
+  .story p { font-family: var(--serif); font-size: 12.6pt; line-height: 1.6; margin-bottom: 9pt; }
+  .story .L { font-family: var(--sans); font-weight: 700; color: var(--berry); font-size: 11pt; }
+  .story .R { font-family: var(--sans); font-weight: 700; color: var(--pine); font-size: 11pt; }
+
+  /* word search */
+  .ws { display: grid; grid-template-columns: repeat(14, 0.4in); grid-auto-rows: 0.4in; border: 1.5pt solid var(--ink); border-radius: 6pt; margin: 0 auto; flex: none; }
+  .ws span { display: flex; align-items: center; justify-content: center; font-size: 15pt; font-weight: 500; }
+  .wsl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4pt 14pt; margin-top: 16pt; font-size: 11pt; font-weight: 500; }
+  .wsl span::before { content: ""; display: inline-block; width: 9pt; height: 9pt; border: 1.2pt solid var(--ink); border-radius: 2pt; margin-right: 6pt; vertical-align: -1pt; }
+  .ws.sol { grid-template-columns: repeat(14, 0.215in); grid-auto-rows: 0.215in; border-width: 1pt; margin: 0; }
+  .ws.sol span { font-size: 8pt; color: #BDB3A9; }
+  .ws.sol span.hit { background: #F3D9D9; color: var(--ink); font-weight: 700; }
+
+  /* scramble / lists */
+  .scr { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .scr div { display: flex; align-items: flex-end; gap: 14pt; padding: 11pt 0 3pt; border-bottom: 1pt solid var(--line); }
+  .scr b { font-family: var(--serif); color: var(--berry); width: 20pt; font-size: 13pt; }
+  .scr .w { letter-spacing: .28em; font-weight: 700; font-size: 16pt; width: 2.7in; }
+  .scr .a { flex: 1; border-bottom: 1pt solid var(--ink-soft); height: 18pt; }
+
+  /* joke match */
+  .jm { display: grid; grid-template-columns: 1.35fr 1fr; gap: 0 22pt; font-size: 10.3pt; }
+  .jm .row { display: flex; align-items: center; gap: 8pt; padding: 6.4pt 0; border-bottom: 1pt solid var(--line); }
+  .jm .box { width: 20pt; height: 18pt; border: 1.2pt solid var(--ink); border-radius: 3pt; flex: none; }
+  .jm b { font-family: var(--serif); color: var(--berry); min-width: 16pt; }
+  .jm .pl b { color: var(--pine); }
+
+  /* tables / write-in sheets */
+  table.sheet { width: 100%; border-collapse: collapse; font-size: 10pt; }
+  table.sheet th, table.sheet td { border: 1pt solid var(--line); padding: 4pt 6pt; }
+  table.sheet th { background: var(--frost); font-weight: 500; font-size: 9pt; }
+  table.sheet td { height: 0.74in; }
+  table.sheet.compact td { height: 0.46in; }
+  table.sheet td:first-child { font-weight: 500; width: 1.7in; background: #FAFBFA; }
+  .az { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(13, 1fr); grid-auto-flow: column; gap: 0 22pt; }
+  .az div { display: flex; align-items: flex-end; gap: 8pt; border-bottom: 1pt solid var(--line); padding-bottom: 3pt; }
+  .az b { font-family: var(--serif); font-size: 15pt; color: var(--berry); width: 16pt; }
+  .words { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24pt; }
+  .words div { display: flex; flex-direction: column; padding: 16pt 0 0; }
+  .words .l { border-bottom: 1pt solid var(--ink-soft); height: 22pt; display: flex; align-items: flex-end; gap: 8pt; }
+  .words .l b { font-family: var(--serif); color: var(--berry); }
+  .words small { font-size: 8pt; color: var(--ink-soft); margin-top: 2pt; }
+  .silly p { font-family: var(--serif); font-size: 14pt; line-height: 2.5; }
+  .silly .b { display: inline-block; min-width: 1.3in; border-bottom: 1pt solid var(--ink-soft); position: relative; height: 1.1em; vertical-align: baseline; }
+  .silly .b i { position: absolute; left: 0; bottom: -11pt; font-family: var(--sans); font-style: normal; font-size: 7.5pt; font-weight: 700; color: var(--berry); }
+
+  /* sign + slips */
+  .sign { flex: none; border: 2pt solid var(--berry); border-radius: 14pt; padding: 18pt; text-align: center; background: #fff; }
+  .sign h3 { font-size: 30pt; }
+  .sign h3 em { color: var(--berry); }
+  .gslips { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); border: 0.75pt dashed #B9A995; margin-top: 12pt; }
+  .gslips div { border: 0.75pt dashed #B9A995; padding: 10pt 12pt; display: flex; flex-direction: column; justify-content: space-around; font-size: 9pt; }
+  .gslips .l { border-bottom: 1pt solid var(--ink-soft); height: 16pt; }
+
+  /* tic tac toe */
+  .ttt { display: flex; justify-content: space-between; gap: 16pt; flex: none; }
+  .ttt .board { width: 3.35in; height: 3.35in; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); }
+  .ttt .board i { border-right: 3pt solid var(--pine); border-bottom: 3pt solid var(--pine); }
+  .ttt .board i:nth-child(3n) { border-right: 0; }
+  .ttt .board i:nth-child(n+7) { border-bottom: 0; }
+  .tokens { flex: 1; min-height: 0; margin-top: 16pt; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(4, 1fr); border: 0.75pt dashed #B9A995; }
+  .tokens div { border: 0.75pt dashed #B9A995; display: flex; align-items: center; justify-content: center; }
+  .tokens svg { height: 0.72in; width: 0.72in; }
+
+  /* elf name */
+  .elf { display: grid; grid-template-columns: 1.5fr 1fr; gap: 0 24pt; }
+  .elf .col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14pt; align-content: start; }
+  .elf .col.one { grid-template-columns: 1fr; }
+  .elf .col div { padding: 6.6pt 0; border-bottom: 1pt solid var(--line); font-size: 11pt; }
+  .elf .col div b { display: inline-block; width: 22pt; color: var(--berry); font-family: var(--serif); }
+  .elf h3 { color: var(--pine); margin-bottom: 4pt; font-size: 13pt; }
+  .myname { flex: none; margin-top: auto; text-align: center; font-family: var(--serif); font-size: 16pt; padding: 14pt; border: 1.5pt dashed var(--berry); border-radius: 12pt; }
+  .myname .blank { min-width: 3.4in; }
+
+  /* this or that */
+  .tot { display: grid; grid-template-columns: 22pt 1fr 30pt 1fr; align-items: center; gap: 0 8pt; }
+  .tot > div { padding: 8.4pt 0; border-bottom: 1pt solid var(--line); font-size: 11pt; }
+  .tot .n { font-family: var(--serif); font-weight: 700; color: var(--berry); }
+  .tot .o { display: flex; align-items: center; gap: 8pt; }
+  .tot .o::before { content: ""; width: 12pt; height: 12pt; border: 1.3pt solid var(--ink); border-radius: 50%; flex: none; }
+  .tot .or { text-align: center; color: var(--ink-soft); font-style: italic; font-family: var(--serif); }
+
+  /* keys page */
+  .keys { display: grid; grid-template-columns: auto 1fr; gap: 0 24pt; align-items: start; }
+  .keys h3 { color: var(--pine); font-size: 13pt; margin: 0 0 6pt; }
+  .klist { font-size: 9.5pt; columns: 2; column-gap: 16pt; }
+  .klist div { padding: 2.4pt 0; border-bottom: 1pt solid var(--line); break-inside: avoid; }
+  .klist b { color: var(--berry); font-family: var(--serif); }
+</style>
+</head>
+<body>
+<div id="pages"></div>
+<script>
+(function () {
+  const P = window.PACK, A = window.WINTER;
+  const out = [];
+  const pg = () => out.length + 1;
+  const foot = (label) => `<div class="pf"><span>Christmas Family Game Night · ${label} · page ${pg()}</span><span>© 2026 Quiet Table Co. · personal use only</span></div>`;
+  const head = (title, eyebrow) => `<div class="ph"><h2>${title}</h2><span class="eyebrow">${eyebrow}</span></div>`;
+  const how = (html) => `<div class="how"><b>How to play</b>${html}</div>`;
+  const games = []; // [no, name, blurb, page]
+  const game = (name, blurb) => { games.push([games.length + 1, name, blurb, pg()]); return games.length; };
+
+  let seed = 1225;
+  const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+  const shuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const PENCIL = `<svg viewBox="0 0 120 40" style="width:1.1in;height:.37in"><path d="M14 12 L92 12 L92 28 L14 28 Z" fill="#D9A441"/><path d="M14 12 L92 12 L92 17 L14 17 Z" fill="#fff" fill-opacity=".3"/><path d="M92 12 L114 20 L92 28 Z" fill="#EBD3B0"/><path d="M106 17.5 L114 20 L106 22.5 Z" fill="#3B2F2A"/><rect x="4" y="12" width="10" height="16" rx="3" fill="#B23A3A"/><rect x="12" y="12" width="4" height="16" fill="#A9C6D3"/></svg>`;
+  const icons = [() => A.ornament({ color: '#B23A3A' }), () => A.holly(), () => A.gift({ color: '#2F5D50' }), () => A.star(), () => A.snowflake(), () => A.bell(), () => A.ornament({ color: '#2F5D50' }), () => A.mitten(), () => A.stocking()];
+
+  // 1. cover
+  out.push(`<section class="page tint cover">
+    <div class="corner" style="top:.45in;left:.5in;width:.8in">${A.ornament({ color: '#B23A3A' })}</div>
+    <div class="corner" style="top:.55in;right:.5in;width:1.1in">${A.holly()}</div>
+    <div class="corner" style="bottom:.5in;left:.55in;width:.95in">${A.gift({ color: '#2F5D50' })}</div>
+    <div class="corner" style="bottom:.55in;right:.6in;width:.8in">${A.candycane({ id: 'cv' })}</div>
+    <div class="corner" style="top:2.4in;left:.9in;width:.45in">${A.snowflake()}</div>
+    <div class="corner" style="top:2.0in;right:1.0in;width:.38in">${A.snowflake()}</div>
+    <div class="art">${A.tree()}</div>
+    <div class="eyebrow">Printable · for kids, teens &amp; adults</div>
+    <h1 style="margin-top:8pt"><em>Christmas</em>Family Game Night</h1>
+    <div class="sub">20 games for the whole family, ready to print and play</div>
+    <div class="games">
+      <div><b>Gift-Reveal Scavenger Hunt</b><span>18 rhyming clue cards + big reveal cards</span></div>
+      <div><b>Christmas Bingo</b><span>20 different cards + caller slips</span></div>
+      <div><b>Christmas Trivia</b><span>30 questions + answer key</span></div>
+      <div><b>+ 17 more games</b><span>charades, left-right story, puzzles &amp; more</span></div>
+    </div>
+  </section>`);
+  out.push(''); // 2. contents (filled in at the end)
+
+  // GAME 1: gift-reveal scavenger hunt (6 pages)
+  const huntIds = P.hunt.map((_, i) => String.fromCharCode(65 + i));
+  game('Gift-Reveal Scavenger Hunt', 'Clue trail that ends at a hidden gift · ages 4+');
+  out.push(`<section class="page">${head('Gift-Reveal Scavenger Hunt', 'Game 1 · host guide')}
+    <div class="steps">
+      <div><b>1</b>Hide the gift. (Gift too big to wrap, or a trip? Hide a filled-in reveal card from page ${pg() + 5} instead.)</div>
+      <div><b>2</b>Each clue card rhymes about one place; its corner letter tells you which (list below). The card for the gift’s hiding place is the <i>last</i> clue.</div>
+      <div><b>3</b>Work backwards: hide that last card somewhere else, then take the card for <i>that</i> place and hide it somewhere new. Repeat 5 to 12 times.</div>
+      <div><b>4</b>Hand the hunter the last card you picked up (or write its place on a “Start here” card). Use the planner to keep track.</div>
+    </div>
+    <div class="idkey">${P.hunt.map((h, i) => `<div><b>${huntIds[i]}</b> sends them to: ${h[0]}</div>`).join('')}</div>
+    <table class="plan"><thead><tr><th>Clue no.</th><th>Card letter</th><th>Hide this card at…</th><th>It sends them to…</th><th>Hidden?</th></tr></thead>
+    <tbody>${Array.from({ length: 12 }, (_, i) => `<tr><td>${i + 1}</td><td></td><td></td><td></td><td></td></tr>`).join('')}</tbody></table>
+    <p class="muted-s" style="margin-top:8pt">Example: the gift is in the toy box. Card L (Toy box) goes in the fridge. Card A (Fridge) goes under a pillow. Hand the hunter card D (Your pillow) to start: pillow → fridge → toy box → gift! Little ones: use 5 clues and walk along. Older kids: hide the clues inside envelopes or books.</p>
+    ${foot('Scavenger Hunt')}</section>`);
+  for (let p = 0; p < 3; p++) {
+    out.push(`<section class="page">${head('Scavenger Hunt clues', `Cards ${p * 6 + 1}–${p * 6 + 6} · cut out`)}
+      <div class="pc two">${P.hunt.slice(p * 6, p * 6 + 6).map((h, i) => `<div><span class="num">Clue no. ____</span>${icons[(p * 6 + i) % icons.length]()}<div class="rhyme">${h[1]}</div><span class="id">${huntIds[p * 6 + i]}</span></div>`).join('')}</div>
+      ${foot('Scavenger Hunt')}</section>`);
+  }
+  out.push(`<section class="page">${head('Start + write-your-own cards', 'Cut out')}
+    <div class="pc two">
+      ${[0, 1].map(() => `<div>${A.gift({ color: '#B23A3A' })}<div class="lab">Start here</div><div class="rhyme">A gift is hidden, just for you!<br>Follow the clues, one by one, to find it.</div><div class="muted-s">Your first clue is waiting at:</div><div class="wl"></div></div>`).join('')}
+      ${[0, 1, 2, 3].map(() => `<div><span class="num">Clue no. ____</span>${A.star()}<div class="lab">Your next clue is…</div><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>`).join('')}
+    </div>${foot('Scavenger Hunt')}</section>`);
+  out.push(`<section class="page">${head('Big reveal cards', 'Last clue · fill in · cut out')}
+    <div class="pc two r2">${P.reveals.map((r, i) => `<div>${[A.sleigh(), A.gift({ color: '#2F5D50' }), A.star(), A.tree()][i]}<div class="txt" style="font-size:19pt">${r[0]}</div>${r[1] ? `<div class="muted-s">${r[1]}</div>` : ''}<div class="wl"></div>${r[1] ? '' : '<div class="wl"></div>'}<div class="muted-s">${r[2]}</div>${i === 3 ? '' : '<div class="wl" style="width:60%"></div>'}</div>`).join('')}</div>
+    ${foot('Scavenger Hunt')}</section>`);
+
+  // GAME 2: bingo (caller page + 10 card pages)
+  game('Christmas Bingo', '20 different cards + caller slips · ages 4+');
+  out.push(`<section class="page">${head('Christmas Bingo', 'Game 2 · caller slips')}
+    ${how('Give each player a card and some markers (mini marshmallows or chocolate chips work well). Cut out the slips below, fold them and put them in a hat. Draw one at a time and read it out; players cover that word. The star in the middle is free. First to get five in a row (across, down or diagonal) shouts “Ho ho ho!” and wins. For a longer game, play four corners or full card.')}
+    <div class="slips">${P.bingoWords.map((w) => `<div>${w}</div>`).join('')}</div>${foot('Bingo')}</section>`);
+  const cards = []; const seen = new Set();
+  while (cards.length < 20) {
+    const w = shuffle(P.bingoWords).slice(0, 24);
+    const key = w.slice().sort().join('|');
+    if (seen.has(key)) continue;
+    seen.add(key); cards.push(w);
+  }
+  window.BINGO_CARDS = cards;
+  const card = (w, n) => {
+    const cells = [];
+    for (let i = 0; i < 25; i++) cells.push(i === 12 ? `<div class="c free">${A.star()}Free</div>` : `<div class="c">${w[i < 12 ? i : i - 1]}</div>`);
+    return `<div class="bingo"><div class="top"><h3>Christmas Bingo</h3><span class="no">Card ${n} of 20</span></div>
+      <div class="grid">${'MERRY'.split('').map((h) => `<div class="h">${h}</div>`).join('')}${cells.join('')}</div></div>`;
+  };
+  for (let p = 0; p < 10; p++) out.push(`<section class="page"><div class="bingo-wrap">${card(cards[p * 2], p * 2 + 1)}<div class="cut"></div>${card(cards[p * 2 + 1], p * 2 + 2)}</div>${foot('Bingo')}</section>`);
+
+  // GAME 3: trivia (2 pages; key at the back)
+  game('Christmas Trivia', '30 questions, key on page KEY1 · ages 9+');
+  const L = ['A', 'B', 'C', 'D'];
+  const qhtml = (q, i) => `<div class="q"><div class="qt"><b>${i + 1}.</b>${q[0]}</div><ol>${q[1].map((o, j) => `<li data-l="${L[j]}">${o}</li>`).join('')}</ol></div>`;
+  for (let p = 0; p < 2; p++) {
+    out.push(`<section class="page">${head('Christmas Trivia', p === 0 ? 'Game 3 · questions 1–15' : 'Questions 16–30')}
+      ${p === 0 ? '<div class="teamline"><span>Name / team:</span><span style="flex:.5">Score:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ 30</span></div><p class="muted-s" style="margin:-4pt 0 8pt">Circle one answer for each question. Swap papers and mark them with the answer key at the back. Read the fun facts out loud!</p>' : ''}
+      <div class="quiz">${P.trivia.slice(p * 15, p * 15 + 15).map((q, i) => qhtml(q, p * 15 + i)).join('')}</div>${foot('Trivia')}</section>`);
+  }
+
+  // GAME 4: left-right story
+  game('Left-Right Gift Pass', 'Read-aloud story for gift swaps · all ages');
+  const story = P.story.map((s) => `<p>${s.replace(/\bLEFT\b/g, '<span class="L">LEFT</span>').replace(/\bRIGHT\b/g, '<span class="R">RIGHT</span>')}</p>`).join('');
+  out.push(`<section class="page">${head('The Left-Right Gift Pass', 'Game 4 · read aloud')}
+    ${how('Everyone sits in a circle holding one wrapped gift (small treats or white-elephant gifts work well). One person reads the story out loud. Each time you hear <b style="color:var(--berry);font-family:var(--sans);font-size:9.6pt">LEFT</b>, pass your gift to the left; each time you hear <b style="color:var(--pine);font-family:var(--sans);font-size:9.6pt">RIGHT</b>, pass it to the right. When the story ends, keep the gift you are holding!')}
+    <div class="story">${story}</div>${foot('Left-Right Gift Pass')}</section>`);
+
+  // GAME 5: charades (3 pages)
+  game('Christmas Charades', '27 act-it-out cards · ages 5+');
+  for (let p = 0; p < 3; p++) {
+    out.push(`<section class="page">${head('Christmas Charades', p === 0 ? 'Game 5 · cards 1–9' : `Cards ${p * 9 + 1}–${p * 9 + 9}`)}
+      ${p === 0 ? how('Split into two teams. A player draws a card and acts it out with no words or sounds. Their team has 1 minute to guess. Right answer = 1 point. Take turns; the team with the most points wins.') : ''}
+      <div class="pc">${P.charades.slice(p * 9, p * 9 + 9).map((t, i) => `<div>${icons[(p * 9 + i) % icons.length]()}<div class="lab">Act it out</div><div class="txt">${t}</div></div>`).join('')}</div>${foot('Charades')}</section>`);
+  }
+
+  // GAME 6: sketch & guess (2 pages)
+  game('Sketch & Guess', '18 draw-it cards · ages 5+');
+  for (let p = 0; p < 2; p++) {
+    out.push(`<section class="page">${head('Sketch &amp; Guess', p === 0 ? 'Game 6 · cards 1–9' : 'Cards 10–18')}
+      ${p === 0 ? how('Play in teams with paper and pencils (or a whiteboard). The artist draws a card and sketches it: no letters, numbers or talking. The team has 60 seconds to guess. 1 point per right guess.') : ''}
+      <div class="pc">${P.sketch.slice(p * 9, p * 9 + 9).map((t) => `<div>${PENCIL}<div class="lab">Draw it</div><div class="txt" style="font-size:17pt">${t}</div></div>`).join('')}</div>${foot('Sketch & Guess')}</section>`);
+  }
+
+  // GAME 7: would you rather (2 pages)
+  game('Would You Rather?', '18 Christmas question cards · all ages');
+  for (let p = 0; p < 2; p++) {
+    out.push(`<section class="page">${head('Would You Rather?', p === 0 ? 'Game 7 · cards 1–9' : 'Cards 10–18')}
+      ${p === 0 ? how('Take turns drawing a card and reading it out. Everyone picks one answer and says why. No points, just great conversations.') : ''}
+      <div class="pc">${P.wouldYouRather.slice(p * 9, p * 9 + 9).map((t, i) => `<div><div class="lead">Would you rather…</div><div class="txt" style="font-size:13.5pt;font-family:var(--sans);font-weight:500">${t.replace(/<br>or<br>/, '<br><span style="font-family:var(--serif);font-style:italic;font-weight:400;color:var(--pine)">or</span><br>')}?</div></div>`).join('')}</div>${foot('Would You Rather')}</section>`);
+  }
+
+  // GAME 8: who's most likely (2 pages)
+  game('Who’s Most Likely To…', '18 Christmas cards · ages 6+');
+  for (let p = 0; p < 2; p++) {
+    out.push(`<section class="page">${head('Who’s Most Likely To…', p === 0 ? 'Game 8 · cards 1–9' : 'Cards 10–18')}
+      ${p === 0 ? how('Read a card out loud. On “3, 2, 1” everyone points at the person who fits best. Whoever gets the most fingers keeps the card. Most cards at the end wins. Keep it kind!') : ''}
+      <div class="pc sans">${P.likely.slice(p * 9, p * 9 + 9).map((t) => `<div><div class="lab">Christmas edition</div><div class="lead">Who’s most likely to…</div><div class="txt">${t}?</div></div>`).join('')}</div>${foot('Most Likely To')}</section>`);
+  }
+
+  // GAME 9: this or that
+  game('This or That', '16 quick picks, match with family · all ages');
+  out.push(`<section class="page">${head('Christmas This or That', 'Game 9 · one sheet per player')}
+    ${how('Everyone fills in a sheet on their own: circle one choice in every row. Then pair up and read your answers out loud. Score 1 point for every match. The pair with the most matches knows each other best!')}
+    <div class="teamline"><span>Name:</span><span style="flex:.6">Matches:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ 16</span></div>
+    <div class="tot">${P.thisOrThat.map((t, i) => `<div class="n">${i + 1}</div><div class="o">${t[0]}</div><div class="or">or</div><div class="o">${t[1]}</div>`).join('')}</div>
+    ${foot('This or That')}</section>`);
+
+  // GAME 10: name it! category game
+  game('Name It!', 'Fast category game, 3 rounds · ages 8+');
+  out.push(`<section class="page">${head('Name It!', 'Game 10 · one sheet per player')}
+    ${how(`Pick a letter for the round (close your eyes and point: ${P.nameItLetters}). Write it in the round’s top box. Set a 3-minute timer and fill in one answer for each category that starts with that letter. Read answers out: 1 point for each answer nobody else has. Highest score after 3 rounds wins.`)}
+    <table class="sheet"><thead><tr><th>Category</th><th>Round 1 · letter: ___</th><th>Round 2 · letter: ___</th><th>Round 3 · letter: ___</th></tr></thead>
+    <tbody>${P.nameIt.map((c) => `<tr><td>${c}</td><td></td><td></td><td></td></tr>`).join('')}<tr><td>Points</td><td></td><td></td><td></td></tr></tbody></table>
+    ${foot('Name It')}</section>`);
+
+  // GAME 11: A to Z
+  game('Christmas A to Z', 'Name something festive for every letter · ages 7+');
+  out.push(`<section class="page">${head('Christmas A to Z', 'Game 11 · beat the clock')}
+    ${how('Set a timer for 5 minutes. Write something Christmassy for each letter (A: angel, B: bells…). Play alone, in pairs or in teams. 1 point per letter; 2 points for an answer nobody else thought of.')}
+    <div class="az">${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((l) => `<div><b>${l}</b></div>`).join('')}</div>
+    ${foot('A to Z')}</section>`);
+
+  // GAME 12: 60-second challenges (2 pages)
+  game('60-Second Challenges', '12 party challenge cards · ages 6+');
+  for (let p = 0; p < 2; p++) {
+    out.push(`<section class="page">${head('60-Second Challenges', p === 0 ? 'Game 12 · cards 1–6' : 'Cards 7–12')}
+      ${p === 0 ? how('Each player (or team) draws a card and has 60 seconds to finish the challenge. Finish in time = 1 point. Gather the things on the “You need” line before you start. Grown-ups, please supervise the little ones.') : ''}
+      <div class="pc two">${P.challenges.slice(p * 6, p * 6 + 6).map((c, i) => `<div class="chal">${icons[(p * 6 + i + 3) % icons.length]()}<h4>${c[0]}</h4><div class="txt" style="font-family:var(--sans);font-size:11.5pt">${c[1]}</div><div class="need"><b>You need:</b> ${c[2]}</div></div>`).join('')}</div>${foot('60-Second Challenges')}</section>`);
+  }
+
+  // GAME 13: don't say it
+  game('Don’t Say It!', 'All-day game for parties · ages 5+');
+  out.push(`<section class="page">${head('Don’t Say It!', 'Game 13 · all-day game')}
+    <div class="sign">${A.mitten().replace('<svg', '<svg style="width:.8in;height:.8in"')}<div class="eyebrow" style="margin:6pt 0">We’re playing a game today</div><h3>Don’t say <em>“Christmas”</em>!</h3>
+      <p style="margin-top:8pt">Post this sign by the door.</p></div>
+    <div style="margin-top:16pt">${how('Give every guest a clothespin (or a candy cane) when they arrive. If you hear someone say the forbidden word, take their clothespin and clip it to your own clothes. The person with the most clothespins at the end of the party wins. Too easy? Choose a harder word: “Santa”, “snow”, “present” or “cookie”. Write your word here:')}
+      <div style="display:flex;gap:16pt;align-items:center;font-family:var(--serif);font-size:15pt;margin:4pt 0 18pt">Our forbidden word is: <span class="blank" style="min-width:3.2in"></span></div>
+      <h3 style="color:var(--pine);margin-bottom:6pt">Clothespin count</h3>
+      <table class="sheet compact"><thead><tr><th>Player</th><th>Clothespins</th><th>Player</th><th>Clothespins</th></tr></thead>
+      <tbody>${Array.from({ length: 6 }, () => '<tr><td></td><td></td><td style="font-weight:400;background:#FAFBFA"></td><td></td></tr>').join('')}</tbody></table></div>
+    ${foot('Don’t Say It')}</section>`);
+
+  // GAME 14: guess how many
+  game('Guess How Many?', 'Candy jar guessing game · all ages');
+  out.push(`<section class="page">${head('Guess How Many?', 'Game 14 · candy jar')}
+    <div class="sign" style="border-color:var(--pine)">${A.candycane({ id: 'g1' }).replace('<svg', '<svg style="width:.5in;height:.8in"')}<h3 style="margin-top:6pt">How many <em>candies</em> are in the jar?</h3>
+      <p class="muted" style="margin:6pt 0 0">Fill a jar with candy, mini ornaments or marshmallows and count them. Guests write a guess and drop it in a bowl. Closest guess wins the jar!</p>
+      <p style="margin:10pt 0 0;font-family:var(--serif)">The answer: <span class="blank" style="min-width:1.6in"></span> (fold this part under)</p></div>
+    <div class="gslips">${Array.from({ length: 12 }, () => '<div><span>Name</span><span class="l"></span><span>My guess</span><span class="l"></span></div>').join('')}</div>
+    ${foot('Guess How Many')}</section>`);
+
+  // GAME 15: silly fill-in story (2 pages)
+  game('The Silly Sleigh Story', 'Fill-in-the-blank story · ages 7+');
+  out.push(`<section class="page">${head('The Silly Sleigh Story', 'Game 15 · step 1: the word list')}
+    ${how('Don’t read the story yet! One person asks the group for each word on this list and writes them down. Then turn the page, copy each word into the blank with the same number, and read the story out loud.')}
+    <div class="words">${P.silly.prompts.map((t, i) => `<div><span class="l"><b>${i + 1}</b></span><small>${t}</small></div>`).join('')}</div>
+    <div class="tips" style="margin-top:auto">${A.sleigh().replace('<svg', '<svg style="width:.9in;height:.6in;float:right;margin-left:8pt"')}<b>Need help?</b> An adjective describes something (fuzzy, gigantic, sparkly). A noun is a person, place or thing. A verb is an action (jump, sneeze, wiggle).</div>
+    ${foot('Silly Sleigh Story')}</section>`);
+  const silly = P.silly.story.replace(/(“?)\{(\d+)\}([!”.,]*)/g, (_, q, n, punct) => `<span style="white-space:nowrap">${q}<span class="b"><i>${n}</i></span>${punct}</span>`);
+  out.push(`<section class="page">${head('The Silly Sleigh Story', 'Step 2: fill in and read aloud')}
+    <div class="silly"><p>${silly}</p></div>
+    <p class="center" style="margin-top:auto;font-family:var(--serif);font-style:italic;color:var(--berry);font-size:14pt">The End. Merry Christmas!</p>
+    ${foot('Silly Sleigh Story')}</section>`);
+
+  // GAME 16: joke match
+  game('Christmas Joke Match', 'Match 16 jokes to their punchlines · ages 6+');
+  const jOrder = shuffle(P.jokes.map((_, i) => i));
+  window.JOKE_ORDER = jOrder;
+  out.push(`<section class="page">${head('Christmas Joke Match', 'Game 16 · puzzle')}
+    ${how('Match each joke to its punchline: write the punchline’s letter in the box. Answers are at the back. Bonus: read your favorite one out loud at dinner!')}
+    <div class="jm"><div>${P.jokes.map((j, i) => `<div class="row"><b>${i + 1}</b><span style="flex:1">${j[0]}</span><span class="box"></span></div>`).join('')}</div>
+    <div class="pl">${jOrder.map((ji, k) => `<div class="row"><b>${L.concat('EFGHIJKLMNOP'.split(''))[k]}</b><span>${P.jokes[ji][1]}</span></div>`).join('')}</div></div>
+    ${foot('Joke Match')}</section>`);
+
+  // GAME 17: word search
+  game('Christmas Word Search', '16 hidden words · ages 6+');
+  const N = 14, grid = Array.from({ length: N }, () => Array(N).fill(''));
+  const dirs = [[0, 1], [1, 0], [1, 1]];
+  const placed = [];
+  for (const word of P.wordsearch.slice().sort((a, b) => b.length - a.length)) {
+    let ok = false;
+    for (let t = 0; t < 2000 && !ok; t++) {
+      const [dr, dc] = dirs[Math.floor(rnd() * 3)];
+      const r = Math.floor(rnd() * (N - dr * (word.length - 1)));
+      const c = Math.floor(rnd() * (N - dc * (word.length - 1)));
+      if ([...word].every((ch, i) => { const g = grid[r + dr * i][c + dc * i]; return g === '' || g === ch; })) {
+        [...word].forEach((ch, i) => { grid[r + dr * i][c + dc * i] = ch; });
+        placed.push({ word, r, c, dr, dc }); ok = true;
+      }
+    }
+    if (!ok) throw new Error('could not place ' + word);
+  }
+  const hits = new Set(); placed.forEach((p) => { for (let i = 0; i < p.word.length; i++) hits.add((p.r + p.dr * i) * N + p.c + p.dc * i); });
+  const fillers = 'ABCDEFGHIKLMNOPRSTUVWY';
+  for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (!grid[r][c]) grid[r][c] = fillers[Math.floor(rnd() * fillers.length)];
+  window.WORDSEARCH = { grid: grid.map((r) => r.join('')), placed };
+  const wsHtml = (sol) => `<div class="ws${sol ? ' sol' : ''}">${grid.flatMap((row, r) => row.map((ch, c) => `<span class="${sol && hits.has(r * N + c) ? 'hit' : ''}">${ch}</span>`)).join('')}</div>`;
+  out.push(`<section class="page">${head('Christmas Word Search', 'Game 17 · puzzle')}
+    ${how('Find the 16 Christmas words. They run across, down or diagonally, and never backwards. Tick each word off the list as you find it.')}
+    ${wsHtml(false)}
+    <div class="wsl">${P.wordsearch.map((w) => `<span>${w}</span>`).join('')}</div>
+    ${foot('Word Search')}</section>`);
+
+  // GAME 18: scramble
+  game('Christmas Word Scramble', 'Unscramble 15 festive words · ages 7+');
+  const scr = P.scramble.map((w) => { let s; do { s = shuffle([...w]).join(''); } while (s === w); return s; });
+  window.SCRAMBLE = scr;
+  out.push(`<section class="page">${head('Christmas Word Scramble', 'Game 18 · puzzle')}
+    ${how('Unscramble the letters to spell a Christmas word. Race a partner or set a 10-minute timer. Answers are at the back.')}
+    <div class="scr">${scr.map((s, i) => `<div><b>${i + 1}</b><span class="w">${s}</span><span class="a"></span></div>`).join('')}</div>
+        ${foot('Word Scramble')}</section>`);
+
+  // GAME 19: tic-tac-toe
+  game('Trees vs. Stars Tic-Tac-Toe', 'Two boards + cut-out pieces · ages 4+');
+  out.push(`<section class="page">${head('Trees vs. Stars Tic-Tac-Toe', 'Game 19 · cut out the pieces')}
+    ${how('One player is Trees, the other is Stars. Take turns placing a piece on the board. First to get three in a row (across, down or diagonal) wins. Best of five!')}
+    <div class="ttt"><div class="board">${'<i></i>'.repeat(9)}</div><div class="board">${'<i></i>'.repeat(9)}</div></div>
+    <div class="tokens">${Array.from({ length: 20 }, (_, i) => `<div>${i % 2 ? A.star() : A.tree()}</div>`).join('')}</div>
+    ${foot('Tic-Tac-Toe')}</section>`);
+
+  // GAME 20: elf name
+  game('What’s Your Elf Name?', 'Name generator for the whole table · all ages');
+  out.push(`<section class="page">${head('What’s Your Elf Name?', 'Game 20 · icebreaker')}
+    ${how('Find the first letter of your first name, then your birth month. Put them together: that’s your elf name! Use them all evening: whoever forgets to call someone by their elf name owes the table a joke.')}
+    <div class="elf">
+      <div><h3>First letter of your first name</h3><div class="col">${Object.entries(P.elfFirst).map(([k, v]) => `<div><b>${k}</b>${v}</div>`).join('')}</div></div>
+      <div><h3>Your birth month</h3><div class="col one">${['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((m, i) => `<div><b style="width:auto;margin-right:6pt">${m}</b>${P.elfLast[i]}</div>`).join('')}</div></div>
+    </div>
+    <div class="myname">My elf name is <span class="blank"></span></div>
+    ${foot('Elf Name')}</section>`);
+
+  // answer keys
+  const key1 = pg();
+  out.push(`<section class="page">${head('Trivia answer key', 'No peeking!')}
+    <div class="key">${P.trivia.map((q, i) => `<div><b>${i + 1}. ${L[q[2]]}</b>  ${q[1][q[2]]}<em>${q[3]}</em></div>`).join('')}</div>
+    ${foot('Answer keys')}</section>`);
+  const LET = 'ABCDEFGHIJKLMNOP';
+  out.push(`<section class="page">${head('Puzzle answers', 'Word search · scramble · jokes')}
+    <div class="keys">
+      <div><h3>Word Search</h3>${wsHtml(true)}</div>
+      <div><h3>Word Scramble</h3><div class="klist">${P.scramble.map((w, i) => `<div><b>${i + 1}.</b> ${w}</div>`).join('')}</div></div>
+    </div>
+    <h3 style="color:var(--pine);font-size:13pt;margin:16pt 0 6pt">Joke Match</h3>
+    <div class="klist" style="columns:2">${P.jokes.map((j, i) => `<div><b>${i + 1} = ${LET[jOrder.indexOf(i)]}</b>  ${j[1]}</div>`).join('')}</div>
+    ${foot('Answer keys')}</section>`);
+
+  // 2. contents
+  games[2][2] = games[2][2].replace('KEY1', key1);
+  out[1] = `<section class="page">${head('20 games inside', 'Contents')}
+    <div class="toc">${games.map((g) => `<div><span class="n">${g[0]}</span><span><b>${g[1]}</b><small>${g[2]}</small></span><span class="p">p. ${g[3]}</span></div>`).join('')}</div>
+    <div class="tips"><b>Printing tips.</b> Print at “Actual size” or “100%” (not “Fit to page”). Use the US Letter file in the US and Canada, A4 everywhere else. Card stock makes cards last longer. Print only the pages you need, and print extra player sheets for bigger groups. Answer keys are on pages ${key1}–${key1 + 1}.</div>
+    <div class="tips" style="margin-top:8pt"><b>Planning the night?</b> Start with the Elf Name game as guests arrive, play Bingo or Trivia at the table, hand out gifts with the Left-Right story, and finish with the Gift-Reveal Scavenger Hunt. Puzzles keep kids busy while dinner cooks.</div>
+    <div style="margin-top:auto;display:flex;justify-content:center;gap:.35in;align-items:flex-end">${[A.bell(), A.tree(), A.stocking(), A.gingerbread(), A.ornament({ color: '#2F5D50' })].map((s) => s.replace('<svg', '<svg style="width:.6in;height:.7in"')).join('')}</div>
+    <div class="pf"><span>Christmas Family Game Night · Contents · page 2</span><span>© 2026 Quiet Table Co. · personal use only</span></div></section>`;
+
+  document.getElementById('pages').innerHTML = out.join('');
+})();
+</script>
+</body>
+</html>

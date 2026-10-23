@@ -1,0 +1,203 @@
+// Christmas Family Game Night: all game content (original writing, Quiet Table Co.).
+window.PACK = {
+  bingoWords: [
+    'Santa', 'Reindeer', 'Sleigh', 'Snowman', 'Stocking', 'Candy Cane',
+    'Gingerbread', 'Hot Cocoa', 'Mistletoe', 'Wreath', 'Ornament', 'Tinsel',
+    'Star', 'Bells', 'Elves', 'North Pole', 'Snowflake', 'Mittens',
+    'Presents', 'Wrapping Paper', 'Bow', 'Cookies', 'Milk', 'Chimney',
+    'Fireplace', 'Carols', 'Holly', 'Pine Cone', 'Sled', 'Snowball',
+    'Twinkle Lights', 'Angel', 'Eggnog', 'Scarf', 'Toy Workshop', 'Pajamas',
+  ],
+
+  // [question, [A, B, C, D], correct index, fun fact]
+  trivia: [
+    ['In the 1823 poem "A Visit from St. Nicholas," how many reindeer pull the sleigh?', ['Six', 'Eight', 'Nine', 'Twelve'], 1, 'Dasher, Dancer, Prancer, Vixen, Comet, Cupid, Dunder and Blixem (later Donner and Blitzen).'],
+    ['If you add up every gift in every verse of "The Twelve Days of Christmas," how many are there?', ['78', '144', '312', '364'], 3, 'Almost one gift for every day of the year.'],
+    ['Poinsettias, the red holiday plant, are native to which country?', ['Mexico', 'Italy', 'Norway', 'India'], 0, 'In Mexico they are called "flor de Nochebuena."'],
+    ['The bright red "petals" of a poinsettia are actually...', ['Berries', 'Leaves', 'Seeds', 'Roots'], 1, 'The real flowers are the tiny yellow buds in the middle.'],
+    ['Which country decorated the first Christmas trees, back in the 1500s?', ['France', 'Germany', 'Spain', 'Greece'], 1, 'Early trees were hung with apples, nuts and paper roses.'],
+    ['Since 1947, which country has sent a giant Christmas tree to London every year as a thank-you?', ['Sweden', 'Norway', 'Iceland', 'Canada'], 1, 'It stands in Trafalgar Square.'],
+    ['What color are the berries of European mistletoe?', ['Red', 'White', 'Blue', 'Orange'], 1, 'Holly is the plant with the red berries.'],
+    ['Who wrote "A Christmas Carol" in 1843?', ['Mark Twain', 'Charles Dickens', 'Jane Austen', 'Hans Christian Andersen'], 1, 'He wrote it in about six weeks.'],
+    ['In "A Christmas Carol," what is the name of the grumpy old miser?', ['Jacob Marley', 'Bob Cratchit', 'Ebenezer Scrooge', 'Tiny Tim'], 2, 'His catchphrase: "Bah! Humbug!"'],
+    ['The song "Jingle Bells" was first published in which decade?', ['1750s', '1850s', '1920s', '1950s'], 1, 'Its first title was "One Horse Open Sleigh" (1857).'],
+    ['"Silent Night" was first sung in 1818 in which country?', ['Austria', 'England', 'Germany', 'Poland'], 0, 'It was first played on a guitar.'],
+    ['Santa Claus is based on which real saint?', ['Saint Patrick', 'Saint Nicholas', 'Saint Francis', 'Saint George'], 1, '"Santa Claus" comes from the Dutch "Sinterklaas."'],
+    ['Saint Nicholas was a bishop in a town that is now in which country?', ['Finland', 'Turkey', 'Greenland', 'Russia'], 1, 'The town was called Myra.'],
+    ['What is the French name for the log-shaped Christmas cake?', ['Croissant', 'Bûche de Noël', 'Crème brûlée', 'Galette'], 1, 'It looks like the Yule log once burned in the fireplace.'],
+    ['Panettone, a tall sweet bread with candied fruit, comes from which country?', ['Italy', 'Brazil', 'Portugal', 'Japan'], 0, 'It is traditionally from Milan.'],
+    ['In Australia, Christmas falls in which season?', ['Winter', 'Spring', 'Summer', 'Autumn'], 2, 'Many families have a beach or barbecue Christmas.'],
+    ['What do children in the Netherlands leave out for Sinterklaas’s horse?', ['Bucket of water', 'Shoe with a carrot or hay', 'Saddle', 'Bell'], 1, 'In the morning the shoe is filled with treats.'],
+    ['In Mexico, the nine nights of processions before Christmas are called...', ['Las Posadas', 'Las Mañanitas', 'La Piñata', 'El Grito'], 0, '"Posada" means inn or lodging.'],
+    ['What is the name of the four weeks leading up to Christmas?', ['Lent', 'Advent', 'Epiphany', 'Solstice'], 1, 'That is why we count down with Advent calendars.'],
+    ['December 26 is a holiday called Boxing Day in which of these countries?', ['United States', 'Mexico', 'United Kingdom', 'Japan'], 2, 'Canada, Australia and New Zealand celebrate it too.'],
+    ['How many points (arms) does a snowflake usually have?', ['Four', 'Five', 'Six', 'Eight'], 2, 'That shape comes from the way water molecules link up.'],
+    ['In North America, wild reindeer are usually called...', ['Moose', 'Elk', 'Caribou', 'Antelope'], 2, 'They are the same species.'],
+    ['Do female reindeer grow antlers?', ['Yes', 'No', 'Only in summer', 'Only the babies'], 0, 'They are the only deer where females usually do.'],
+    ['What is frankincense, one of the gifts of the Wise Men?', ['Spice', 'Gemstone', 'Tree resin', 'Perfume flower'], 2, 'It is burned for its sweet, smoky smell.'],
+    ['What is the classic flavor of a candy cane?', ['Cherry', 'Peppermint', 'Cinnamon', 'Lemon'], 1, 'Turn one upside down and it makes a "J."'],
+    ['Which of these is a main ingredient in traditional eggnog?', ['Eggs', 'Oranges', 'Coffee', 'Honey'], 0, 'Plus milk, cream, sugar and a pinch of nutmeg.'],
+    ['Christmas Day became a federal holiday in the United States in which year?', ['1776', '1870', '1920', '1955'], 1, 'President Ulysses S. Grant signed the law.'],
+    ['What does "Feliz Navidad" mean?', ['Happy New Year', 'Merry Christmas', 'Silent Night', 'Good evening'], 1, 'In French it is "Joyeux Noël."'],
+    ['In the song, what did my true love give me on the fifth day of Christmas?', ['Five gold rings', 'Five french hens', 'Five swans a-swimming', 'Five calling birds'], 0, 'Some say the "rings" were once ring-necked birds.'],
+    ['Which fairy tale made gingerbread houses popular?', ['Cinderella', 'Hansel and Gretel', 'Snow White', 'Little Red Riding Hood'], 1, 'German bakers started making them after the Brothers Grimm printed the story.'],
+  ],
+
+  // gift-reveal scavenger hunt: [place, rhyming clue]
+  hunt: [
+    ['Fridge', 'I keep the milk and leftovers cold. Open my door and a new clue unfolds.'],
+    ['Freezer', 'Brrr, it’s frosty, brrr, it’s cold! Look where the ice and ice cream are stowed.'],
+    ['Washing machine', 'I spin your clothes around and around. Peek inside and a clue will be found.'],
+    ['Your pillow', 'At night you rest your sleepy head. Look under the pillow on your bed.'],
+    ['Bathtub', 'Splish and splash, with bubbles galore. Check the tub, there’s something more!'],
+    ['Mailbox', 'Cards and letters land in me each day. Go check the mailbox right away!'],
+    ['Christmas tree', 'I wear the lights and ornaments bright. Search my branches, left and right.'],
+    ['Bookshelf', 'Stories and pictures and facts galore. Look on the shelf where the books are stored.'],
+    ['A shoe', 'You put me on before you go. Look inside a shoe, from heel to toe!'],
+    ['Couch cushions', 'Where we sit to watch and snack. Dig through the cushions, front to back.'],
+    ['Mirror', 'Look at me and who do you see? A clue is waiting right next to me.'],
+    ['Toy box', 'Blocks and games and dolls and cars. Check the toy box, superstar!'],
+    ['Front door', 'Knock, knock! Who’s there? Look by the front door, over there.'],
+    ['Coat closet', 'Where coats and scarves and hats hang tight. Open the closet and look left and right.'],
+    ['Sock drawer', 'Pairs of socks (and some lost their mate). Check the sock drawer, don’t be late!'],
+    ['Pantry', 'Where the snacks and cereal hide away. Look in the pantry, hip hip hooray!'],
+    ['Dishwasher', 'Plates and cups get clean in me. Open the dishwasher and see.'],
+    ['Toothbrush', 'Brush, brush, brush, twice a day. Look by your toothbrush, then on your way!'],
+  ],
+
+  reveals: [
+    ['Pack your bags!', 'We’re going to', 'Leaving on'],
+    ['Your gift is too big to wrap!', 'It’s waiting for you at', 'Go look now!'],
+    ['Surprise! Your gift is an adventure:', '', 'When:'],
+    ['You found the last clue!', 'Your present is hiding', 'Merry Christmas!'],
+  ],
+
+  // left-right gift exchange story (LEFT / RIGHT are passing words)
+  story: [
+    'It was Christmas Eve, and Santa was RIGHT in the middle of packing his sleigh when he noticed something was LEFT on the workshop floor: one small red present with no name tag.',
+    '“Well, that’s not RIGHT,” said Santa. He called the elves, who LEFT their cocoa and came running. “Somebody LEFT this present behind! Who is it for?”',
+    'The tallest elf turned it LEFT. The smallest elf turned it RIGHT. Nobody could read the tag, because a reindeer had licked it. “I think it’s for the family on the LEFT side of Maple Street,” said one elf. “No, the house on the RIGHT!” said another.',
+    'Santa scratched his beard. “We’ll take it along and figure it out RIGHT on the way.” He tucked it under his LEFT arm and climbed aboard. The reindeer took off, swung LEFT over the rooftops, then RIGHT past the moon.',
+    'At the first house, Santa slid down the chimney and tiptoed LEFT toward the tree. He set down the gifts, but the little red present was not RIGHT for anyone there. So back up he went, RIGHT up the chimney, with only a little soot LEFT on his nose.',
+    'At the next house, a cat was waiting RIGHT by the fireplace. It swatted the present LEFT, then RIGHT, then LEFT again, until Santa scooped it up. “Not for you, kitty,” he laughed, and off he went.',
+    'All night long the present went LEFT and RIGHT across the sky. By sunrise there was only one house LEFT: a cozy little home with a crooked wreath and a plate of cookies RIGHT by the door. Santa read the note beside the cookies: “Dear Santa, please bring something to share with everyone.”',
+    '“Well, now I know RIGHT where you belong,” Santa said. He LEFT the red present under the tree and hurried home. In the morning the family opened it and found... a game for the whole family to play together. And that is exactly what YOU are doing RIGHT now!',
+    'So whoever is holding a present, keep it, and Merry Christmas! Nobody is LEFT out!',
+  ],
+
+  // word search (placed across, down or diagonally down-right; no backwards words)
+  wordsearch: ['SANTA', 'SLEIGH', 'ELVES', 'SNOWMAN', 'STAR', 'BELLS', 'HOLLY', 'WREATH', 'COOKIES', 'PRESENTS', 'CAROLS', 'TINSEL', 'REINDEER', 'CANDLE', 'STOCKING', 'MITTENS'],
+
+  scramble: ['REINDEER', 'SNOWFLAKE', 'ORNAMENT', 'MISTLETOE', 'CHIMNEY', 'STOCKING', 'TINSEL', 'SLEIGH', 'PRESENT', 'WREATH', 'GINGERBREAD', 'EGGNOG', 'MITTENS', 'CAROLS', 'SNOWBALL'],
+
+  // [joke, punchline]
+  jokes: [
+    ['What do you call a snowman in July?', 'A puddle'],
+    ['Why did the Christmas tree go to the barber?', 'It needed a trim'],
+    ['What do elves learn in school?', 'The elf-abet'],
+    ['How does a sheep say Merry Christmas?', 'Fleece Navidad'],
+    ['What did the gingerbread man put on his bed?', 'A cookie sheet'],
+    ['Why is it so cold at Christmas?', 'Because it’s in Decem-brrr'],
+    ['What do reindeer hang on their trees?', 'Horn-aments'],
+    ['What kind of music do elves like best?', 'Wrap music'],
+    ['Where do snowmen keep their money?', 'In a snow bank'],
+    ['What do you call a cat on the beach at Christmas?', 'Sandy Claws'],
+    ['What did one ornament say to the other?', '“Let’s hang out!”'],
+    ['What’s green, covered in tinsel and says “ribbit”?', 'A mistle-toad'],
+    ['Why did the elf go to the doctor?', 'Low elf-esteem'],
+    ['What does Santa do in his garden?', 'Hoe, hoe, hoe'],
+    ['What do snowmen wear on their heads?', 'Ice caps'],
+    ['What do you get if you cross a snowman and a vampire?', 'Frostbite'],
+  ],
+
+  wouldYouRather: [
+    'build a snowman<br>or<br>have a snowball fight',
+    'open one gift on Christmas Eve<br>or<br>open them all in the morning',
+    'ride in Santa’s sleigh<br>or<br>visit his workshop',
+    'eat only cookies all day<br>or<br>only candy canes',
+    'have a real tree<br>or<br>a tree made of cookies',
+    'be an elf who makes toys<br>or<br>a reindeer who flies',
+    'wear matching family pajamas<br>or<br>an ugly holiday sweater all day',
+    'have Christmas at the beach<br>or<br>in a snowy cabin',
+    'drink hot cocoa with marshmallows<br>or<br>with whipped cream',
+    'wrap every present in the house<br>or<br>untangle every string of lights',
+    'get one giant present<br>or<br>ten tiny ones',
+    'sing a carol at a stranger’s door<br>or<br>dance in the living room',
+    'have snow that tastes like ice cream<br>or<br>rain that tastes like cocoa',
+    'see real reindeer<br>or<br>real penguins',
+    'decorate the tree<br>or<br>decorate the cookies',
+    'stay up to see Santa<br>or<br>wake up at 5 a.m. for presents',
+    'have a talking snowman friend<br>or<br>a talking gingerbread friend',
+    'skip dessert<br>or<br>skip opening presents until noon',
+  ],
+
+  likely: [
+    'shake every present under the tree',
+    'fall asleep before the movie ends',
+    'eat the cookies left out for Santa',
+    'wrap a gift in newspaper',
+    'start playing carols in November',
+    'wake everyone up first on Christmas morning',
+    'lose the tape while wrapping',
+    'cry at a holiday movie',
+    'sing the loudest at a carol',
+    'get tangled in the lights',
+    'have their shopping done by October',
+    'still be shopping on Christmas Eve',
+    'wear the ugliest sweater with pride',
+    'build the biggest snowman',
+    'peek at their presents early',
+    'eat the most cookies today',
+    'win every snowball fight',
+    'forget whose present is whose',
+  ],
+
+  charades: [
+    'Wrapping a present', 'Building a snowman', 'Ice skating', 'Decorating the tree', 'Sledding down a hill', 'Baking cookies',
+    'Opening a gift you don’t like', 'Singing carols', 'Santa stuck in a chimney', 'A flying reindeer', 'Hanging a stocking', 'A penguin',
+    'Making a snow angel', 'Shoveling snow', 'A toy soldier', 'Sipping cocoa that’s too hot', 'Untangling the lights', 'Elves making toys',
+    'Writing a letter to Santa', 'Catching snowflakes on your tongue', 'Putting the star on the tree', 'A gingerbread man running away', 'Sneaking a peek at presents', 'Ringing a bell',
+    'Falling asleep waiting for Santa', 'Having a snowball fight', 'A snowman melting',
+  ],
+
+  sketch: [
+    'Candy cane', 'Snowman', 'Stocking', 'Gingerbread house', 'Sleigh', 'Reindeer',
+    'Wreath', 'Chimney', 'Penguin', 'Polar bear', 'Snow globe', 'Hot cocoa',
+    'Mittens', 'Elf hat', 'Fireplace', 'Igloo', 'Present with a bow', 'Christmas lights',
+  ],
+
+  nameIt: ['A gift idea', 'Something you eat', 'Something cold', 'Something that sparkles', 'A name for a reindeer', 'Something in a stocking', 'A place to visit', 'Something you wear'],
+  nameItLetters: 'B C D F G H J L M P R S T W',
+
+  // fill-in-the-blank story: prompts, then the story with {n} for each blank
+  silly: {
+    prompts: ['Adjective', 'Name of a person in the room', 'Food', 'Animal (plural)', 'Verb ending in -ing', 'Adjective', 'Body part', 'Silly sound', 'Number', 'Place', 'Noun (plural)', 'Color', 'Adjective', 'Verb', 'Exclamation', 'Food (plural)'],
+    story: 'It was a {1} Christmas Eve at the North Pole when Santa’s best helper, {2}, ran into the workshop shouting, “The reindeer are sick! They ate too much {3}!” Santa looked out the window. The only animals left were twelve {4}, and they were busy {5} in the snow. “Well,” said Santa, “they look {6} enough.” He tied a bell to each one’s {7}, and they took off with a loud “{8}!” They flew to {9} houses before breakfast, but got lost over {10}. Everyone below looked up and saw Santa’s sleigh piled with {11}, glowing bright {12}. At last they landed on our roof with a {13} bump. Santa climbed down the chimney, tried to {14} quietly, and tripped over the dog. “{15}!” he whispered. Then he ate every one of our {16}, said “Ho, ho, ho,” and flew home happy.',
+  },
+
+  challenges: [
+    ['Cookie Face', 'Put a cookie on your forehead. Using only your face, wiggle it down into your mouth.', 'Cookies'],
+    ['Ornament Tower', 'Stack unbreakable ornaments (or plastic cups) into a tower that stands for 3 seconds.', '10 plastic ornaments or cups'],
+    ['Candy Cane Fishing', 'Hold a candy cane in your mouth and hook as many other candy canes as you can.', '6 wrapped candy canes'],
+    ['Mitten Unwrap', 'Wear oven mitts or thick mittens and unwrap a small wrapped box.', 'Mittens, wrapped box'],
+    ['Snowball Scoop', 'Move cotton balls from one bowl to another with a spoon held in your mouth.', 'Cotton balls, 2 bowls, spoon'],
+    ['Jingle Shake', 'Shake all the bells out of an empty tissue box tied around your waist. No hands!', 'Tissue box, string, 5 jingle bells'],
+    ['Bow Stick', 'Wearing a blindfold, stick as many gift bows as you can onto a partner.', 'Gift bows, scarf'],
+    ['Snowman Stack', 'Stack 3 marshmallows into a snowman using only chopsticks.', 'Marshmallows, chopsticks'],
+    ['Wrap Race', 'Wrap a box neatly with paper and tape. Judges score the neatness!', 'Box, paper, tape'],
+    ['Tinsel Toss', 'Toss mini pom-pom “snowballs” into a bucket from 6 feet away.', 'Pom-poms, bucket'],
+    ['Reindeer Antlers', 'Blow up balloons and stick them to a partner’s headband to make antlers.', 'Balloons, headband, tape'],
+    ['Peppermint Pass', 'Pass a peppermint down the line using only spoons in your mouths.', 'Wrapped peppermints, spoons'],
+  ],
+
+  // elf name: first letter of your first name + your birth month
+  elfFirst: { A: 'Sparkle', B: 'Jingle', C: 'Twinkle', D: 'Cocoa', E: 'Sugar', F: 'Frosty', G: 'Pudding', H: 'Holly', I: 'Icicle', J: 'Jolly', K: 'Cookie', L: 'Tinsel', M: 'Marshmallow', N: 'Nutmeg', O: 'Snowdrop', P: 'Peppermint', Q: 'Quilty', R: 'Ribbon', S: 'Snuggles', T: 'Toffee', U: 'Merry', V: 'Velvet', W: 'Wiggles', X: 'Pixie', Y: 'Yule', Z: 'Zippy' },
+  elfLast: ['McSnowflake', 'Candycane', 'Buttonnose', 'Gumdrop', 'Sleighbell', 'Fuzzyboots', 'Mistletoes', 'Sprinkleton', 'Fruitcake', 'Pinecone', 'Stockingham', 'Hollyberry'],
+
+  thisOrThat: [
+    ['Hot cocoa', 'Eggnog'], ['Real tree', 'Fake tree'], ['White lights', 'Colorful lights'], ['Snowman', 'Snow angel'],
+    ['Gingerbread', 'Sugar cookies'], ['Sledding', 'Ice skating'], ['Wrapping paper', 'Gift bags'], ['Christmas Eve', 'Christmas morning'],
+    ['Candy canes', 'Chocolate coins'], ['Matching pajamas', 'Cozy sweater'], ['Giving gifts', 'Getting gifts'], ['Star on top', 'Angel on top'],
+    ['Mittens', 'Gloves'], ['Snow day', 'Beach day'], ['Caroling', 'Movie night'], ['Stockings', 'Presents under the tree'],
+  ],
+};
