@@ -1,0 +1,14 @@
+{
+  "pdfs": [
+    { "src": "room.html", "name": "North-Pole-Escape-Room", "sizes": ["letter", "a4"] }
+  ],
+  "images": [
+    { "src": "listing/listing.html#1", "out": "listing/01-cover-3000x2250.jpg", "w": 3000, "h": 2250 },
+    { "src": "listing/listing.html#2", "out": "listing/02-puzzles-preview-3000x2250.jpg", "w": 3000, "h": 2250 },
+    { "src": "listing/listing.html#3", "out": "listing/03-host-guide-3000x2250.jpg", "w": 3000, "h": 2250 },
+    { "src": "listing/listing.html#4", "out": "listing/04-what-you-get-3000x2250.jpg", "w": 3000, "h": 2250 },
+    { "src": "listing/listing.html#5", "out": "listing/05-how-it-works-3000x2250.jpg", "w": 3000, "h": 2250 },
+    { "src": "listing/listing.html#6", "out": "pins/pin-1-1000x1500.jpg", "w": 1000, "h": 1500 },
+    { "src": "listing/listing.html#7", "out": "pins/pin-2-1000x1500.jpg", "w": 1000, "h": 1500 }
+  ]
+}

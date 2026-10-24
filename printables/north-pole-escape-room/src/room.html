@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en" data-size="letter" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>North Pole Escape Room</title>
+<link rel="stylesheet" href="../../_brand/brand.css">
+<script src="../../_brand/art/winter.js"></script>
+<style>
+  .page.tint { background: #F4F7F3; }
+  .eyebrow { color: var(--berry); }
+  .cover { align-items: center; justify-content: center; text-align: center; }
+  .cover h1 { font-size: 52pt; }
+  .cover h1 em { display: block; color: var(--berry); font-size: 30pt; font-weight: 500; margin-bottom: 4pt; }
+  .cover .sub { font-size: 13pt; color: var(--ink-soft); margin-top: 10pt; }
+  .cover .facts { display: flex; gap: 10pt; justify-content: center; margin-top: 22pt; flex-wrap: wrap; }
+  .cover .facts span { background: #fff; border: 1pt solid var(--line); border-radius: 99pt; padding: 6pt 14pt; font-size: 10pt; font-weight: 500; }
+  .corner { position: absolute; width: 1in; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14pt 22pt; }
+  .cols h3 { color: var(--pine); margin: 0 0 5pt; }
+  .cols p, .cols li { font-size: 10.6pt; }
+  .cols ul, .cols ol { margin: 0 0 6pt; padding-left: 15pt; }
+  .box { flex: none; background: var(--frost); border-radius: 10pt; padding: 11pt 14pt; font-size: 10.4pt; margin-top: 12pt; }
+  .box b { color: var(--berry); }
+
+  /* puzzle page */
+  .pz-top { flex: none; display: flex; align-items: center; gap: 14pt; border-bottom: 1.5pt solid var(--line); padding-bottom: 8pt; margin-bottom: 12pt; }
+  .pz-top .num { width: 0.62in; height: 0.62in; border-radius: 50%; background: var(--berry); color: #fff; font-family: var(--serif); font-weight: 700; font-size: 22pt; display: flex; align-items: center; justify-content: center; flex: none; }
+  .pz-top h2 { font-size: 23pt; }
+  .pz-top .eyebrow { margin-bottom: 2pt; }
+  .story { font-family: var(--serif); font-style: italic; font-size: 11.5pt; color: var(--ink-soft); margin-bottom: 10pt; }
+  .task { font-size: 11pt; margin-bottom: 10pt; }
+  .answer { flex: none; margin-top: auto; display: flex; align-items: center; gap: 12pt; background: var(--frost); border-radius: 10pt; padding: 10pt 14pt; font-size: 11pt; }
+  .answer .lbox { width: 0.55in; height: 0.55in; border: 2pt solid var(--ink); border-radius: 6pt; background: #fff; flex: none; }
+  .blank { display: inline-block; border-bottom: 1.3pt solid var(--ink); min-width: 0.7in; height: 16pt; vertical-align: bottom; }
+  .keystrip { flex: none; display: grid; grid-template-columns: repeat(13, 1fr); border: 1pt solid var(--line); border-radius: 6pt; overflow: hidden; margin-top: 6pt; background: #fff; }
+  .keystrip div { text-align: center; font-size: 9pt; padding: 3pt 0; border-right: 1pt solid var(--line); border-bottom: 1pt solid var(--line); }
+  .keystrip div b { display: block; font-family: var(--serif); font-size: 12pt; }
+  .keystrip div:nth-child(13n) { border-right: 0; }
+  .keytitle { flex: none; font-size: 8.5pt; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin-top: 10pt; }
+
+  /* P1 equations */
+  .eq { flex: none; display: flex; align-items: center; justify-content: center; gap: 12pt; font-family: var(--serif); font-size: 28pt; font-weight: 600; margin: 6pt 0; }
+  .eq > svg { width: 0.72in; height: 0.72in; }
+  .eq .q { color: var(--berry); }
+
+  /* P2 shift cipher */
+  .abc { flex: none; display: grid; grid-template-columns: repeat(26, 1fr); border: 1.3pt solid var(--ink); border-radius: 6pt; overflow: hidden; margin: 4pt 0 14pt; }
+  .abc div { text-align: center; font-family: var(--serif); font-weight: 700; font-size: 12pt; padding: 5pt 0; border-right: 0.75pt solid var(--line); background: #fff; }
+  .abc div:last-child { border-right: 0; }
+  .radio { flex: none; display: flex; flex-wrap: wrap; gap: 22pt 20pt; justify-content: center; background: #fff; border: 1.5pt solid var(--pine); border-radius: 12pt; padding: 26pt 14pt; margin-top: 6pt; }
+  .rword { display: flex; gap: 3pt; }
+  .rch { display: flex; flex-direction: column; align-items: center; gap: 4pt; }
+  .rch b { font-family: var(--serif); font-size: 27pt; color: var(--pine); }
+  .rch i { width: 0.4in; height: 0.5in; border-bottom: 1.5pt solid var(--ink); }
+  .example { flex: none; display: flex; gap: 18pt; justify-content: center; font-size: 11pt; margin-bottom: 12pt; }
+  .example span { background: var(--frost); border-radius: 99pt; padding: 4pt 12pt; }
+
+  /* P3 maze */
+  .maze { display: flex; justify-content: center; flex: 1; min-height: 0; }
+  .maze > svg { height: 100%; max-width: 100%; }
+
+  /* P4 scramble */
+  .scr { flex: none; display: grid; grid-template-columns: 1.6in 1fr; gap: 12pt 14pt; align-items: center; }
+  .scr .s { font-family: var(--serif); font-weight: 700; font-size: 18pt; letter-spacing: .12em; color: var(--pine); }
+  .scr .clue { font-size: 10.3pt; color: var(--ink-soft); }
+  .boxes { display: flex; gap: 4pt; margin-top: 3pt; }
+  .boxes i { width: 0.4in; height: 0.4in; border: 1.3pt solid var(--ink); border-radius: 4pt; background: #fff; }
+  .boxes i.first { background: #F3D3CF; }
+
+  /* P5 logic grid */
+  .clues { flex: none; margin: 0 0 6pt; padding-left: 16pt; }
+  .clues li { font-size: 11pt; margin-bottom: 5pt; }
+  table.lg { flex: none; border-collapse: collapse; margin: 10pt auto; }
+  table.lg td, table.lg th { border: 1pt solid var(--ink-soft); width: 0.95in; height: 0.5in; text-align: center; font-size: 10.5pt; background: #fff; }
+  table.lg th { background: var(--frost); font-weight: 500; }
+  table.lg th.rh { width: 0.9in; }
+  .elves { flex: none; display: flex; justify-content: center; gap: 22pt; margin: 2pt 0 8pt; }
+  .elves div { text-align: center; font-size: 9pt; color: var(--ink-soft); }
+  .elves div > svg { width: 0.55in; height: 0.55in; display: block; margin: 0 auto 2pt; }
+
+  /* P6 spot the difference */
+  .scene { flex: none; width: 64%; margin-left: auto; margin-right: auto; border: 1.5pt solid var(--ink); border-radius: 8pt; overflow: hidden; margin-bottom: 8pt; }
+  .scene > svg { display: block; width: 100%; }
+
+  /* P7 sudoku */
+  .sud { flex: none; display: grid; grid-template-columns: repeat(4, 1.05in); grid-template-rows: repeat(4, 1.05in); border: 2.5pt solid var(--ink); margin: 6pt auto; background: #fff; }
+  .sud > div { border: 0.75pt solid #B7C4BE; display: flex; align-items: center; justify-content: center; }
+  .sud > div:nth-child(4n+2) { border-right: 2.5pt solid var(--ink); }
+  .sud > div:nth-child(n+5):nth-child(-n+8) { border-bottom: 2.5pt solid var(--ink); }
+  .sud > div.shade { background: #F3D3CF; }
+  .sud > div > svg { width: 0.72in; height: 0.72in; }
+  .symkey { flex: none; display: flex; justify-content: center; gap: 18pt; margin-top: 8pt; }
+  .symkey div { display: flex; align-items: center; gap: 6pt; font-family: var(--serif); font-size: 16pt; font-weight: 700; }
+  .symkey div > svg { width: 0.45in; height: 0.45in; }
+
+  /* P8 patterns */
+  .pat { flex: none; display: flex; align-items: center; gap: 12pt; font-family: var(--serif); font-size: 24pt; font-weight: 600; margin: 6pt 0 12pt; }
+  .pat b { color: var(--berry); width: 0.45in; }
+  .pat span { width: 0.78in; height: 0.6in; border: 1.3pt solid var(--line); border-radius: 8pt; display: flex; align-items: center; justify-content: center; background: #fff; }
+  .pat span.q { border: 2pt dashed var(--berry); }
+
+  /* P9 word search */
+  .ws { flex: none; display: grid; border: 2pt solid var(--ink); margin: 2pt auto 10pt; background: #fff; }
+  .ws i { font-style: normal; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-weight: 700; border: 0.5pt solid #DCE5E0; }
+  .wlist { flex: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3pt 10pt; font-size: 10.5pt; font-weight: 500; margin-bottom: 6pt; }
+  .wlist span::before { content: ""; display: inline-block; width: 9pt; height: 9pt; border: 1.2pt solid var(--ink); border-radius: 2pt; margin-right: 6pt; vertical-align: -1pt; }
+  .leftover { flex: none; display: flex; gap: 3pt; flex-wrap: wrap; justify-content: center; margin: 4pt 0 8pt; }
+  .leftover i { width: 0.34in; height: 0.38in; border-bottom: 1.5pt solid var(--ink); }
+
+  /* P10 mirror */
+  .window { flex: none; margin: 4pt auto 12pt; width: 6in; background: #24453C; border: 10pt solid #fff; outline: 1.5pt solid var(--ink); border-radius: 10pt; padding: 26pt 22pt; position: relative; }
+  .window .mir { transform: scaleX(-1); color: #fff; font-family: var(--serif); font-weight: 700; font-size: 30pt; line-height: 1.35; text-align: center; letter-spacing: .06em; }
+  .window .fl { position: absolute; width: 0.45in; }
+  .copy { flex: none; display: flex; flex-direction: column; gap: 14pt; margin: 6pt 0; }
+  .copy i { display: block; border-bottom: 1.3pt solid var(--ink); height: 22pt; }
+
+  /* lock sheet */
+  .lock { flex: none; display: grid; grid-template-columns: repeat(10, 1fr); gap: 6pt; margin: 12pt 0; }
+  .lock div { text-align: center; }
+  .lock i { display: block; height: 0.8in; border: 2.5pt solid var(--ink); border-radius: 9pt; background: #fff; }
+  .lock span { font-size: 8pt; color: var(--ink-soft); letter-spacing: .06em; text-transform: uppercase; }
+  .tick { flex: none; display: grid; grid-template-columns: 1fr 1fr; gap: 4pt 18pt; font-size: 10.5pt; }
+  .tick div { display: flex; gap: 8pt; align-items: center; padding: 4pt 0; border-bottom: 1pt solid var(--line); }
+  .tick i { width: 12pt; height: 12pt; border: 1.3pt solid var(--ink); border-radius: 3pt; background: #fff; flex: none; }
+
+  /* story + cut cards */
+  .halves { flex: 1; display: grid; grid-template-rows: 1fr 1fr; border: 0.75pt dashed #A9B8B1; }
+  .halves > div { border: 0.75pt dashed #A9B8B1; padding: 16pt 24pt; display: flex; flex-direction: column; }
+  .halves p { font-family: var(--serif); font-size: 13pt; line-height: 1.48; }
+  .grid10 { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(5, 1fr); border: 0.75pt dashed #A9B8B1; }
+  .grid10 > div { border: 0.75pt dashed #A9B8B1; padding: 10pt 14pt; display: flex; flex-direction: column; justify-content: center; }
+  .grid10 .t { font-family: var(--serif); font-weight: 600; font-size: 12pt; color: var(--pine); margin-bottom: 4pt; }
+  .grid10 p { font-size: 9.8pt; margin: 0; }
+  .labels { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(6, 1fr); gap: 9pt; }
+  .labels > div { border: 1.5pt solid var(--ink); border-radius: 12pt; display: flex; align-items: center; gap: 12pt; padding: 0 16pt; background: #fff; }
+  .labels .n { font-family: var(--serif); font-weight: 700; font-size: 28pt; color: var(--berry); width: 0.6in; text-align: center; flex: none; }
+  .labels b { font-family: var(--serif); font-size: 13.5pt; display: block; }
+  .labels span span { font-size: 9pt; color: var(--ink-soft); }
+  .badges { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr); border: 0.75pt dashed #A9B8B1; }
+  .badges > div { border: 0.75pt dashed #A9B8B1; padding: 12pt; display: flex; }
+  .badge { flex: 1; border: 2pt solid var(--pine); border-radius: 14pt; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8pt; background: #fff; }
+  .badge .top { background: var(--pine); color: #fff; border-radius: 99pt; padding: 3pt 12pt; font-size: 8pt; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
+  .badge h3 { font-size: 15pt; margin: 6pt 0 2pt; }
+  .badge .ic { height: 0.7in; margin: 6pt auto 2pt; display: flex; justify-content: center; }
+  .badge .ic > svg { height: 100%; width: auto; }
+  .badge .nm { width: 80%; border-bottom: 1.3pt solid var(--ink); height: 20pt; }
+  .badge small { font-size: 8pt; color: var(--ink-soft); margin-top: 3pt; }
+
+  .key2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt 20pt; }
+  .key2 > div { font-size: 9.8pt; border-bottom: 1pt solid var(--line); padding-bottom: 7pt; }
+  .key2 b.l { font-family: var(--serif); font-size: 15pt; color: var(--berry); margin-right: 6pt; }
+  .key2 .mini > svg { width: 100%; height: auto; display: block; margin-top: 4pt; }
+  table.lgmini { border-collapse: collapse; margin-top: 5pt; font-size: 9pt; }
+  table.lgmini th, table.lgmini td { border: 0.75pt solid var(--line); padding: 2pt 8pt; text-align: left; }
+  table.lgmini th { background: var(--frost); font-weight: 500; }
+  .sudmini { display: grid; grid-template-columns: repeat(4, 0.34in); margin-top: 5pt; border: 1.5pt solid var(--ink); width: max-content; }
+  .sudmini i { height: 0.34in; border: 0.5pt solid #B7C4BE; display: flex; align-items: center; justify-content: center; }
+  .sudmini i.sh { background: #F3D3CF; }
+  .sudmini i > svg { width: 0.26in; height: 0.26in; }
+  .wsmini { display: grid; margin-top: 5pt; border: 1.2pt solid var(--ink); width: max-content; }
+  .wsmini i { font-style: normal; width: 0.22in; height: 0.22in; font-size: 8pt; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-weight: 700; color: #9AA9A2; }
+  .wsmini i.w { background: #DCEBE4; color: var(--pine); }
+  .wsmini i.lo { background: #F3D3CF; color: var(--berry); }
+
+  .sign { align-items: center; justify-content: center; text-align: center; border: 12pt solid var(--pine); }
+  .sign h1 { font-size: 58pt; line-height: 1.02; }
+  .cert { align-items: center; justify-content: center; text-align: center; border: 10pt solid var(--frost); }
+  .cert .frame { flex: 1; width: 100%; border: 2pt solid var(--berry); border-radius: 14pt; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24pt; }
+  .cert h1 { font-size: 42pt; }
+  .cert .line { width: 4.5in; border-bottom: 1.5pt solid var(--ink); height: 40pt; margin: 10pt auto 4pt; }
+</style>
+</head>
+<body>
+<div id="pages"></div>
+<script>
+(function () {
+  const A = window.WINTER, C = A.C;
+  const out = [];
+  const N = 10;
+  const CODE = 'SNOWFLAKES';
+  const foot = (label) => `<div class="pf"><span>North Pole Escape Room · ${label}</span><span>© 2026 Quiet Table Co. · personal use only</span></div>`;
+  const head = (title, eyebrow) => `<div class="ph"><h2>${title}</h2><span class="eyebrow">${eyebrow}</span></div>`;
+  const pzTop = (n, title, sub) => `<div class="pz-top"><div class="num">${n}</div><div><div class="eyebrow">Puzzle ${n} of ${N} · ${sub}</div><h2>${title}</h2></div></div>`;
+  const answer = (n, text) => `<div class="answer"><div class="lbox"></div><div><b>Letter ${n} of the launch code.</b> ${text}</div></div>`;
+  const keystrip = () => `<div class="keytitle">Elf number code</div><div class="keystrip">${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((l, i) => `<div><b>${l}</b>${i + 1}</div>`).join('')}</div>`;
+  let seed = 1224;
+  const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+  const nest = (svg, x, y, w, h) => svg.replace('<svg ', `<svg x="${x}" y="${y}" width="${w}" height="${h || w}" `);
+  const TITLES = ['Cookie Count', 'Elf Radio', 'The Snowy Forest', 'Mixed-Up Workshop', 'Who Opened the Gate?', 'Spot the Difference', 'Toy Shelf Grid', 'What Comes Next?', 'Workshop Word Search', 'The Frosty Window'];
+  window.CHECK = {};
+
+  // ---------- 1. cover
+  out.push(`<section class="page tint cover">
+    <div class="corner" style="top:.5in;left:.5in;width:.9in">${A.snowflake()}</div>
+    <div class="corner" style="top:.5in;right:.55in;width:.8in">${A.ornament()}</div>
+    <div class="corner" style="bottom:.55in;left:.55in;width:1.1in">${A.gift({ color: C.pine })}</div>
+    <div class="corner" style="bottom:.5in;right:.5in;width:1.1in">${A.holly()}</div>
+    <div style="width:4.4in;margin:0 auto 10pt">${A.sleigh()}</div>
+    <div class="eyebrow">Printable family escape room · ages 8+</div>
+    <h1 style="margin-top:8pt"><em>The North Pole</em>Escape Room</h1>
+    <div class="sub">The sleigh won’t launch! Crack 10 workshop puzzles and find the launch code before Christmas Eve.</div>
+    <div class="facts"><span>10 puzzles</span><span>60–90 minutes</span><span>2–10 players</span><span>Host guide + answer key</span></div>
+  </section>`);
+
+  // ---------- 2-3. host guide
+  out.push(`<section class="page">${head('Host guide', 'Read before you play')}
+    <div class="cols">
+      <div><h3>The story</h3><p>A snowstorm scrambled the memory of the sleigh’s launch computer, and now the sleigh won’t take off. Luckily, Juniper, the Chief Sleigh Engineer, hid a backup copy of the 10-letter launch code inside 10 puzzles around the workshop. Your players are the new elf crew. Each puzzle they solve gives them one letter of the code. When all 10 letters are on the Launch Panel, they say the code to you and the sleigh is ready to fly.</p>
+        <h3 style="margin-top:10pt">Who it’s for</h3><p>Families and groups, ages 8 and up. Kids 6–7 can play on a team with an older helper. Plan on 60–90 minutes. Play as one big team or race two teams (print one set per team).</p></div>
+      <div><h3>What you need</h3><ul><li>This file, printed (pages 4–19; one set per team)</li><li>12 envelopes (or folders) and tape</li><li>Pencils; scissors for the host</li><li>A small treat or a gift to “launch” at the end</li><li>Optional: a timer, a small mirror (puzzle 10), and a box that closes as the “sleigh”</li></ul>
+        <h3 style="margin-top:10pt">Printing</h3><p>Print at “Actual size”. Color is best (puzzles 6 and 7 use colors), but black and white also works.</p></div>
+    </div>
+    <div class="box"><b>Set-up (about 20 minutes).</b>
+      <ol style="margin:6pt 0 0;padding-left:15pt"><li>Cut out the envelope labels (page 17) and stick one on each envelope.</li>
+      <li>Put each puzzle page (pages 6–15) in the envelope with its number. Put the Launch Panel (page 5) in the START envelope.</li>
+      <li>Hide envelopes 1–10 around the room or the house. Keep the START envelope and the story card (page 4) with you.</li>
+      <li>Cut out the hint cards (page 16) and keep them in your pocket.</li>
+      <li>Put the treat or gift in the “sleigh” with the FINALE half of the story card.</li>
+      <li>Optional: hang the door sign (page 19) and hand out the elf badges (page 18).</li></ol></div>
+    ${foot('Host guide')}</section>`);
+  out.push(`<section class="page">${head('Host guide', 'Running the game')}
+    <div class="cols">
+      <div><h3>How to play</h3><ol><li>Gather the crew, hand out elf badges and read Juniper’s message aloud (page 4, top half).</li><li>Hand over the START envelope and say “Go!” Start a 60-minute timer if you like.</li><li>Players find the envelopes and solve the puzzles in any order. Each puzzle tells them which letter of the code they found (letter 1, letter 2 and so on).</li><li>They write each letter in its box on the Launch Panel.</li><li>When all 10 boxes are full, they read the code to you. If it’s right, they open the sleigh and you read the FINALE.</li></ol>
+        <h3 style="margin-top:10pt">Teams</h3><p>Racing two teams? Give each team its own printed set and hide the envelopes in two different rooms. First team to launch wins.</p></div>
+      <div><h3>Hints</h3><p>Every puzzle has a hint card. A good rule: a team can ask for a hint after 5 minutes on one puzzle, or trade a hint for a silly task (sing a line of a carol, do 10 reindeer jumps).</p>
+        <h3 style="margin-top:10pt">Making it easier</h3><ul><li>Don’t hide the envelopes; lay them out on the table.</li><li>Tell younger players the code is a word for something cold that falls from the sky.</li><li>Work through puzzles 2 and 5 together, out loud.</li></ul>
+        <h3 style="margin-top:10pt">Making it harder</h3><ul><li>Set a 45-minute timer.</li><li>Hide envelopes inside each other: envelope 2 is only found after solving 1, and so on.</li><li>No hint cards, or only three for the whole game.</li></ul></div>
+    </div>
+    <div class="box"><b>Answers are on pages 20–21.</b> Keep those pages (and the hint cards) away from the players. Each puzzle can also be checked on its own: its letter goes in the box at the bottom of the puzzle page.</div>
+    ${foot('Host guide')}</section>`);
+
+  // ---------- 4. story card
+  out.push(`<section class="page">${head('Story cards', 'Host reads aloud · cut in half')}
+    <div class="halves">
+      <div><div class="eyebrow" style="margin-bottom:6pt">Read first</div>
+        <p>Attention, new elf crew!</p>
+        <p>This is Juniper, Chief Sleigh Engineer. Last night’s snowstorm scrambled the sleigh’s launch computer, and it has forgotten its 10-letter launch code. No code, no take-off, and Christmas Eve is coming fast!</p>
+        <p>I hid a backup of the code in 10 puzzles around the workshop. Each one gives you one letter. Solve them in any order, write each letter on the Launch Panel, and tell me the code. I’m counting on you.</p>
+        <p style="margin-top:auto">Warm mittens and good luck,<br><b>Juniper</b></p></div>
+      <div><div class="eyebrow" style="margin-bottom:6pt">Read at the end</div>
+        <p>Launch code accepted: <b>SNOWFLAKES</b>! The lights are blinking, the bells are jingling, and the sleigh is ready to fly.</p>
+        <p>I picked that code for a reason. No two snowflakes are the same, and no two elves are either. Each of you solved something the others couldn’t, and together you saved Christmas Eve. Please enjoy your reward from the sleigh.</p>
+        <p style="margin-top:auto">With thanks from the whole workshop,<br><b>Juniper</b></p></div>
+    </div>${foot('Story cards')}</section>`);
+
+  // ---------- 5. launch panel
+  out.push(`<section class="page tint">${head('The Launch Panel', 'Start here')}
+    <p class="story">The sleigh needs a 10-letter launch code. Find the 10 envelopes, solve each puzzle and write its letter in the matching box.</p>
+    <div class="lock">${Array.from({ length: N }, (_, i) => `<div><i></i><span>Letter ${i + 1}</span></div>`).join('')}</div>
+    <p class="task" style="text-align:center">When every box is full, read the code out loud to your host.</p>
+    <h3 style="margin:8pt 0 6pt">Puzzle checklist</h3>
+    <div class="tick">${TITLES.map((t, i) => `<div><i></i>${i + 1} · ${t}</div>`).join('')}</div>
+    <div style="display:flex;justify-content:center;align-items:flex-end;gap:18pt;margin-top:auto"><div style="width:1in">${A.tree()}</div><div style="width:2.4in">${A.sleigh()}</div><div style="width:.8in">${A.gift()}</div></div>
+    ${foot('Launch Panel')}</section>`);
+
+  // ---------- P1 cookie count: gift=6, bell=4, star=5 -> 6*4-5 = 19 = S
+  const ic = { gift: A.gift(), bell: A.bell(), star: A.star() };
+  out.push(`<section class="page">${pzTop(1, 'Cookie Count', 'numbers')}
+    <p class="story">The baking elves label their cookie tins with pictures instead of numbers. Each picture stands for a number. Work out what each one is worth.</p>
+    <div class="eq">${ic.gift} + ${ic.gift} + ${ic.gift} = 18</div>
+    <div class="eq">${ic.gift} + ${ic.bell} = 10</div>
+    <div class="eq">${ic.bell} + ${ic.star} = 9</div>
+    <div class="rule"></div>
+    <div class="eq">${ic.gift} × ${ic.bell} − ${ic.star} = <span class="q">?</span></div>
+    ${keystrip()}
+    <p class="task" style="margin-top:8pt">Find your answer in the Elf number code. The letter above it is your letter.</p>
+    ${answer(1, 'Write it in box 1 on the Launch Panel.')}
+    ${foot('Puzzle 1')}</section>`);
+  window.CHECK.p1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[6 * 4 - 5 - 1];
+
+  // ---------- P2 shift cipher (+3)
+  const plain = ['LETTER', 'TWO', 'IS', 'N'];
+  const enc = (w) => w.split('').map((c) => String.fromCharCode((c.charCodeAt(0) - 65 + 3) % 26 + 65)).join('');
+  out.push(`<section class="page">${pzTop(2, 'Elf Radio', 'codes')}
+    <p class="story">A secret message crackled over the workshop radio. To keep it safe, the elves moved every letter <b>3 places forward</b> in the alphabet. Move each letter 3 places back to read it.</p>
+    <div class="abc">${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((l) => `<div>${l}</div>`).join('')}</div>
+    <div class="example"><span>D → A</span><span>H → E</span><span>Q → N</span><span>B → Y (go round the end)</span></div>
+    <div class="radio">${plain.map((w) => `<div class="rword">${enc(w).split('').map((l) => `<div class="rch"><b>${l}</b><i></i></div>`).join('')}</div>`).join('')}</div>
+    <div style="display:flex;justify-content:center;gap:24pt;margin-top:22pt"><div style="width:.9in">${A.bell()}</div><div style="width:.8in">${A.snowflake()}</div><div style="width:.9in">${A.bell()}</div></div>
+    ${answer(2, 'The message tells you which letter it is. Write it in box 2.')}
+    ${foot('Puzzle 2')}</section>`);
+  window.CHECK.p2 = plain.map(enc).join(' ');
+
+  // ---------- P3 maze (perfect maze, letters I G L O O along the solution path)
+  const MW = 9, MH = 11;
+  const cells = Array.from({ length: MW * MH }, () => ({ n: true, s: true, e: true, w: true, v: false }));
+  const id = (x, y) => y * MW + x;
+  const stack = [[0, 0]]; cells[0].v = true;
+  while (stack.length) {
+    const [x, y] = stack[stack.length - 1];
+    const nb = [[0, -1, 'n', 's'], [1, 0, 'e', 'w'], [0, 1, 's', 'n'], [-1, 0, 'w', 'e']].filter(([dx, dy]) => { const nx = x + dx, ny = y + dy; return nx >= 0 && ny >= 0 && nx < MW && ny < MH && !cells[id(nx, ny)].v; });
+    if (!nb.length) { stack.pop(); continue; }
+    const [dx, dy, a, b] = nb[Math.floor(rnd() * nb.length)];
+    cells[id(x, y)][a] = false; cells[id(x + dx, y + dy)][b] = false; cells[id(x + dx, y + dy)].v = true; stack.push([x + dx, y + dy]);
+  }
+  const prev = new Array(MW * MH).fill(-1); const q = [0]; const seen = new Set([0]);
+  while (q.length) { const c = q.shift(); const x = c % MW, y = Math.floor(c / MW);
+    for (const [dx, dy, wall] of [[0, -1, 'n'], [1, 0, 'e'], [0, 1, 's'], [-1, 0, 'w']]) { if (cells[c][wall]) continue; const nc = id(x + dx, y + dy); if (!seen.has(nc)) { seen.add(nc); prev[nc] = c; q.push(nc); } } }
+  const path = []; for (let c = id(MW - 1, MH - 1); c !== -1; c = prev[c]) path.unshift(c);
+  const pathSet = new Set(path);
+  const word = 'IGLOO'; const letters = {};
+  word.split('').forEach((l, i) => { letters[path[Math.round((i + 1) * path.length / (word.length + 1))]] = l; });
+  const off = [...Array(MW * MH).keys()].filter((c) => !pathSet.has(c));
+  for (const l of 'BPRZTVMK'.split('')) { const c = off.splice(Math.floor(rnd() * off.length), 1)[0]; letters[c] = l; }
+  window.CHECK.maze = { pathLen: path.length, word: path.filter((c) => letters[c]).map((c) => letters[c]).join(''), cellsSeen: seen.size };
+  const mazeSvg = (solution) => {
+    const S = 40, P = 30; let g = '';
+    for (let y = 0; y < MH; y++) for (let x = 0; x < MW; x++) { const c = cells[id(x, y)], X = P + x * S, Y = P + y * S;
+      if (c.n && !(x === 0 && y === 0)) g += `M${X} ${Y}h${S}`; if (c.w) g += `M${X} ${Y}v${S}`;
+      if (y === MH - 1 && !(x === MW - 1)) g += `M${X} ${Y + S}h${S}`; if (x === MW - 1 && !(y === MH - 1)) g += `M${X + S} ${Y}v${S}`; }
+    let sol = '';
+    if (solution) sol = `<polyline points="${path.map((c) => `${P + (c % MW) * S + S / 2},${P + Math.floor(c / MW) * S + S / 2}`).join(' ')}" fill="none" stroke="${C.berry}" stroke-width="8" stroke-opacity=".5" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const lt = Object.entries(letters).map(([c, l]) => `<text x="${P + (c % MW) * S + S / 2}" y="${P + Math.floor(c / MW) * S + S / 2 + 8}" text-anchor="middle" font-family="Lora" font-weight="700" font-size="24" fill="${C.pine}">${l}</text>`).join('');
+    return `<svg viewBox="0 0 ${MW * S + 2 * P} ${MH * S + 2 * P + 10}" xmlns="http://www.w3.org/2000/svg">${sol}<path d="${g}" stroke="${C.ink}" stroke-width="3" stroke-linecap="round" fill="none"/>${lt}
+      <text x="${P + 4}" y="${P - 8}" font-family="Poppins" font-size="13" fill="${C.ink}">↓ START</text><text x="${P + MW * S - 4}" y="${P + MH * S + 22}" text-anchor="end" font-family="Poppins" font-size="13" fill="${C.ink}">SLEIGH ↓</text></svg>`;
+  };
+  out.push(`<section class="page">${pzTop(3, 'The Snowy Forest', 'paths')}
+    <p class="story">A reindeer took the only path through the snowy forest back to the sleigh. Follow it from START to SLEIGH and collect the letters you pass, in order. Letters off the path are snow-tricks!</p>
+    <div class="maze">${mazeSvg(false)}</div>
+    <p class="task" style="margin-top:8pt">Letters I collected: <span class="blank" style="min-width:3in"></span> (a snowy house!)</p>
+    ${answer(3, 'It’s the <b>last</b> letter of the word you collected. Write it in box 3.')}
+    ${foot('Puzzle 3')}</section>`);
+
+  // ---------- P4 scramble -> WINTER
+  const scr = [['THWERA', 'WREATH', 'A ring of greenery that hangs on the door'], ['CLIECI', 'ICICLE', 'A frozen drip hanging from the roof'], ['HNTRO', 'NORTH', 'Which way to the Pole? Go ...'], ['NIART', 'TRAIN', 'A toy that goes choo-choo around the tree'], ['VLESE', 'ELVES', 'The busy helpers in the workshop'], ['DREENIER', 'REINDEER', 'They pull the sleigh']];
+  out.push(`<section class="page">${pzTop(4, 'Mixed-Up Workshop', 'words')}
+    <p class="story">The storm blew the workshop labels around and mixed up their letters. Unscramble each word and write it in the boxes. The clues will help.</p>
+    <div class="scr">${scr.map(([s, w, c]) => `<div class="s">${s}</div><div><div class="clue">${c}</div><div class="boxes">${w.split('').map((_, i) => `<i class="${i === 0 ? 'first' : ''}"></i>`).join('')}</div></div>`).join('')}</div>
+    <p class="task" style="margin-top:14pt">Now read the <b>shaded</b> boxes from top to bottom. They spell a season: <span class="blank" style="min-width:1.6in"></span></p>
+    ${answer(4, 'It’s the first letter of that season. Write it in box 4.')}
+    ${foot('Puzzle 4')}</section>`);
+  window.CHECK.p4 = scr.map(([s, w]) => [s.split('').sort().join('') === w.split('').sort().join(''), w[0]]).map(([ok, l]) => (ok ? l : '?')).join('');
+
+  // ---------- P5 logic grid -> Fern
+  const names = ['Fern', 'Milo', 'Pip', 'Ruby'], jobs = ['Wrapping', 'Baking', 'Painting', 'Reindeer'];
+  out.push(`<section class="page">${pzTop(5, 'Who Opened the Gate?', 'detective')}
+    <p class="story">Someone left the reindeer gate open, and the reindeer wandered off to play in the snow! It must have been the elf whose job is feeding the reindeer. Four elves each have one job. Who feeds the reindeer?</p>
+    <div class="elves">${[A.mitten(), A.mug(), A.candycane({ id: 'p5' }), A.gift({ color: C.pine })].map((s, i) => `<div>${s}${names[i]}</div>`).join('')}</div>
+    <ol class="clues"><li>The elf who wraps the presents has a name that starts with R.</li><li>Milo doesn’t work with animals, and he never touches paint.</li><li>Pip sneezes around reindeer, so Pip never goes near the stable.</li></ol>
+    <table class="lg"><tr><th class="rh"></th>${jobs.map((d) => `<th>${d}</th>`).join('')}</tr>${names.map((n) => `<tr><th class="rh">${n}</th>${jobs.map(() => '<td></td>').join('')}</tr>`).join('')}</table>
+    <p class="task"><b>How to use the grid:</b> put ✗ for “no” and ✓ for “yes”. Each elf has exactly one job, and each job belongs to exactly one elf. When a row or column has three ✗, the last square must be ✓.</p>
+    <p class="task">The reindeer feeder is: <span class="blank" style="min-width:1.6in"></span></p>
+    ${answer(5, 'It’s the first letter of that elf’s name. Write it in box 5.')}
+    ${foot('Puzzle 5')}</section>`);
+
+  // ---------- P6 spot the difference: 6 differences, x2 = 12 = L
+  const scene = (d) => `<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="600" height="300" fill="#24453C"/>
+      <path d="M0 236 Q150 214 300 232 T600 226 L600 300 L0 300 Z" fill="#FFFFFF"/>
+      ${d ? '' : `<circle cx="540" cy="52" r="26" fill="${C.gold}"/><circle cx="551" cy="44" r="22" fill="#24453C"/>`}
+      ${nest(A.snowflake({ color: '#CFE0E8' }), 60, 26, 30)}${nest(A.snowflake({ color: '#CFE0E8' }), 200, 18, 26)}${d ? '' : nest(A.snowflake({ color: '#CFE0E8' }), 360, 44, 30)}${nest(A.snowflake({ color: '#CFE0E8' }), 450, 16, 22)}
+      ${nest(A.tree(), 20, 84, 150, 190)}
+      ${nest(A.snowman({ color: d ? C.pineLight : C.berry }), 230, 88, 150, 190)}
+      ${nest(A.gift({ color: d ? C.gold : C.berry, ribbon: d ? C.berry : C.gold }), 168, 214, 60)}
+      ${d ? '' : nest(A.candycane({ id: 'sc' }), 404, 186, 40, 80)}
+      ${nest(A.gift({ color: C.pine }), 470, 204, 74)}
+      ${d ? nest(A.mitten({ color: C.berry }), 380, 240, 42) : ''}
+    </svg>`;
+  out.push(`<section class="page">${pzTop(6, 'Spot the Difference', 'looking')}
+    <p class="story">Juniper took two photos of the workshop yard, but the storm changed things in the second one! Circle every difference in the bottom picture.</p>
+    <div class="scene">${scene(false)}</div><div class="scene">${scene(true)}</div>
+    <p class="task">Number of differences I found: <span class="blank"></span> &nbsp; × 2 = <span class="blank"></span></p>
+    ${keystrip()}
+    ${answer(6, 'Double the number of differences, then find it in the Elf number code. That letter goes in box 6.')}
+    ${foot('Puzzle 6')}</section>`);
+
+  // ---------- P7 picture sudoku -> shaded (row 3, col 2) = tree = A
+  const sud = [[1, 2, 3, 4], [3, 4, 1, 2], [2, 1, 4, 3], [4, 3, 2, 1]];
+  const giv = ['0,1', '0,2', '1,0', '1,3', '2,3', '3,0', '3,2'];
+  const sym = { 1: A.tree(), 2: A.star(), 3: A.bell(), 4: A.gift() };
+  const symL = { 1: 'A', 2: 'M', 3: 'P', 4: 'R' };
+  const SH = [2, 1];
+  out.push(`<section class="page">${pzTop(7, 'Toy Shelf Grid', 'logic')}
+    <p class="story">The toy elves stock their shelves in a very exact way. Every row, every column and every 2×2 box must have one tree, one star, one bell and one gift.</p>
+    <p class="task">Draw the missing pictures (a quick sketch is fine). Which picture goes in the <b>shaded</b> square?</p>
+    <div class="sud">${sud.flatMap((r, y) => r.map((v, x) => `<div class="${y === SH[0] && x === SH[1] ? 'shade' : ''}">${giv.includes(`${y},${x}`) ? sym[v] : ''}</div>`)).join('')}</div>
+    <p class="task" style="text-align:center;margin-top:8pt">Each picture is a letter:</p>
+    <div class="symkey">${[1, 2, 3, 4].map((v) => `<div>${sym[v]} ${symL[v]}</div>`).join('')}</div>
+    ${answer(7, 'The shaded square’s letter goes in box 7.')}
+    ${foot('Puzzle 7')}</section>`);
+  window.CHECK.p7 = symL[sud[SH[0]][SH[1]]];
+  window.CHECK.sud = { sud, giv };
+
+  // ---------- P8 patterns: A=20, B=16, C=25 -> 11 = K
+  out.push(`<section class="page">${pzTop(8, 'What Comes Next?', 'patterns')}
+    <p class="story">The sleigh’s control lights blink in patterns. Find the missing number at the end of each row.</p>
+    <div class="pat"><b>A</b><span>5</span><span>10</span><span>15</span><span class="q"></span></div>
+    <div class="pat"><b>B</b><span>2</span><span>4</span><span>8</span><span class="q"></span></div>
+    <div class="pat"><b>C</b><span>40</span><span>35</span><span>30</span><span class="q"></span></div>
+    <p class="task" style="margin-top:6pt">Now work out the control sum: <b>A + B − C</b> = <span class="blank"></span></p>
+    ${keystrip()}
+    ${answer(8, 'Find your answer in the Elf number code. That letter goes in box 8.')}
+    <div style="display:flex;justify-content:center;gap:18pt;margin:10pt 0 6pt"><div style="width:.7in">${A.star()}</div><div style="width:.7in">${A.ornament({ color: C.pine })}</div><div style="width:.7in">${A.star()}</div></div>
+    ${foot('Puzzle 8')}</section>`);
+  window.CHECK.p8 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[20 + 16 - 25 - 1];
+
+  // ---------- P9 word search: leftover letters spell the message
+  const MSG = 'LETTERNINEISE';
+  const POOL = ['SLEIGH', 'COCOA', 'TINSEL', 'WREATH', 'CANDLE', 'MITTEN', 'SNOWMAN', 'CAROL', 'ICICLE', 'COOKIE', 'RIBBON', 'STAR', 'BELL', 'GIFT', 'JINGLE', 'REINDEER', 'PRESENT', 'STOCKING', 'WINTER', 'SCARF', 'FROST', 'ANGEL', 'CANDY', 'HOLLY', 'PINE', 'ELVES', 'NORTH', 'SLED', 'TOYS', 'WRAP', 'BOW', 'SNOW'];
+  const G = 9; const DIRS = [[1, 0], [0, 1], [1, 1]];
+  let grid, placed;
+  for (let attempt = 0; attempt < 5000; attempt++) {
+    grid = Array(G * G).fill(''); placed = [];
+    const pool = POOL.slice().sort(() => rnd() - 0.5);
+    for (const w of pool) {
+      const empties = grid.filter((c) => !c).length;
+      if (empties === MSG.length) break;
+      const opts = [];
+      for (const [dx, dy] of DIRS) for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) {
+        const ex = x + dx * (w.length - 1), ey = y + dy * (w.length - 1);
+        if (ex >= G || ey >= G) continue;
+        let ok = true, fresh = 0;
+        for (let i = 0; i < w.length; i++) { const c = grid[(y + dy * i) * G + x + dx * i]; if (c && c !== w[i]) { ok = false; break; } if (!c) fresh++; }
+        if (ok && fresh > 0 && empties - fresh >= MSG.length) opts.push([x, y, dx, dy]);
+      }
+      if (!opts.length) continue;
+      const [x, y, dx, dy] = opts[Math.floor(rnd() * opts.length)];
+      const cells9 = [];
+      for (let i = 0; i < w.length; i++) { const k = (y + dy * i) * G + x + dx * i; grid[k] = w[i]; cells9.push(k); }
+      placed.push({ w, cells: cells9 });
+    }
+    if (grid.filter((c) => !c).length === MSG.length) break;
+  }
+  const loCells = []; let mi = 0;
+  grid = grid.map((c, k) => { if (c) return c; loCells.push(k); return MSG[mi++]; });
+  // every word must be findable once: count occurrences in allowed directions
+  const occ = (w) => { let n = 0; for (const [dx, dy] of DIRS) for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) { let ok = true; for (let i = 0; i < w.length; i++) { const xx = x + dx * i, yy = y + dy * i; if (xx >= G || yy >= G || grid[yy * G + xx] !== w[i]) { ok = false; break; } } if (ok) n++; } return n; };
+  placed.sort((a, b) => a.w.localeCompare(b.w));
+  window.CHECK.ws = { leftover: loCells.map((k) => grid[k]).join(''), words: placed.map((p) => p.w), occ: placed.map((p) => occ(p.w)), wordCells: new Set(placed.flatMap((p) => p.cells)).size };
+  const wcell = new Set(placed.flatMap((p) => p.cells));
+  out.push(`<section class="page">${pzTop(9, 'Workshop Word Search', 'words')}
+    <p class="story">Juniper hid a message in the workshop word search. Find and circle every word in the list. Words go across, down, or diagonally down to the right.</p>
+    <div class="ws" style="grid-template-columns:repeat(${G},0.46in);grid-template-rows:repeat(${G},0.46in)">${grid.map((c) => `<i style="font-size:17pt">${c}</i>`).join('')}</div>
+    <div class="wlist">${placed.map((p) => `<span>${p.w}</span>`).join('')}</div>
+    <p class="task" style="margin-top:6pt">Now write the letters that are <b>not</b> in any word, in order: row by row, left to right, starting at the top.</p>
+    <div class="leftover">${MSG.split('').map(() => '<i></i>').join('')}</div>
+    ${answer(9, 'The hidden message tells you the letter. Write it in box 9.')}
+    ${foot('Puzzle 9')}</section>`);
+
+  // ---------- P10 mirror message
+  out.push(`<section class="page">${pzTop(10, 'The Frosty Window', 'looking')}
+    <p class="story">Juniper breathed on the workshop window and wrote the last clue in the frost, from the <i>inside</i>. From out here, it looks backwards! Read the message and copy it the right way round.</p>
+    <div class="window">
+      <div class="fl" style="top:6pt;left:8pt">${A.snowflake({ color: '#CFE0E8' })}</div><div class="fl" style="bottom:6pt;right:8pt">${A.snowflake({ color: '#CFE0E8' })}</div>
+      <div class="mir">THE TENTH AND<br>LAST LETTER<br>OF THE CODE<br>IS S</div>
+    </div>
+    <p class="task"><b>Tip:</b> hold the page up to a mirror, or hold it up to a bright window and read it from the back.</p>
+    <div class="copy"><i></i><i></i></div>
+    ${answer(10, 'Write the letter in box 10. Then check the Launch Panel: is every box full?')}
+    ${foot('Puzzle 10')}</section>`);
+
+  // ---------- 16. hint cards
+  const hints = [
+    ['Cookie Count', 'Three gifts make 18, so one gift is 6. Use the gift to find the bell, then the bell to find the star.'],
+    ['Elf Radio', 'Count 3 letters back on the alphabet strip for each letter. O becomes L and H becomes E.'],
+    ['The Snowy Forest', 'Try the maze backwards: start at the SLEIGH and work toward START.'],
+    ['Mixed-Up Workshop', 'The first word hangs on the front door and starts with W.'],
+    ['Who Opened the Gate?', 'Clue 1 tells you Ruby wraps. Then Milo can only be baking. Who is left for painting?'],
+    ['Spot the Difference', 'Check the sky, the snowman’s scarf, the colors of the gifts and the snow on the ground. There are 6.'],
+    ['Toy Shelf Grid', 'Look at the shaded square. Its row already has a bell, its column has a star, and its 2×2 box has a gift. What’s left?'],
+    ['What Comes Next?', 'Row A counts up by 5. In row B each number doubles. Row C counts down by 5.'],
+    ['Workshop Word Search', 'Cross out each word’s letters lightly. The leftover letters start with L-E-T-T-E-R.'],
+    ['The Frosty Window', 'The first word is THE. Read the letters from right to left if you have no mirror.'],
+  ];
+  out.push(`<section class="page">${head('Hint cards', 'Host keeps · cut out')}
+    <div class="grid10">${hints.map(([t, h], i) => `<div><div class="t">Hint ${i + 1}: ${t}</div><p>${h}</p></div>`).join('')}</div>${foot('Hint cards')}</section>`);
+
+  // ---------- 17. envelope labels
+  const lab = [['★', 'START', 'Open first'], ...TITLES.map((t, i) => [i + 1, t, `Puzzle ${i + 1} of ${N}`]), ['♥', 'FINALE', 'Host only · goes in the sleigh']];
+  out.push(`<section class="page">${head('Envelope labels', 'Cut out · tape on envelopes')}
+    <div class="labels">${lab.map(([n, t, s]) => `<div><span class="n">${n}</span><span><b>${t}</b><span>${s}</span></span></div>`).join('')}</div>${foot('Envelope labels')}</section>`);
+
+  // ---------- 18. elf badges
+  const bic = [A.star(), A.bell(), A.mitten(), A.gingerbread(), A.ornament(), A.snowman()];
+  const roles = ['Sleigh Engineer', 'Code Breaker', 'Map Reader', 'Cookie Inspector', 'Light Checker', 'Snow Scout'];
+  out.push(`<section class="page">${head('Elf crew badges', 'Cut out · one per player')}
+    <div class="badges">${bic.map((s, i) => `<div><div class="badge"><span class="top">North Pole crew</span><div class="ic">${s}</div><h3>${roles[i]}</h3><div class="nm"></div><small>elf name</small></div></div>`).join('')}</div>${foot('Elf badges')}</section>`);
+
+  // ---------- 19. door sign
+  out.push(`<section class="page tint sign">
+    <div style="width:3.4in;margin-bottom:14pt">${A.sleigh()}</div>
+    <div class="eyebrow" style="font-size:12pt">North Pole Workshop</div>
+    <h1 style="margin:10pt 0">Sleigh Launch<br><em style="color:var(--berry)">Control Room</em></h1>
+    <p style="font-size:16pt;color:var(--ink-soft)">Authorized elves only. Puzzle solvers welcome.</p>
+    <div style="display:flex;gap:24pt;margin-top:24pt"><div style="width:.8in">${A.snowflake()}</div><div style="width:.9in">${A.tree()}</div><div style="width:.8in">${A.snowflake()}</div></div>
+  </section>`);
+
+  // ---------- 20-21. answer key
+  const wsMini = `<div class="wsmini" style="grid-template-columns:repeat(${G},0.22in)">${grid.map((c, k) => `<i class="${wcell.has(k) ? 'w' : 'lo'}">${c}</i>`).join('')}</div>`;
+  out.push(`<section class="page">${head('Answer key', 'Host only · puzzles 1–5')}
+    <div class="key2">
+      <div><b class="l">1 = S</b>Gift = 6 (18 ÷ 3), bell = 4 (10 − 6), star = 5 (9 − 4). Gift × bell − star = 24 − 5 = 19, and 19 = S.</div>
+      <div><b class="l">2 = N</b>${window.CHECK.p2} moved 3 letters back reads LETTER TWO IS N.</div>
+      <div><b class="l">3 = O</b>The path collects I-G-L-O-O (IGLOO). The last letter is O.<div class="mini" style="width:2.3in">${mazeSvg(true)}</div></div>
+      <div><b class="l">4 = W</b>WREATH, ICICLE, NORTH, TRAIN, ELVES, REINDEER. The shaded letters spell WINTER. First letter: W.</div>
+      <div><b class="l">5 = F</b>Clue 1: Ruby wraps. Clue 2: Milo isn’t on reindeer or painting, so Milo bakes. Clue 3: Pip isn’t on reindeer, so Pip paints. Fern feeds the reindeer: F.<table class="lgmini">${names.map((n, i) => `<tr><th>${n}</th><td>${['Reindeer', 'Baking', 'Painting', 'Wrapping'][i]}</td></tr>`).join('')}</table></div>
+    </div>
+    <div class="box" style="font-size:12pt;text-align:center"><b>The launch code:</b> <span style="font-family:var(--serif);font-size:20pt;font-weight:700;letter-spacing:.2em">${CODE.split('').join(' ')}</span></div>
+    ${foot('Answer key')}</section>`);
+  out.push(`<section class="page">${head('Answer key', 'Host only · puzzles 6–10')}
+    <div class="key2">
+      <div><b class="l">6 = L</b>6 differences: the moon, one snowflake and the candy cane are missing; the snowman’s scarf is green; the left gift is gold; a mitten is lying in the snow. 6 × 2 = 12, and 12 = L.<div class="mini" style="width:2.9in">${((sv, add) => sv.slice(0, sv.lastIndexOf('</svg>')) + add + '</svg>')(scene(true), [[540, 52, 32], [375, 59, 24], [305, 199, 28], [198, 244, 38], [424, 226, 44], [401, 262, 28]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="#E0453A" stroke-width="5"/>`).join(''))}</div></div>
+      <div><b class="l">7 = A</b>The shaded square (row 3, column 2) is the tree, and tree = A.<div class="sudmini">${sud.flatMap((r, y) => r.map((v, x) => `<i class="${y === SH[0] && x === SH[1] ? 'sh' : ''}">${sym[v]}</i>`)).join('')}</div></div>
+      <div><b class="l">8 = K</b>A = 20, B = 16, C = 25. 20 + 16 − 25 = 11, and 11 = K.</div>
+      <div><b class="l">9 = E</b>The leftover (pink) letters read LETTER NINE IS E.${wsMini}</div>
+      <div><b class="l">10 = S</b>The window says THE TENTH AND LAST LETTER OF THE CODE IS S.</div>
+    </div>
+    <div class="box" style="font-size:12pt;text-align:center"><b>The launch code:</b> <span style="font-family:var(--serif);font-size:20pt;font-weight:700;letter-spacing:.2em">${CODE.split('').join(' ')}</span></div>
+    ${foot('Answer key')}</section>`);
+
+  // ---------- 22. certificate
+  out.push(`<section class="page cert"><div class="frame">
+    <div style="width:2.8in">${A.sleigh()}</div>
+    <div class="eyebrow" style="margin-top:8pt">Official North Pole certificate</div>
+    <h1 style="margin:6pt 0">Sleigh Launched!</h1>
+    <p style="font-size:13pt">This certifies that</p><div class="line"></div><p class="muted" style="font-size:9pt">name(s)</p>
+    <p style="font-size:13pt;margin-top:10pt">cracked all 10 workshop puzzles and found the launch code just in time for Christmas Eve.</p>
+    <p style="font-size:11pt;margin-top:10pt">Time: <span class="blank" style="min-width:1in"></span> &nbsp;&nbsp; Date: <span class="blank" style="min-width:1.3in"></span></p>
+    <div style="display:flex;gap:20pt;margin-top:16pt;align-items:flex-end"><div style="width:.7in">${A.star()}</div><div style="width:.8in">${A.tree()}</div><div style="width:.7in">${A.gift()}</div></div>
+    <p class="serif italic" style="margin-top:10pt;color:var(--berry);font-size:13pt">Signed, Juniper, Chief Sleigh Engineer</p>
+  </div></section>`);
+
+  document.getElementById('pages').innerHTML = out.join('');
+})();
+</script>
+</body>
+</html>

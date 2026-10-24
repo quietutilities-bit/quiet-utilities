@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Listing images</title>
+<link rel="stylesheet" href="../../../_brand/brand.css">
+<script src="../../../_brand/art/winter.js"></script>
+<style>
+  :root { --bg: #F1F5F1; }
+  html, body { margin: 0; background: var(--bg); }
+  .stage { position: relative; overflow: hidden; background: var(--bg); font-family: var(--sans); color: var(--ink); }
+  .l { width: 3000px; height: 2250px; }
+  .pin { width: 1000px; height: 1500px; }
+  .sheet { position: absolute; background: #fff; box-shadow: 0 30px 70px rgba(47,93,80,.22), 0 6px 16px rgba(59,47,42,.12); border-radius: 6px; overflow: hidden; }
+  .sheet img { width: 100%; display: block; }
+  .t { font-family: var(--serif); font-weight: 600; line-height: 1.02; }
+  .t em { font-style: italic; font-weight: 500; color: var(--berry); }
+  .eyebrow { color: var(--berry); }
+  .badge { display: inline-flex; align-items: center; gap: 18px; background: #fff; border: 3px solid #D7E2DC; border-radius: 999px; padding: 22px 44px; font-size: 54px; font-weight: 500; margin: 0 20px 24px 0; }
+  .badge i { width: 26px; height: 26px; border-radius: 50%; background: var(--berry); display: inline-block; }
+  .deco { position: absolute; }
+  .brand { position: absolute; font-size: 40px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  ul.get { list-style: none; padding: 0; margin: 0; }
+  ul.get li { font-size: 58px; padding: 24px 0; border-bottom: 3px solid #D7E2DC; display: flex; gap: 34px; align-items: center; }
+  ul.get li b { font-family: var(--serif); font-size: 78px; color: var(--berry); min-width: 150px; }
+  .step { background: #fff; border-radius: 40px; padding: 70px 60px; border: 3px solid #D7E2DC; text-align: center; }
+  .step .n { width: 140px; height: 140px; border-radius: 50%; background: var(--pine); color: #fff; font-family: var(--serif); font-size: 84px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 40px; }
+  .step h3 { font-size: 80px; margin-bottom: 24px; }
+  .step p { font-size: 50px; color: var(--ink-soft); line-height: 1.35; }
+  .chips { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(6, auto); grid-auto-flow: column; gap: 0 90px; width: 2200px; }
+  .chips span { border-bottom: 3px solid #D7E2DC; padding: 18px 0 14px; font-size: 58px; font-weight: 500; }
+  .chips span b { color: var(--berry); font-family: var(--serif); display: inline-block; width: 100px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const A = window.WINTER;
+const img = (p) => `<img src="img/${p}.png">`;
+const sheet = (p, x, y, w, rot = 0, z = 1) => `<div class="sheet" style="left:${x}px;top:${y}px;width:${w}px;transform:rotate(${rot}deg);z-index:${z}">${img(p)}</div>`;
+const deco = (svg, x, y, w, extra = '') => `<div class="deco" style="left:${x}px;top:${y}px;width:${w}px;${extra}">${svg}</div>`;
+const brand = (x, y) => `<div class="brand" style="left:${x}px;top:${y}px">Quiet Table Co.</div>`;
+const GET = ['10 puzzles, 1 launch code', 'Story cards to read aloud', 'Launch Panel code sheet', '2-page host guide', '10 hint cards', '12 envelope labels', '6 elf crew badges', 'Door sign', 'Full answer key', '“Sleigh Launched!” certificate'];
+
+const V = {
+  1: () => `<div class="stage l">
+    ${deco(A.snowflake(), 130, 110, 170)}
+    ${deco(A.holly(), 2650, 1880, 280)}
+    ${deco(A.ornament(), 1560, 110, 120)}
+    ${sheet('p11', 330, 330, 1080, -7, 1)}
+    ${sheet('p08', 560, 260, 1080, 4, 2)}
+    ${sheet('p01', 420, 190, 1180, -1.5, 3)}
+    <div style="position:absolute;left:1770px;top:260px;width:1140px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Printable · Instant download</div>
+      <div class="t" style="font-size:176px"><em>North Pole</em><br>Escape Room</div>
+      <p style="font-size:66px;color:var(--ink-soft);margin:56px 0 64px;line-height:1.3">The sleigh won’t launch! A Christmas puzzle game for the <b style="color:var(--ink)">whole family, ages 8+</b></p>
+      <span class="badge"><i></i>10 puzzles</span><span class="badge"><i></i>60–90 min</span><span class="badge"><i></i>2–10 players</span><span class="badge"><i></i>US Letter + A4</span>
+    </div>
+    ${brand(1780, 2100)}
+  </div>`,
+
+  2: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:130px;width:3000px;text-align:center">
+      <div class="t" style="font-size:146px">10 different <em>puzzles</em></div>
+      <p style="font-size:58px;color:var(--ink-soft);margin-top:30px">Codes, a maze, logic, patterns, a word search, a mirror message and more</p>
+    </div>
+    ${sheet('p06', 150, 560, 820, -4, 1)}
+    ${sheet('p07', 760, 640, 820, 3, 2)}
+    ${sheet('p10', 1420, 580, 820, -2, 3)}
+    ${sheet('p15', 2050, 560, 820, 4, 4)}
+  </div>`,
+
+  3: () => `<div class="stage l">
+    ${sheet('p03', 1600, 300, 1060, 5, 1)}
+    ${sheet('p02', 1260, 220, 1080, -3, 2)}
+    ${sheet('p18', 2180, 1160, 640, 7, 3)}
+    <div style="position:absolute;left:170px;top:330px;width:1000px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Easy to host</div>
+      <div class="t" style="font-size:146px">Set up in<br><em>20 minutes</em></div>
+      <p style="font-size:62px;color:var(--ink-soft);margin:56px 0;line-height:1.35">Step-by-step host guide, hint cards and envelope labels.</p>
+      <p style="font-size:62px;color:var(--ink-soft);line-height:1.35">Tips to make it easier for little ones or harder for teens and adults.</p>
+    </div>
+    ${deco(A.gift({ color: '#2F5D50' }), 200, 1760, 280)}
+    ${deco(A.bell(), 540, 1790, 220)}
+    ${brand(170, 2140)}
+  </div>`,
+
+  4: () => `<div class="stage l">
+    <div style="position:absolute;left:190px;top:300px;width:2620px">
+      <div class="t" style="font-size:130px;margin-bottom:40px">What you <em>get</em>: 22 pages</div>
+      <div class="chips">${GET.map((g, i) => `<span><b>${i + 1}</b>${g}</span>`).join('')}</div>
+      <div style="display:flex;gap:80px;margin-top:60px;font-size:58px">
+        <div><b style="font-family:var(--serif);color:var(--berry);font-size:84px">2</b> PDFs: US Letter + A4</div>
+        <div><b style="font-family:var(--serif);color:var(--berry);font-size:84px">✓</b> Ages 8 and up</div>
+        <div><b style="font-family:var(--serif);color:var(--berry);font-size:84px">✓</b> Teams or one big group</div>
+      </div>
+    </div>
+    ${deco(A.sleigh(), 2380, 640, 520)}${deco(A.tree(), 2560, 1180, 300)}
+    ${brand(190, 2110)}
+  </div>`,
+
+  5: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:200px;width:3000px;text-align:center">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:30px">Digital download · nothing is shipped</div>
+      <div class="t" style="font-size:150px">How it <em>works</em></div>
+    </div>
+    <div style="position:absolute;left:200px;top:720px;width:2600px;display:grid;grid-template-columns:repeat(3,1fr);gap:80px">
+      <div class="step"><div class="n">1</div><h3>Print &amp; hide</h3><p>Print the PDF and hide 10 puzzle envelopes around the house.</p></div>
+      <div class="step"><div class="n">2</div><h3>Solve</h3><p>Each puzzle gives one letter of the sleigh’s launch code.</p></div>
+      <div class="step"><div class="n">3</div><h3>Launch!</h3><p>Say the 10-letter code, open the “sleigh” and claim the treat.</p></div>
+    </div>
+    <div style="position:absolute;left:0;top:1640px;width:3000px;text-align:center">
+      <span class="badge"><i></i>US Letter (8.5 × 11 in)</span><span class="badge"><i></i>A4 (210 × 297 mm)</span><span class="badge"><i></i>Instant download</span>
+    </div>
+    ${deco(A.sprig(), 1200, 1960, 600)}
+  </div>`,
+
+  6: () => `<div class="stage pin">
+    ${deco(A.snowflake(), 50, 40, 100)}
+    ${deco(A.holly(), 820, 50, 140)}
+    <div style="position:absolute;left:0;top:80px;width:1000px;text-align:center">
+      <div class="t" style="font-size:92px"><em>North Pole</em><br>Escape Room</div>
+      <p style="font-size:40px;color:var(--ink-soft);margin-top:24px">Printable Christmas puzzle game · ages 8+</p>
+    </div>
+    ${sheet('p08', 330, 560, 560, 6, 1)}
+    ${sheet('p01', 110, 520, 560, -4, 2)}
+    <div style="position:absolute;left:0;bottom:60px;width:1000px;text-align:center"><span class="pill" style="font-size:30px;padding:14px 34px;background:var(--berry)">Printable · instant download</span></div>
+  </div>`,
+  7: () => `<div class="stage pin" style="background:#fff">
+    <div style="position:absolute;left:0;top:0;width:1000px;height:450px;background:var(--pine)"></div>
+    <div style="position:absolute;left:0;top:64px;width:1000px;text-align:center;color:#fff">
+      <div style="font-size:32px;letter-spacing:.2em;text-transform:uppercase;font-weight:500">Christmas Eve family activity</div>
+      <div class="t" style="font-size:88px;margin-top:26px">Crack the Sleigh’s<br>Launch Code</div>
+    </div>
+    ${sheet('p05', 180, 500, 640, -2, 1)}
+    <div style="position:absolute;left:0;bottom:46px;width:1000px;text-align:center;font-size:34px;color:var(--ink-soft)">10 puzzles · host guide · answer key</div>
+  </div>`,
+};
+document.getElementById('root').innerHTML = V[(location.hash || '#1').slice(1)]();
+</script>
+</body>
+</html>
