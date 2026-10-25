@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en" data-size="letter" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Christmas Gift &amp; Budget Planner</title>
+<link rel="stylesheet" href="../../_brand/brand.css">
+<script src="../../_brand/art/winter.js"></script>
+<style>
+  .cover { align-items: center; justify-content: center; text-align: center; }
+  .cover h1 { font-size: 50pt; }
+  .cover h1 em { display: block; color: var(--berry); font-size: 30pt; font-weight: 500; margin-bottom: 4pt; }
+  .cover .sub { font-size: 13pt; color: var(--ink-soft); margin-top: 12pt; max-width: 5.4in; }
+  .cover .facts { display: flex; gap: 9pt; justify-content: center; margin-top: 22pt; flex-wrap: wrap; max-width: 6.2in; }
+  .cover .facts span { background: #fff; border: 1pt solid var(--line); border-radius: 99pt; padding: 6pt 14pt; font-size: 10pt; font-weight: 500; }
+  .corner { position: absolute; width: 0.9in; }
+  .yearline { margin-top: 26pt; font-size: 11pt; display: flex; gap: 8pt; align-items: flex-end; }
+
+  .ph { flex: none; }
+  .ph .art { width: 0.42in; flex: none; margin-left: 8pt; }
+  .ph .right { display: flex; align-items: flex-end; }
+  .intro { flex: none; font-size: 10.3pt; color: var(--ink-soft); margin: -4pt 0 10pt; }
+
+  .tbl { flex: 1; min-height: 0; display: grid; border-top: 1.5pt solid var(--ink); }
+  .tbl > div { border-bottom: 0.9pt solid var(--line); border-right: 0.9pt solid var(--line); padding: 3pt 6pt; font-size: 9.5pt; display: flex; align-items: center; min-height: 0; }
+  .tbl > div.r { border-right: 0; }
+  .tbl > div.h { font-size: 7.6pt; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; background: var(--frost); border-bottom: 1.2pt solid var(--ink-soft); padding: 5pt 6pt; line-height: 1.2; }
+  .tbl > div.c { justify-content: center; }
+  .tbl > div.t { font-family: var(--serif); font-weight: 600; font-size: 10.5pt; }
+  .tbl > div.m::before { content: "$"; color: #B5A89C; font-size: 9pt; }
+  .tbl > div.tot { background: var(--frost); font-weight: 600; font-family: var(--serif); font-size: 10.5pt; color: var(--pine); border-bottom: 1.5pt solid var(--ink); }
+  .tbl > div.ex { color: var(--ink-soft); font-style: italic; font-size: 9pt; }
+  .ck { width: 10pt; height: 10pt; border: 1.2pt solid var(--ink); border-radius: 2.5pt; display: inline-block; flex: none; }
+
+  .blank { display: inline-block; border-bottom: 1.2pt solid var(--ink); min-width: 0.9in; height: 14pt; vertical-align: bottom; }
+  .sums { flex: none; display: flex; gap: 18pt; margin-top: 9pt; font-size: 10pt; flex-wrap: wrap; }
+  .sums b { font-weight: 500; }
+
+  .welcome { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14pt 24pt; align-content: start; }
+  .welcome h3 { color: var(--pine); margin-bottom: 5pt; }
+  .welcome p, .welcome li { font-size: 10.3pt; }
+  .welcome ol, .welcome ul { margin: 0 0 6pt; padding-left: 15pt; }
+  .contents { list-style: none; padding: 0 !important; margin: 0; }
+  .contents li { display: flex; gap: 8pt; border-bottom: 0.8pt solid var(--line); padding: 3pt 0; font-size: 10pt; }
+  .contents li b { color: var(--berry); width: 18pt; font-family: var(--serif); }
+  .glance { margin-top: 12pt; background: var(--frost); border-radius: 10pt; padding: 10pt 14pt; }
+  .glance h3 { color: var(--berry); margin-bottom: 4pt; }
+  .glance div.f { border-bottom: 1.1pt solid var(--ink); padding: 12pt 0 2pt; font-size: 9.8pt; }
+  .box { background: var(--frost); border-radius: 10pt; padding: 12pt 14pt; font-size: 10.3pt; margin-top: 12pt; flex: none; }
+  .box b { color: var(--berry); }
+
+  /* big number boxes */
+  .bigs { flex: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12pt; margin-bottom: 12pt; }
+  .bigs > div { border: 1.3pt solid var(--line); border-radius: 10pt; padding: 8pt 12pt 10pt; background: #fff; }
+  .bigs .lab { font-size: 7.8pt; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
+  .bigs .val { font-family: var(--serif); font-size: 22pt; color: #C8BCB0; margin-top: 6pt; border-bottom: 1.2pt solid var(--ink); line-height: 1.1; }
+  .bigs > div.hl { background: var(--frost); border-color: var(--frost); }
+
+  /* idea boxes */
+  .ideas { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); gap: 10pt; }
+  .idea { border: 1.2pt solid var(--line); border-radius: 10pt; padding: 7pt 10pt; display: flex; flex-direction: column; min-height: 0; }
+  .idea .nm { display: flex; align-items: flex-end; gap: 5pt; font-size: 8pt; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; flex: none; }
+  .idea .nm span.l { flex: 1; border-bottom: 1.2pt solid var(--ink); height: 13pt; }
+  .idea .ln { flex: 1; display: grid; grid-auto-rows: 1fr; }
+  .idea .ln div { border-bottom: 0.8pt solid var(--line); display: flex; align-items: center; gap: 6pt; font-size: 8pt; color: #B5A89C; }
+  .idea .bud { flex: none; font-size: 8pt; color: var(--ink-soft); display: flex; gap: 4pt; margin-top: 4pt; align-items: flex-end; }
+  .idea .bud span { flex: 1; border-bottom: 1pt solid var(--ink); height: 11pt; }
+
+  /* kids */
+  .kids { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12pt 16pt; }
+  .kid { border: 1.2pt solid var(--line); border-radius: 12pt; padding: 9pt 12pt; display: flex; flex-direction: column; min-height: 0; }
+  .kid .top { display: flex; gap: 8pt; align-items: flex-end; font-size: 9pt; flex: none; margin-bottom: 4pt; }
+  .kid .top .l { flex: 1; border-bottom: 1.2pt solid var(--ink); height: 15pt; }
+  .kid .top .s { width: 0.7in; border-bottom: 1.2pt solid var(--ink); height: 15pt; }
+  .kid .rows { flex: 1; display: grid; grid-template-rows: repeat(6, 1fr); }
+  .kid .rows > div { display: grid; grid-template-columns: 1.15in 1fr 0.55in; align-items: center; border-bottom: 0.8pt solid var(--line); font-size: 9pt; }
+  .kid .rows > div b { font-family: var(--serif); color: var(--berry); font-size: 10.5pt; font-weight: 600; }
+  .kid .rows > div b small { display: block; font-family: var(--sans); color: var(--ink-soft); font-weight: 400; font-size: 7pt; letter-spacing: .04em; margin-top: -1pt; }
+  .kid .rows > div span.m { border-left: 0.8pt solid var(--line); height: 100%; display: flex; align-items: center; padding-left: 4pt; color: #B5A89C; font-size: 8.5pt; }
+
+  .kid .kbud { flex: none; display: flex; gap: 5pt; align-items: flex-end; font-size: 8.5pt; color: var(--ink-soft); margin-top: 5pt; }
+  .kid .kbud span { flex: 1; border-bottom: 1pt solid var(--ink); height: 12pt; margin-right: 8pt; }
+  /* stockings */
+  .stock { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; gap: 12pt 14pt; }
+  .stock > div { display: flex; flex-direction: column; min-height: 0; border: 1.2pt solid var(--line); border-radius: 12pt; padding: 8pt 10pt; }
+  .stock .hd { display: flex; align-items: flex-end; gap: 6pt; flex: none; }
+  .stock .hd .ic { width: 0.32in; flex: none; }
+  .stock .hd .l { flex: 1; border-bottom: 1.2pt solid var(--ink); height: 16pt; }
+  .stock .rows { flex: 1; display: grid; grid-auto-rows: 1fr; margin-top: 4pt; }
+  .stock .rows div { border-bottom: 0.8pt solid var(--line); display: flex; align-items: center; gap: 6pt; }
+  .stock .bud { flex: none; font-size: 8pt; color: var(--ink-soft); display: flex; gap: 4pt; margin-top: 5pt; align-items: flex-end; }
+  .stock .bud span { flex: 1; border-bottom: 1pt solid var(--ink); height: 11pt; }
+  .tipbox { flex: none; margin-top: 10pt; background: var(--frost); border-radius: 10pt; padding: 9pt 14pt; font-size: 9.5pt; }
+  .tipbox b { color: var(--pine); }
+
+  /* shopping trips */
+  .trips { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr); gap: 12pt 16pt; }
+  .trip { display: flex; flex-direction: column; min-height: 0; }
+  .trip .hd { display: flex; gap: 6pt; align-items: flex-end; font-size: 8pt; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; border-bottom: 1.4pt solid var(--ink); padding-bottom: 2pt; flex: none; }
+  .trip .hd span.l { flex: 1; height: 14pt; }
+  .trip .hd span.d { width: 0.8in; height: 14pt; border-left: 0.8pt solid var(--line); padding-left: 4pt; }
+  .trip .rows { flex: 1; display: grid; grid-auto-rows: 1fr; }
+  .trip .rows div { border-bottom: 0.8pt solid var(--line); display: flex; align-items: center; gap: 7pt; }
+  .trip .rows div .q { margin-left: auto; width: 0.6in; border-left: 0.8pt solid var(--line); height: 100%; display: flex; align-items: center; padding-left: 4pt; color: #B5A89C; font-size: 8.5pt; }
+
+  /* savings jar */
+  .sav { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr); gap: 16pt 22pt; }
+  .sav h3 { color: var(--pine); font-size: 13pt; margin-bottom: 6pt; }
+  .coins { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6pt 12pt; padding: 0 6pt; }
+  .coins div { aspect-ratio: 1; border: 1.3pt solid var(--line); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 7.5pt; color: #B5A89C; }
+  .coins div::before { content: "$"; }
+  .goalrow { display: flex; gap: 10pt; font-size: 10pt; margin-bottom: 10pt; flex-wrap: wrap; }
+
+  /* hiding spots + wrap station */
+  .split { flex: 1; min-height: 0; display: grid; grid-template-rows: auto 1fr; gap: 14pt; }
+  .ck2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt 22pt; align-content: start; }
+  .ckbox h3 { color: var(--pine); font-size: 13pt; margin-bottom: 4pt; }
+  .ckbox ul { list-style: none; margin: 0; padding: 0; }
+  .ckbox li { display: flex; gap: 8pt; align-items: flex-start; font-size: 9.8pt; padding: 3.5pt 0; border-bottom: 0.8pt solid var(--line); line-height: 1.3; }
+  .ckbox li .ck { margin-top: 1.5pt; }
+  .ckbox li.blank { height: 19pt; border-bottom: 0.8pt solid var(--line); display: flex; min-width: 0; }
+  .sech { flex: none; font-family: var(--serif); font-weight: 600; font-size: 14pt; color: var(--pine); margin-bottom: 4pt; }
+  .col { display: flex; flex-direction: column; min-height: 0; }
+
+  /* review */
+  .rev { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr 1fr; gap: 12pt 20pt; }
+  .lined { flex: 1; min-height: 0; display: grid; grid-auto-rows: 1fr; }
+  .lined div { border-bottom: 0.9pt solid var(--line); }
+  .stars { display: flex; gap: 6pt; align-items: center; font-size: 9.5pt; margin-top: 4pt; }
+  .stars i { width: 13pt; height: 13pt; display: inline-block; }
+
+  /* gift tags */
+  .tags { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); border: 0.75pt dashed #B9A995; }
+  .tag { border: 0.75pt dashed #B9A995; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8pt 14pt; min-height: 0; position: relative; }
+  .tag .hole { position: absolute; top: 9pt; left: 50%; width: 9pt; height: 9pt; margin-left: -4.5pt; border: 1pt solid #B9A995; border-radius: 50%; }
+  .tag .ic { height: 0.5in; width: 0.8in; margin-top: 6pt; display: flex; justify-content: center; flex: none; } .tag .ic > svg { height: 100%; width: auto; }
+  .tag .msg { font-family: var(--serif); font-style: italic; font-size: 13pt; margin: 4pt 0 6pt; }
+  .tag .f { width: 100%; display: flex; gap: 5pt; align-items: flex-end; font-size: 8.5pt; color: var(--ink-soft); margin-top: 4pt; }
+  .tag .f span { flex: 1; border-bottom: 1pt solid var(--ink); height: 12pt; }
+</style>
+</head>
+<body>
+<div id="pages"></div>
+<script>
+(function () {
+  const A = window.WINTER, C = A.C;
+  const out = [];
+  const foot = (label) => `<div class="pf"><span>Christmas Gift &amp; Budget Planner · ${label}</span><span>© 2026 Quiet Table Co. · personal use only</span></div>`;
+  const head = (title, eyebrow, art) => `<div class="ph"><h2>${title}</h2><div class="right"><span class="eyebrow">${eyebrow}</span>${art ? `<div class="art">${art}</div>` : ''}</div></div>`;
+  const ck = '<i class="ck"></i>';
+
+  // fill-in table: cols = [{h, w, cls, ck}], n rows, prefill = rows of cell text, total = label for a final totals row
+  function tbl(cols, n, prefill = [], total = null) {
+    const tpl = cols.map((c) => c.w).join(' ');
+    let cells = cols.map((c, i) => `<div class="h ${i === cols.length - 1 ? 'r' : ''}">${c.h}</div>`).join('');
+    for (let r = 0; r < n; r++) {
+      const row = prefill[r];
+      cells += cols.map((c, i) => {
+        const txt = row && row[i] != null ? row[i] : (c.ck ? ck : '');
+        return `<div class="${c.cls || ''} ${row && row.ex ? 'ex' : ''} ${i === cols.length - 1 ? 'r' : ''}">${txt}</div>`;
+      }).join('');
+    }
+    let rows = n;
+    if (total) {
+      rows++;
+      cells += cols.map((c, i) => `<div class="tot ${c.cls && c.cls.includes('m') ? 'm' : ''} ${i === cols.length - 1 ? 'r' : ''}">${i === 0 ? total : ''}</div>`).join('');
+    }
+    return `<div class="tbl" style="grid-template-columns:${tpl};grid-template-rows:auto repeat(${rows}, 1fr)">${cells}</div>`;
+  }
+  const ex = (cells) => Object.assign(cells.map((c) => c === '' ? null : c), { ex: 1 });
+  const list = (title, items, blanks = 0) => `<div class="ckbox"><h3>${title}</h3><ul>${items.map((t) => `<li>${ck}<span>${t}</span></li>`).join('')}${Array.from({ length: blanks }, () => `<li class="blank">${ck}<span></span></li>`).join('')}</ul></div>`;
+
+  // ---------- 1. cover
+  out.push(`<section class="page tint cover">
+    <div class="corner" style="top:.5in;left:.5in">${A.snowflake()}</div>
+    <div class="corner" style="top:.5in;right:.5in;width:1in">${A.holly()}</div>
+    <div class="corner" style="bottom:.55in;left:.55in;width:.8in">${A.candycane()}</div>
+    <div class="corner" style="bottom:.5in;right:.55in;width:.75in">${A.ornament({ color: C.gold })}</div>
+    <div style="display:flex;align-items:flex-end;gap:14pt;margin-bottom:16pt">
+      <div style="width:1.05in">${A.gift({ color: C.berry })}</div><div style="width:1.5in">${A.tree()}</div><div style="width:1.05in">${A.gift({ color: C.pine })}</div>
+    </div>
+    <div class="eyebrow">Printable planner · 20 pages</div>
+    <h1 style="margin-top:8pt"><em>Christmas</em>Gift &amp; Budget Planner</h1>
+    <div class="sub">Plan every gift, set a budget you can keep and see exactly where the money goes, from the first idea to the last thank-you note.</div>
+    <div class="facts"><span>Holiday budget</span><span>Budget by person</span><span>Gift tracker</span><span>Kids’ gift planner</span><span>Online order tracker</span><span>Expense log</span><span>Savings tracker</span><span>Card list</span><span>Gift tags</span></div>
+    <div class="yearline"><span class="serif italic" style="font-size:13pt">The</span><span class="blank" style="min-width:2.2in"></span><span class="serif italic" style="font-size:13pt">family · Christmas</span><span class="blank" style="min-width:0.8in"></span></div>
+  </section>`);
+
+  // ---------- 2. welcome + contents
+  out.push(`<section class="page">${head('Start here', 'How to use this planner', A.star())}
+    <div class="welcome">
+      <div>
+        <h3>Plan it in five steps</h3>
+        <ol>
+          <li><b>Set the number.</b> Decide your total holiday budget on the Holiday Budget page, then split it into categories.</li>
+          <li><b>Make the list.</b> Write everyone you buy for on Budget by Person and give each person a gift budget.</li>
+          <li><b>Plan the gifts.</b> Jot down ideas, then move each gift to the Gift Tracker with its price.</li>
+          <li><b>Track as you buy.</b> Log every purchase on the Expense Log and every online order on the Order Tracker.</li>
+          <li><b>Wrap up.</b> Use the wrap &amp; ship checklist, send cards, and write thank-yous. Then fill in the year-end review for next year.</li>
+        </ol>
+        <h3 style="margin-top:10pt">Printing tips</h3>
+        <ul>
+          <li>Print at “Actual size” or “100%”.</li>
+          <li>Print only the pages you need, and extra copies of the Gift Tracker or Expense Log if you have a long list.</li>
+          <li>Works in color or black and white. Print the gift tags on card stock.</li>
+          <li>Keep the pages in a folder or binder, out of sight of curious eyes!</li>
+        </ul>
+        <div class="glance"><h3>My Christmas at a glance</h3>
+          ${['Total holiday budget', 'Gift budget', 'Number of people on my list', 'Last day to order online', 'Shopping done by'].map((t) => `<div class="f">${t}:</div>`).join('')}</div>
+      </div>
+      <div>
+        <h3>What’s inside</h3>
+        <ul class="contents">
+          ${['Cover', 'Start here', 'Holiday budget', 'Gift budget by person', 'Gift tracker (page 1)', 'Gift tracker (page 2)', 'Gift ideas', 'Kids’ gift planner', 'Stocking stuffers', 'Online order tracker', 'Shopping trips', 'Holiday expense log', 'Christmas savings tracker', 'Wrap &amp; ship checklist', 'Hiding spots &amp; wrapping station', 'Christmas card list', 'Gift exchanges &amp; extras', 'Gifts received &amp; thank-yous', 'Year-end review', 'Printable gift tags'].map((t, i) => `<li><b>${i + 1}</b><span>${t}</span></li>`).join('')}
+        </ul>
+      </div>
+    </div>
+    <div class="box"><b>The budget rule that works:</b> decide the total first, then each person’s amount. When a gift costs more than planned, take the difference from someone else’s line or from “Other”, so the total never moves.</div>
+    ${foot('Start here')}</section>`);
+
+  // ---------- 3. holiday budget
+  const cats = ['Gifts', 'Stocking stuffers', 'Wrapping paper, bags &amp; tags', 'Christmas cards &amp; postage', 'Shipping gifts', 'Holiday food &amp; groceries', 'Parties &amp; entertaining', 'Decorations &amp; tree', 'Travel', 'Outfits &amp; clothing', 'Activities &amp; outings', 'Teacher, coworker &amp; helper gifts', 'Charity &amp; giving', 'Tips &amp; thank-yous', 'Other', ''];
+  out.push(`<section class="page">${head('Holiday budget', 'The big picture', A.ornament())}
+    <div class="bigs">
+      <div class="hl"><div class="lab">Total holiday budget</div><div class="val">$</div></div>
+      <div><div class="lab">Total spent</div><div class="val">$</div></div>
+      <div><div class="lab">Left / over</div><div class="val">$</div></div>
+    </div>
+    ${tbl([{ h: 'Category', w: '2.3fr', cls: 't' }, { h: 'Budget', w: '0.9fr', cls: 'm' }, { h: 'Spent', w: '0.9fr', cls: 'm' }, { h: 'Difference', w: '0.9fr', cls: 'm' }, { h: 'Notes', w: '1.4fr' }], cats.length, cats.map((c) => [c]), 'Total')}
+    <div class="sums"><span><b>Money comes from:</b> savings <span class="blank" style="min-width:.7in"></span> paycheck <span class="blank" style="min-width:.7in"></span> other <span class="blank" style="min-width:.7in"></span></span></div>
+    ${foot('Holiday budget')}</section>`);
+
+  // ---------- 4. budget by person
+  out.push(`<section class="page">${head('Gift budget by person', 'Who I’m buying for', A.gift({ color: C.berry }))}
+    <div class="intro">List everyone you give to, set a budget for each, then fill in what you spend. Check the last box when their gifts are done.</div>
+    ${tbl([{ h: 'Name', w: '1.8fr', cls: 't' }, { h: 'Group', w: '1fr' }, { h: 'Budget', w: '0.8fr', cls: 'm' }, { h: 'Spent', w: '0.8fr', cls: 'm' }, { h: 'Left', w: '0.8fr', cls: 'm' }, { h: 'Done', w: '0.5fr', cls: 'c', ck: 1 }], 24,
+      [ex(['e.g. Grandma Rose', 'Family', '40', '36.50', '3.50', ''])], 'Total')}
+    <div class="sums"><span>Number of people: <span class="blank" style="min-width:.6in"></span></span><span>Average per person: $<span class="blank" style="min-width:.7in"></span></span></div>
+    ${foot('Budget by person')}</section>`);
+
+  // ---------- 5-6. gift tracker
+  const trackerCols = [{ h: 'For', w: '1.2fr', cls: 't' }, { h: 'Gift', w: '1.9fr' }, { h: 'Store / website', w: '1.2fr' }, { h: 'Price', w: '0.7fr', cls: 'm' }, { h: 'Bought', w: '0.55fr', cls: 'c', ck: 1 }, { h: 'Wrapped', w: '0.62fr', cls: 'c', ck: 1 }, { h: 'Given', w: '0.52fr', cls: 'c', ck: 1 }];
+  out.push(`<section class="page">${head('Gift tracker', 'Page 1 · plan · buy · wrap · give', A.gift({ color: C.pine }))}
+    ${tbl(trackerCols, 25, [ex(['e.g. Sam', 'Board game + puzzle book', 'Toy shop', '28', '', '', ''])], 'Page total')}
+    ${foot('Gift tracker 1')}</section>`);
+  out.push(`<section class="page">${head('Gift tracker', 'Page 2 · plan · buy · wrap · give', A.gift({ color: C.gold }))}
+    ${tbl(trackerCols, 26, [], 'Page total')}
+    <div class="sums"><span>Page 1 total: $<span class="blank" style="min-width:.7in"></span></span><span>+ Page 2 total: $<span class="blank" style="min-width:.7in"></span></span><span><b>= All gifts: $</b><span class="blank" style="min-width:.8in"></span></span></div>
+    ${foot('Gift tracker 2')}</section>`);
+
+  // ---------- 7. gift ideas
+  const idea = () => `<div class="idea"><div class="nm">For <span class="l"></span></div><div class="ln">${Array.from({ length: 5 }, () => `<div>${ck}</div>`).join('')}</div><div class="bud">Budget $<span></span></div></div>`;
+  out.push(`<section class="page">${head('Gift ideas', 'Catch ideas all year', A.star({ color: C.gold }))}
+    <div class="intro">Heard someone mention something they’d love? Write it down here before you forget. Check the idea you choose.</div>
+    <div class="ideas">${Array.from({ length: 12 }, idea).join('')}</div>
+    ${foot('Gift ideas')}</section>`);
+
+  // ---------- 8. kids
+  const kid = (art) => `<div class="kid"><div class="top"><div style="width:.4in;flex:none">${art}</div>Name <span class="l"></span> Age <span class="s" style="width:.4in"></span></div>
+    <div class="rows">
+      <div><b>Want<small>something they want</small></b><span></span><span class="m">$</span></div>
+      <div><b>Need<small>something they need</small></b><span></span><span class="m">$</span></div>
+      <div><b>Wear<small>something to wear</small></b><span></span><span class="m">$</span></div>
+      <div><b>Read<small>something to read</small></b><span></span><span class="m">$</span></div>
+      <div><b>Do<small>an experience</small></b><span></span><span class="m">$</span></div>
+      <div><b>Stocking</b><span></span><span class="m">$</span></div>
+    </div><div class="kbud">Budget $<span></span> Spent $<span></span></div></div>`;
+  out.push(`<section class="page">${head('Kids’ gift planner', 'Want · need · wear · read · do', A.gingerbread())}
+    <div class="intro">A simple way to keep kids’ gifts balanced and on budget: one gift in each row. Skip any row you like.</div>
+    <div class="kids">${kid(A.stocking())}${kid(A.mitten())}${kid(A.snowman())}${kid(A.gingerbread())}</div>
+    ${foot('Kids’ gift planner')}</section>`);
+
+  // ---------- 9. stocking stuffers
+  const icons = [A.stocking(), A.stocking({ color: C.pine }), A.stocking({ color: C.gold }), A.stocking(), A.stocking({ color: C.pine }), A.stocking({ color: C.gold })];
+  out.push(`<section class="page">${head('Stocking stuffers', 'Little things, one stocking each', A.stocking())}
+    <div class="stock">${icons.map((ic) => `<div><div class="hd"><div class="ic">${ic}</div><span class="l"></span></div><div class="rows">${Array.from({ length: 9 }, () => `<div>${ck}</div>`).join('')}</div><div class="bud">Spent $<span></span></div></div>`).join('')}</div>
+    <div class="tipbox"><b>Stocking ideas:</b> socks, lip balm, a small puzzle, favorite candy, a toothbrush, hair ties, a gift card, batteries for the big gift, playing cards, a clementine in the toe, a handwritten note.</div>
+    ${foot('Stocking stuffers')}</section>`);
+
+  // ---------- 10. online orders
+  out.push(`<section class="page">${head('Online order tracker', 'Know what’s on the way', A.sleigh())}
+    <div class="intro">Write down every order the day you place it. Check the shipping cut-off dates for each store early in December.</div>
+    ${tbl([{ h: 'Item / for', w: '1.7fr', cls: 't' }, { h: 'Store', w: '1fr' }, { h: 'Order date', w: '0.75fr' }, { h: 'Order # / tracking', w: '1.3fr' }, { h: 'Cost', w: '0.65fr', cls: 'm' }, { h: 'Due', w: '0.6fr' }, { h: 'Arrived', w: '0.58fr', cls: 'c', ck: 1 }], 22, [], 'Total')}
+    <div class="sums"><span>Returns to send back: <span class="blank" style="min-width:2.6in"></span></span><span>Return by: <span class="blank"></span></span></div>
+    ${foot('Online order tracker')}</section>`);
+
+  // ---------- 11. shopping trips
+  const trip = () => `<div class="trip"><div class="hd">Store <span class="l"></span><span class="d">Date</span></div><div class="rows">${Array.from({ length: 7 }, () => `<div>${ck}<span class="q">$</span></div>`).join('')}</div></div>`;
+  out.push(`<section class="page">${head('Shopping trips', 'One list per store', A.mitten())}
+    <div class="intro">Group your list by store so each trip is quick. Write the price next to each item and you’ll know the total before you reach the checkout.</div>
+    <div class="trips">${Array.from({ length: 6 }, trip).join('')}</div>
+    ${foot('Shopping trips')}</section>`);
+
+  // ---------- 12. expense log
+  out.push(`<section class="page">${head('Holiday expense log', 'Every purchase, in one place', A.bell())}
+    <div class="intro">Write down every holiday purchase (gifts, food, decorations, postage). Keep a running total so you always know where you stand.</div>
+    ${tbl([{ h: 'Date', w: '0.6fr' }, { h: 'Store', w: '1.1fr' }, { h: 'What I bought', w: '1.8fr', cls: 't' }, { h: 'Category', w: '1fr' }, { h: 'Amount', w: '0.75fr', cls: 'm' }, { h: 'Running total', w: '0.85fr', cls: 'm' }], 26,
+      [ex(['12/2', 'Bookshop', 'Cookbook for Dad', 'Gifts', '24.99', '24.99'])], 'Total')}
+    ${foot('Expense log')}</section>`);
+
+  // ---------- 13. savings
+  out.push(`<section class="page">${head('Christmas savings tracker', 'Fill the jar', A.mug())}
+    <div class="sav">
+      <div class="col">
+        <h3>Savings circles</h3>
+        <div class="goalrow"><span>Goal: $<span class="blank" style="min-width:.8in"></span></span><span>Each circle = $<span class="blank" style="min-width:.5in"></span></span></div>
+        <p style="font-size:9.8pt;color:var(--ink-soft);margin-bottom:8pt">Divide your goal by 40 to get the amount for each circle (for example, $800 ÷ 40 = $20). Color in a circle every time you set that amount aside, or write in different amounts.</p>
+        <div class="coins">${'<div></div>'.repeat(40)}</div>
+        <div class="goalrow" style="margin-top:14pt"><span>Keeping it in: <span class="blank" style="min-width:1.9in"></span></span></div>
+        <div class="goalrow"><span>Goal reached on: <span class="blank" style="min-width:1.7in"></span></span></div>
+        <div class="box" style="margin-top:auto"><b>Tip:</b> to make next Christmas easier, start in January. Setting aside $15 a week adds up to about $750 by December.</div>
+      </div>
+      <div class="col">
+        <h3>Weekly savings plan</h3>
+        ${tbl([{ h: 'Week of', w: '1fr' }, { h: 'Saved', w: '0.8fr', cls: 'm' }, { h: 'Total so far', w: '0.95fr', cls: 'm' }, { h: '✓', w: '0.4fr', cls: 'c', ck: 1 }], 20)}
+      </div>
+    </div>
+    ${foot('Savings tracker')}</section>`);
+
+  // ---------- 14. wrap & ship
+  out.push(`<section class="page">${head('Wrap &amp; ship checklist', 'From closet to under the tree', A.gift({ color: C.berry }))}
+    ${tbl([{ h: 'For', w: '1.3fr', cls: 't' }, { h: 'Gift(s)', w: '1.6fr' }, { h: 'Wrapped', w: '0.62fr', cls: 'c', ck: 1 }, { h: 'Tagged', w: '0.58fr', cls: 'c', ck: 1 }, { h: 'Ship by', w: '0.7fr' }, { h: 'Shipped', w: '0.62fr', cls: 'c', ck: 1 }, { h: 'Postage', w: '0.65fr', cls: 'm' }, { h: 'Arrived', w: '0.6fr', cls: 'c', ck: 1 }], 24, [], 'Total')}
+    <div class="sums"><span>Post office / courier: <span class="blank" style="min-width:2in"></span></span><span>Last shipping day this year: <span class="blank" style="min-width:1.1in"></span></span></div>
+    ${foot('Wrap &amp; ship')}</section>`);
+
+  // ---------- 15. hiding spots + wrapping station
+  out.push(`<section class="page">${head('Hiding spots &amp; wrapping station', 'So nothing gets lost', A.snowflake())}
+    <div class="split">
+      <div class="ck2">
+        ${list('Wrapping station', ['Wrapping paper (2–3 patterns)', 'Gift bags and tissue paper', 'Clear tape and double-sided tape', 'Scissors', 'Ribbon and bows', 'Gift tags (page 20) and a pen', 'Boxes for odd shapes'], 1)}
+        ${list('Don’t forget', ['Gift receipts in an envelope', 'Batteries for toys and gadgets', 'Remove price tags', 'Charge new devices before wrapping', 'Label who each gift is for', 'Shipping boxes and packing paper'], 2)}
+      </div>
+      <div class="col"><div class="sech">Where I hid the gifts</div>
+        ${tbl([{ h: 'Gift', w: '1.6fr', cls: 't' }, { h: 'For', w: '1fr' }, { h: 'Hiding spot', w: '1.7fr' }, { h: 'Moved under tree', w: '0.75fr', cls: 'c', ck: 1 }], 10)}</div>
+    </div>
+    ${foot('Hiding spots')}</section>`);
+
+  // ---------- 16. card list
+  out.push(`<section class="page">${head('Christmas card list', 'Send · receive', A.holly())}
+    ${tbl([{ h: 'Name(s)', w: '1.5fr', cls: 't' }, { h: 'Address / email', w: '2.6fr' }, { h: 'Sent', w: '0.48fr', cls: 'c', ck: 1 }, { h: 'Received', w: '0.66fr', cls: 'c', ck: 1 }, { h: 'Photo / gift', w: '0.7fr', cls: 'c', ck: 1 }], 20)}
+    <div class="sums"><span>Cards needed: <span class="blank" style="min-width:.6in"></span></span><span>Stamps needed: <span class="blank" style="min-width:.6in"></span></span><span>Mail by: <span class="blank"></span></span></div>
+    ${foot('Card list')}</section>`);
+
+  // ---------- 17. exchanges + extra gifts
+  out.push(`<section class="page">${head('Gift exchanges &amp; extras', 'Swaps · teachers · hosts', A.bell())}
+    <div class="col" style="flex:1;min-height:0">
+      <div class="sech">Gift exchanges &amp; Secret Santa</div>
+      ${tbl([{ h: 'Event', w: '1.5fr', cls: 't' }, { h: 'Date', w: '0.6fr' }, { h: 'Price limit', w: '0.7fr', cls: 'm' }, { h: 'I’m buying for', w: '1.2fr' }, { h: 'Gift', w: '1.4fr' }, { h: 'Done', w: '0.5fr', cls: 'c', ck: 1 }], 6)}
+      <div class="sech" style="margin-top:14pt">Teachers, neighbors, helpers &amp; hosts</div>
+      ${tbl([{ h: 'Name', w: '1.5fr', cls: 't' }, { h: 'Who they are', w: '1.1fr' }, { h: 'Gift', w: '1.7fr' }, { h: 'Cost', w: '0.65fr', cls: 'm' }, { h: 'Given', w: '0.55fr', cls: 'c', ck: 1 }], 10, [], 'Total')}
+    </div>
+    ${foot('Exchanges &amp; extras')}</section>`);
+
+  // ---------- 18. received + thank-yous
+  out.push(`<section class="page">${head('Gifts received &amp; thank-yous', 'Remember who gave what', A.mug())}
+    ${tbl([{ h: 'From', w: '1.4fr', cls: 't' }, { h: 'Gift', w: '2fr' }, { h: 'For', w: '0.9fr' }, { h: 'Thank-you sent', w: '0.7fr', cls: 'c', ck: 1 }, { h: 'Notes', w: '1.1fr' }], 24)}
+    ${foot('Gifts received')}</section>`);
+
+  // ---------- 19. review
+  out.push(`<section class="page">${head('Year-end review', 'Notes for next Christmas', A.star())}
+    <div class="bigs" style="grid-template-columns:repeat(4,1fr)">
+      <div><div class="lab">Budgeted</div><div class="val">$</div></div>
+      <div><div class="lab">Spent</div><div class="val">$</div></div>
+      <div><div class="lab">Under / over</div><div class="val">$</div></div>
+      <div class="hl"><div class="lab">Save each month for next year</div><div class="val">$</div></div>
+    </div>
+    <div class="rev" style="grid-template-rows:1fr 1fr">
+      <div class="col"><div class="sech">Best gifts given</div><div class="lined">${'<div></div>'.repeat(8)}</div></div>
+      <div class="col"><div class="sech">What went over budget, and why</div><div class="lined">${'<div></div>'.repeat(8)}</div></div>
+      <div class="col"><div class="sech">Start earlier next year</div><div class="lined">${'<div></div>'.repeat(8)}</div></div>
+      <div class="col"><div class="sech">Gift ideas for next year</div><div class="lined">${'<div></div>'.repeat(8)}</div></div>
+    </div>
+    ${foot('Year-end review')}</section>`);
+
+  // ---------- 20. gift tags
+  const tagArt = [A.gift({ color: C.berry }), A.tree(), A.ornament({ color: C.gold }), A.holly(), A.star({ color: C.gold }), A.snowflake(), A.stocking(), A.bell(), A.gift({ color: C.pine }), A.candycane(), A.gingerbread(), A.mitten()];
+  const msgs = ['Merry Christmas', 'Happy Holidays', 'Merry &amp; Bright', 'Season’s Greetings', 'Joy to You', 'Let It Snow', 'Merry Christmas', 'Ho Ho Ho!', 'With Love', 'Sweet Wishes', 'Warmest Wishes', 'Merry Everything'];
+  out.push(`<section class="page">${head('Gift tags', 'Cut on the dashed lines', A.gift({ color: C.pine }))}
+    <div class="tags">${tagArt.map((a, i) => `<div class="tag"><span class="hole"></span><div class="ic">${a}</div><div class="msg" style="color:${i % 2 ? 'var(--pine)' : 'var(--berry)'}">${msgs[i]}</div><div class="f">To <span></span></div><div class="f">From <span></span></div></div>`).join('')}</div>
+    ${foot('Gift tags')}</section>`);
+
+  document.getElementById('pages').innerHTML = out.join('');
+})();
+</script>
+</body>
+</html>
