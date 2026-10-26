@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Listing images</title>
+<link rel="stylesheet" href="../../../_brand/brand.css">
+<script src="../../../_brand/art/winter.js"></script>
+<script src="data.js"></script>
+<style>
+  :root { --bg: #F1F5F1; --berryH: #B23A3A; --creamC: #FDF3DC; --lineC: #D7E2DC; }
+  html, body { margin: 0; background: var(--bg); }
+  .stage { position: relative; overflow: hidden; background: var(--bg); font-family: var(--sans); color: var(--ink); }
+  .l { width: 3000px; height: 2250px; }
+  .pin { width: 1000px; height: 1500px; }
+  .t { font-family: var(--serif); font-weight: 600; line-height: 1.02; }
+  .t em { font-style: italic; font-weight: 500; color: var(--berry); }
+  .eyebrow { color: var(--berry); }
+  .badge { display: inline-flex; align-items: center; gap: 18px; background: #fff; border: 3px solid #D7E2DC; border-radius: 999px; padding: 22px 44px; font-size: 54px; font-weight: 500; margin: 0 20px 24px 0; }
+  .badge i { width: 26px; height: 26px; border-radius: 50%; background: var(--berry); display: inline-block; }
+  .deco { position: absolute; }
+  .brand { position: absolute; font-size: 40px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  .step { background: #fff; border-radius: 40px; padding: 70px 60px; border: 3px solid #D7E2DC; text-align: center; }
+  .step .n { width: 140px; height: 140px; border-radius: 50%; background: var(--pine); color: #fff; font-family: var(--serif); font-size: 84px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 40px; }
+  .step h3 { font-size: 80px; margin-bottom: 24px; }
+  .step p { font-size: 50px; color: var(--ink-soft); line-height: 1.35; }
+
+  /* generic spreadsheet window (no app branding) */
+  .win { position: absolute; background: #fff; border-radius: 22px; overflow: hidden; box-shadow: 0 40px 90px rgba(47,93,80,.25), 0 8px 20px rgba(59,47,42,.12); border: 2px solid #CFDAD4; display: flex; flex-direction: column; }
+  .win .bar { height: 3em; background: #F4F6F5; border-bottom: 2px solid #DDE4E0; display: flex; align-items: center; gap: .6em; padding: 0 1em; flex: none; }
+  .win .bar i { width: .9em; height: .9em; border-radius: 50%; background: #D5DCD8; display: inline-block; }
+  .win .bar span { margin-left: 1em; color: #7C8A84; font-size: .9em; }
+  .win .body { flex: 1; overflow: hidden; position: relative; }
+  .win .tabs { flex: none; display: flex; gap: .3em; padding: 0 .8em; background: #F4F6F5; border-top: 2px solid #DDE4E0; height: 2.4em; align-items: stretch; }
+  .win .tabs b { font-weight: 500; font-size: .82em; padding: 0 1.1em; display: flex; align-items: center; color: #6E7C76; border-bottom: .3em solid transparent; }
+  .win .tabs b.on { background: #fff; color: var(--ink); border-bottom-color: var(--tc, var(--pine)); }
+  table.g { border-collapse: collapse; table-layout: fixed; font-size: 1em; }
+  table.g td, table.g th { border: 1px solid var(--lineC); padding: 0 .45em; height: 1.85em; white-space: nowrap; overflow: hidden; text-overflow: clip; }
+  table.g th.rh, table.g td.rh { background: #F4F6F5; color: #8A9792; font-weight: 400; text-align: center; font-size: .78em; width: 2.6em; padding: 0; }
+  table.g tr.cl th { background: #F4F6F5; color: #8A9792; font-weight: 400; font-size: .78em; height: 1.5em; }
+  table.g tr.ti td { background: var(--pine); color: #fff; border-color: var(--pine); }
+  table.g tr.ti .tt { font-family: Georgia, serif; font-weight: 700; font-size: 1.55em; height: 1.8em; }
+  table.g tr.ti .ts { font-style: italic; font-size: .8em; }
+  table.g tr.hd td { background: var(--berryH); color: #fff; font-weight: 700; text-align: center; font-size: .85em; white-space: normal; line-height: 1.1; height: 2.4em; }
+  table.g td.in { background: var(--creamC); }
+  table.g td.r { text-align: right; }
+  table.g td.c { text-align: center; }
+  table.g td.neg { color: var(--berry); font-weight: 700; }
+  table.g td.ok { color: var(--pine); font-weight: 700; }
+  table.g td.yes { background: #D9EAD3; color: var(--pine); font-weight: 700; text-align: center; }
+  table.g td.dim { color: #8C9A93; }
+  table.g tr.tot td { background: var(--pine); color: #fff; font-weight: 700; }
+  .pbar { display: flex; height: .85em; gap: 0; }
+  .pbar u { flex: 1; background: #E3EBE7; text-decoration: none; }
+  .pbar u.f { background: var(--pine); }
+  .pbar.over u.f { background: var(--berry); }
+  .tot .pbar u { background: rgba(255,255,255,.25); } .tot .pbar u.f { background: var(--gold); }
+  .dash { padding: 1em 1.2em; }
+  .dash .top { background: var(--pine); color: #fff; padding: .7em 1em; margin: -1em -1.2em 1em; }
+  .dash .top .tt { font-family: Georgia, serif; font-weight: 700; font-size: 1.6em; }
+  .dash .top .ts { font-style: italic; font-size: .8em; opacity: .9; }
+  .dash h4 { font-family: Georgia, serif; color: var(--berry); font-size: 1.15em; margin: .7em 0 .3em; }
+  .kv { display: grid; grid-template-columns: 1.6fr 1fr; border: 1px solid var(--lineC); }
+  .kv > div { padding: .3em .5em; border-bottom: 1px solid var(--lineC); }
+  .kv .k { background: var(--frost); color: var(--ink-soft); font-size: .9em; }
+  .kv .v { text-align: right; font-weight: 700; }
+  .kv .big { font-family: Georgia, serif; font-size: 1.35em; }
+  .chk { font-size: .9em; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const A = window.WINTER, Dt = window.DATA;
+const deco = (svg, x, y, w, extra = '') => `<div class="deco" style="left:${x}px;top:${y}px;width:${w}px;${extra}">${svg}</div>`;
+const brand = (x, y) => `<div class="brand" style="left:${x}px;top:${y}px">Quiet Table Co.</div>`;
+const TABS = ['Start Here', 'Dashboard', 'Budget', 'People', 'Gift Tracker', 'Expense Log', 'Savings'];
+const TC = { 'Start Here': '#D9A441', Dashboard: '#2F5D50', Budget: '#B23A3A', People: '#B23A3A', 'Gift Tracker': '#2F5D50', 'Expense Log': '#B23A3A', Savings: '#D9A441' };
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+// glyph bar "███░░" from the sheet -> drawn bar with the same fill
+const pbar = (s, over) => { if (!s) return ''; const f = [...s].filter((c) => c === '█').length; return `<div class="pbar${over ? ' over' : ''}">${Array.from({ length: 20 }, (_, i) => `<u class="${i < f ? 'f' : ''}"></u>`).join('')}</div>`; };
+
+function win({ x, y, w, h, fs, tab, content, rot = 0, z = 1, file = 'Christmas-Gift-Budget-Tracker' }) {
+  return `<div class="win" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;font-size:${fs}px;transform:rotate(${rot}deg);z-index:${z};--tc:${TC[tab]}">
+    <div class="bar"><i></i><i></i><i></i><span>${file}.xlsx</span></div>
+    <div class="body">${content}</div>
+    <div class="tabs">${TABS.map((t) => `<b class="${t === tab ? 'on' : ''}">${t}</b>`).join('')}</div></div>`;
+}
+// grid: cols [{h, w, cls}] ; rows = arrays of strings; cellCls(rowIdx, colIdx, value) -> extra class
+function grid({ title, sub, cols, rows, total, cellCls = () => '', blank = 0 }) {
+  const n = cols.length, L = 'ABCDEFGHIJK';
+  let s = `<table class="g" style="width:${2.6 + cols.reduce((a, c) => a + c.w, 0)}em"><colgroup><col style="width:2.6em">${cols.map((c) => `<col style="width:${c.w}em">`).join('')}</colgroup>`;
+  s += `<tr class="cl"><th class="rh"></th>${cols.map((_, i) => `<th>${L[i]}</th>`).join('')}</tr>`;
+  let rn = 1;
+  s += `<tr class="ti"><td class="rh">${rn++}</td><td class="tt" colspan="${n}">${title}</td></tr>`;
+  s += `<tr class="ti"><td class="rh">${rn++}</td><td class="ts" colspan="${n}">${sub}</td></tr>`;
+  s += `<tr><td class="rh">${rn++}</td><td colspan="${n}" style="border:none;height:.5em"></td></tr>`;
+  s += `<tr class="hd"><td class="rh">${rn++}</td>${cols.map((c) => `<td>${c.h}</td>`).join('')}</tr>`;
+  rows.forEach((r, ri) => {
+    s += `<tr><td class="rh">${rn++}</td>${cols.map((c, ci) => { const v = r[ci] ?? ''; const isBar = c.bar; return `<td class="${c.cls || ''} ${cellCls(ri, ci, v, r)}">${isBar ? pbar(v, c.over && c.over(r)) : esc(v)}</td>`; }).join('')}</tr>`;
+  });
+  for (let i = 0; i < blank; i++) s += `<tr><td class="rh">${rn++}</td>${cols.map((c) => `<td class="${(c.cls || '').includes('in') ? 'in' : ''}"></td>`).join('')}</tr>`;
+  if (total) s += `<tr class="tot"><td class="rh">${rn++}</td>${cols.map((c, ci) => `<td class="${c.cls || ''}">${c.bar ? pbar(total[ci]) : esc(total[ci] ?? '')}</td>`).join('')}</tr>`;
+  return s + '</table>';
+}
+const neg = (v) => /^-\$/.test(v) ? 'neg' : '';
+
+const PEOPLE = () => grid({
+  title: 'Gift Budget by Person', sub: 'One row per person. Type a name, group and budget; the rest fills in from the Gift Tracker.',
+  cols: [{ h: 'Name', w: 10.4, cls: 'in' }, { h: 'Group', w: 5.6, cls: 'in' }, { h: 'Budget', w: 5.4, cls: 'in r' }, { h: 'Planned', w: 5.4, cls: 'r' }, { h: 'Spent', w: 5.4, cls: 'r' }, { h: 'Left', w: 5.4, cls: 'r' },
+    { h: 'Gifts', w: 3.4, cls: 'c' }, { h: 'Bought', w: 3.8, cls: 'c' }, { h: 'Wrapped', w: 4.4, cls: 'c' }, { h: 'Given', w: 3.6, cls: 'c' }, { h: 'Status', w: 9.4 }],
+  rows: Dt.people.filter((r) => r[0]),
+  cellCls: (ri, ci, v) => (ci === 5 ? neg(v) : ci === 10 ? (/over budget/i.test(v) ? 'neg' : /All given/.test(v) ? 'ok' : '') : ''),
+  blank: 3, total: Dt.peopleTotal,
+});
+const GIFTS = (n = 16) => grid({
+  title: 'Gift Tracker', sub: 'One row per gift. Pick the person, add the price, then mark Bought, Wrapped and Given.',
+  cols: [{ h: 'Person', w: 10.6, cls: 'in' }, { h: 'Gift', w: 13.6, cls: 'in' }, { h: 'Store / link', w: 9, cls: 'in' }, { h: 'Price', w: 5, cls: 'in r' }, { h: 'Bought?', w: 4.8, cls: 'in c' }, { h: 'Wrapped?', w: 5.4, cls: 'in c' }, { h: 'Given?', w: 4.6, cls: 'in c' }, { h: 'Notes / order #', w: 10.2, cls: 'in' }],
+  rows: Dt.gifts.filter((r) => r[0]).slice(0, n),
+  cellCls: (ri, ci, v, r) => (ci >= 4 && ci <= 6 && v === 'Yes' ? 'yes' : ci < 4 && r[6] === 'Yes' ? 'dim' : ''),
+});
+const BUDGET = () => grid({
+  title: 'Holiday Budget by Category', sub: 'Type a budget per category. Spent fills in by itself.',
+  cols: [{ h: 'Category', w: 10, cls: 'in' }, { h: 'Budget', w: 5.6, cls: 'in r' }, { h: 'Spent', w: 5.6, cls: 'r' }, { h: 'Left', w: 5.6, cls: 'r' }, { h: '% used', w: 4, cls: 'c' }, { h: 'Progress', w: 9, bar: true, over: (r) => parseInt(r[4]) > 100 }],
+  rows: Dt.budget.slice(0, 14),
+  cellCls: (ri, ci, v) => (ci === 3 ? neg(v) : ci === 4 && parseInt(v) > 100 ? 'neg' : ''),
+  total: Dt.budget[Dt.budget.length - 1],
+});
+const DASH = () => {
+  const d = Dt.dash, kv = (k, v, big) => `<div class="k">${k}</div><div class="v${big ? ' big' : ''}">${v}</div>`;
+  const kvb = (k, v, b) => `<div class="k">${k}</div><div class="v" style="display:flex;gap:.6em;align-items:center;justify-content:flex-end"><span>${v}</span><span style="width:7em">${pbar(b)}</span></div>`;
+  return `<div class="dash">
+    <div class="top"><div class="tt">Christmas Gift &amp; Budget Tracker</div><div class="ts">Your Christmas at a glance. Everything on this page fills in by itself.</div></div>
+    <div style="font-family:Georgia,serif;font-weight:700;color:var(--pine);font-size:1.5em;margin:.2em 0 .2em">${d.A4} days until Christmas</div>
+    <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:1.4em">
+      <div>
+        <h4>Money</h4><div class="kv">${kv('Total budget', d.B7, 1)}${kv('Spent so far', d.B8, 1)}${kv('Left to spend', `<span style="color:var(--pine)">${d.B9}</span>`, 1)}${kv('Budget used', d.B10)}<div style="grid-column:1/3;padding:.4em .5em">${pbar(d.A11)}</div></div>
+        <h4>Savings</h4><div class="kv">${kv('Savings goal', d.B14)}${kv('Saved so far', d.B15)}<div style="grid-column:1/3;padding:.4em .5em">${pbar(d.A16)}</div></div>
+      </div>
+      <div>
+        <h4>Gifts</h4><div class="kv">${kv('People on your list', d.E7)}${kv('Gifts on the list', d.E8)}${kvb('Bought', d.E9, d.F9)}${kvb('Wrapped', d.E10, d.F10)}${kvb('Given', d.E11, d.F11)}${kv('People over budget', `<span style="color:var(--berry)">${d.E12}</span>`)}</div>
+        <h4>Spending by category</h4>
+        <div class="kv" style="grid-template-columns:1.6fr 1fr 1.2fr">${Dt.dashCats.filter((r) => r[0]).slice(0, 7).map((r) => `<div class="k">${esc(r[0])}</div><div class="v" style="font-weight:500">${r[1]}</div><div style="padding:.45em .5em">${pbar(r[2])}</div>`).join('')}</div>
+      </div>
+    </div></div>`;
+};
+
+const V = {
+  1: () => `<div class="stage l">
+    ${deco(A.snowflake(), 120, 100, 160)}
+    ${deco(A.holly(), 2660, 1900, 270)}
+    ${win({ x: 1240, y: 300, w: 1640, h: 1560, fs: 31, tab: 'Dashboard', content: DASH(), z: 2 })}
+    <div style="position:absolute;left:150px;top:300px;width:1030px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Editable spreadsheet</div>
+      <div class="t" style="font-size:150px"><em>Christmas</em><br>Gift &amp; Budget Tracker</div>
+      <p style="font-size:60px;color:var(--ink-soft);margin:50px 0 56px;line-height:1.3">Type names and prices. <b style="color:var(--ink)">The totals do the math.</b></p>
+      <span class="badge"><i></i>Google Sheets</span><span class="badge"><i></i>Excel</span><span class="badge"><i></i>Auto totals</span><span class="badge"><i></i>7 tabs</span>
+    </div>
+    ${brand(160, 2110)}
+  </div>`,
+
+  2: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:120px;width:3000px;text-align:center">
+      <div class="t" style="font-size:140px">Every person, <em>every dollar</em></div>
+      <p style="font-size:58px;color:var(--ink-soft);margin-top:28px">Budget, planned, spent and left for each person, plus a status that updates itself</p>
+    </div>
+    ${win({ x: 230, y: 520, w: 2540, h: 1580, fs: 36, tab: 'People', content: PEOPLE() })}
+  </div>`,
+
+  3: () => `<div class="stage l">
+    <div style="position:absolute;left:150px;top:300px;width:900px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Never lose track</div>
+      <div class="t" style="font-size:136px">Bought,<br>wrapped,<br><em>given</em></div>
+      <p style="font-size:58px;color:var(--ink-soft);margin:56px 0;line-height:1.35">Pick the person from a dropdown, type the price, then mark each step with a Yes.</p>
+      <p style="font-size:58px;color:var(--ink-soft);line-height:1.35">Room for 300 gifts and 50 people.</p>
+    </div>
+    ${win({ x: 1120, y: 250, w: 1780, h: 1750, fs: 27, tab: 'Gift Tracker', content: GIFTS(23) })}
+    ${deco(A.gift({ color: '#2F5D50' }), 190, 1780, 260)}
+    ${deco(A.gift(), 510, 1820, 220)}
+  </div>`,
+
+  4: () => `<div class="stage l">
+    <div style="position:absolute;left:150px;top:170px;width:1250px">
+      <div class="t" style="font-size:124px;margin-bottom:40px">What you <em>get</em></div>
+      ${[['Dashboard', 'budget, spent, left, gifts bought / wrapped / given, days to Christmas'], ['Budget', 'food, decorations, cards, travel and more'], ['People', 'gift budget by person, with status'], ['Gift Tracker', '300 gifts with dropdowns'], ['Expense Log', 'everything that isn’t a gift'], ['Savings', 'weekly plan to reach your goal'], ['Start Here', 'set-up in 5 steps']].map(([a, b], i) => `<div style="border-bottom:3px solid #D7E2DC;padding:20px 0 18px;font-size:50px"><b style="font-family:var(--serif);color:var(--berry);display:inline-block;width:80px">${i + 1}</b><b>${a}</b> <span style="color:var(--ink-soft)">· ${b}</span></div>`).join('')}
+      <div style="margin-top:44px;font-size:52px"><b style="font-family:var(--serif);color:var(--berry);font-size:80px">2</b> files: blank tracker + filled-in example</div>
+    </div>
+    ${win({ x: 1520, y: 520, w: 1360, h: 1300, fs: 31, tab: 'Budget', content: BUDGET(), rot: 2 })}
+    ${deco(A.tree(), 2600, 120, 250)}
+    ${brand(160, 2130)}
+  </div>`,
+
+  5: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:200px;width:3000px;text-align:center">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:30px">Digital download · nothing is shipped</div>
+      <div class="t" style="font-size:150px">How it <em>works</em></div>
+    </div>
+    <div style="position:absolute;left:200px;top:720px;width:2600px;display:grid;grid-template-columns:repeat(3,1fr);gap:80px">
+      <div class="step"><div class="n">1</div><h3>Download</h3><p>Get the .xlsx files instantly from your Etsy Purchases page.</p></div>
+      <div class="step"><div class="n">2</div><h3>Open</h3><p>Upload to Google Sheets (free) or open in Microsoft Excel.</p></div>
+      <div class="step"><div class="n">3</div><h3>Track</h3><p>Type names, budgets and prices. Totals update as you go.</p></div>
+    </div>
+    <div style="position:absolute;left:0;top:1640px;width:3000px;text-align:center">
+      <span class="badge"><i></i>Google Sheets</span><span class="badge"><i></i>Microsoft Excel</span><span class="badge"><i></i>No sign-up, no app</span>
+    </div>
+    ${deco(A.sprig(), 1200, 1960, 600)}
+  </div>`,
+
+  6: () => `<div class="stage pin">
+    ${deco(A.snowflake(), 50, 40, 100)}
+    ${deco(A.holly(), 820, 50, 140)}
+    <div style="position:absolute;left:0;top:90px;width:1000px;text-align:center">
+      <div class="t" style="font-size:84px"><em>Christmas</em><br>Gift &amp; Budget<br>Tracker</div>
+      <p style="font-size:38px;color:var(--ink-soft);margin-top:24px">Spreadsheet · Google Sheets + Excel</p>
+    </div>
+    ${win({ x: 60, y: 560, w: 880, h: 790, fs: 15.5, tab: 'Dashboard', content: DASH() })}
+    <div style="position:absolute;left:0;bottom:46px;width:1000px;text-align:center"><span class="pill" style="font-size:30px;padding:14px 34px;background:var(--berry)">Auto totals · instant download</span></div>
+  </div>`,
+  7: () => `<div class="stage pin" style="background:#fff">
+    <div style="position:absolute;left:0;top:0;width:1000px;height:450px;background:var(--pine)"></div>
+    <div style="position:absolute;left:0;top:64px;width:1000px;text-align:center;color:#fff">
+      <div style="font-size:32px;letter-spacing:.2em;text-transform:uppercase;font-weight:500">Christmas money tips</div>
+      <div class="t" style="font-size:80px;margin-top:26px">Track Every Gift<br>in One Spreadsheet</div>
+    </div>
+    ${win({ x: 40, y: 520, w: 920, h: 820, fs: 14, tab: 'People', content: PEOPLE() })}
+    <div style="position:absolute;left:0;bottom:46px;width:1000px;text-align:center;font-size:34px;color:var(--ink-soft)">Budget by person · gift tracker · expense log</div>
+  </div>`,
+};
+document.getElementById('root').innerHTML = V[(location.hash || '#1').slice(1)]();
+</script>
+</body>
+</html>
