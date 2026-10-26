@@ -44,7 +44,7 @@ const A = window.ART;
 const img = (p) => `<img src="img/${p}.png">`;
 const sheet = (p, x, y, w, rot = 0, z = 1) => `<div class="sheet" style="left:${x}px;top:${y}px;width:${w}px;transform:rotate(${rot}deg);z-index:${z}">${img(p)}</div>`;
 const deco = (svg, x, y, w, extra = '') => `<div class="deco" style="left:${x}px;top:${y}px;width:${w}px;${extra}">${svg}</div>`;
-const brand = (x, y) => `<div class="brand" style="left:${x}px;top:${y}px">Quiet Table Co.</div>`;
+const brand = (x, y) => `<div class="brand" style="left:${x}px;top:${y}px">Pantry Printable Co.</div>`;
 const file = (name, kind = 'PDF') => `<div class="file"><div class="ic ${kind === 'ZIP' ? 'zip' : ''}">${kind}</div><div>${name}</div></div>`;
 
 const V = {

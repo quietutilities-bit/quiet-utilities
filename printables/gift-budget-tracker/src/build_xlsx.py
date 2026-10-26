@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Christmas Gift & Budget Tracker (Quiet Table Co.): builds the .xlsx with openpyxl.
+"""Christmas Gift & Budget Tracker (Pantry Printable Co.): builds the .xlsx with openpyxl.
 
     python3 build_xlsx.py <out_dir>
 
@@ -358,7 +358,7 @@ def build(sample: bool):
 
     # ---------------- Start Here ----------------
     ws = start
-    title(ws, "Christmas Gift & Budget Tracker", "Quiet Table Co.  ·  Excel + Google Sheets  ·  Made for one household, for personal use", 2)
+    title(ws, "Christmas Gift & Budget Tracker", "Pantry Printable Co.  ·  Excel + Google Sheets  ·  Made for one household, for personal use", 2)
     ws.column_dimensions["A"].width = 6
     ws.column_dimensions["B"].width = 100
     rows = [
@@ -384,7 +384,7 @@ def build(sample: bool):
         ("h", "Good to know"),
         ("p", "There's an example copy with sample data (Christmas-Gift-Budget-Tracker-Example.xlsx) so you can see it filled in."),
         ("p", "This is a digital file for personal use. Please don't resell or share it. Questions? Message us on Etsy; we're happy to help."),
-        ("p", "Merry Christmas from Quiet Table Co."),
+        ("p", "Merry Christmas from Pantry Printable Co."),
     ]
     r = 4
     for kind, text in rows:

@@ -64,7 +64,7 @@ PLEASE NOTE
 
 Questions? Send us a message, we're happy to help.
 
-Merry Christmas from Quiet Table Co.
+Merry Christmas from Pantry Printable Co.
 
 ## Personalization
 Off.

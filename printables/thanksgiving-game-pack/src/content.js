@@ -1,4 +1,4 @@
-// Thanksgiving Family Game Pack: all game content (original writing, Quiet Table Co.).
+// Thanksgiving Family Game Pack: all game content (original writing, Pantry Printable Co.).
 window.PACK = {
   bingoWords: [
     'Turkey', 'Pumpkin Pie', 'Cranberry Sauce', 'Stuffing', 'Mashed Potatoes', 'Gravy',

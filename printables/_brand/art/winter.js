@@ -1,4 +1,4 @@
-// Hand-drawn winter / Christmas SVG art for Quiet Table Co. (original, no AI).
+// Hand-drawn winter / Christmas SVG art for Pantry Printable Co. (original, no AI).
 // Usage: <script src="../../_brand/art/winter.js"></script> then WINTER.tree() returns an SVG string.
 // Every function takes an optional { color, rotate, w, h, style } object.
 (function () {

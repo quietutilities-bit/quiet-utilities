@@ -1,4 +1,4 @@
-# Printables (Quiet Table Co., by Quiet Utilities)
+# Printables (Pantry Printable Co., by Quiet Utilities)
 
 Holiday digital downloads sold on Etsy. Operating manual: Claude project doc `claude/holiday/plan.md`; queue: `claude/holiday/queue.md`.
 

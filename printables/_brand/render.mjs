@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Quiet Table Co. render tool (HTML -> PDF / PNG / JPG) using Playwright + Chromium.
+// Pantry Printable Co. render tool (HTML -> PDF / PNG / JPG) using Playwright + Chromium.
 //
 //   node _brand/render.mjs build <slug>        render everything listed in <slug>/src/render.json
 //   node _brand/render.mjs check <slug>        rasterize every PDF page in <slug>/out to <slug>/out/_check/*.png

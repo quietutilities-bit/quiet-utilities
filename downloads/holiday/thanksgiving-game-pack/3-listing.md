@@ -52,7 +52,7 @@ PLEASE NOTE
 
 Questions? Send us a message, we're happy to help.
 
-Happy Thanksgiving from Quiet Table Co.
+Happy Thanksgiving from Pantry Printable Co.
 
 ## Personalization
 Off.

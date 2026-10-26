@@ -1,4 +1,4 @@
-// Hand-drawn autumn / Thanksgiving SVG art for Quiet Table Co. (original, no AI).
+// Hand-drawn autumn / Thanksgiving SVG art for Pantry Printable Co. (original, no AI).
 // Usage in a page: <script src="../../_brand/art/autumn.js"></script> then ART.leaf({color:'#D2733A'}) returns an SVG string.
 (function () {
   const C = { pumpkin: '#D2733A', cranberry: '#9E3B3B', sage: '#7D8F69', gold: '#D9A441', bark: '#8A5A3B', ink: '#3B2F2A', cream: '#FBF6EE' };

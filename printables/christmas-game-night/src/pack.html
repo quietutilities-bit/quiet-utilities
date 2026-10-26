@@ -196,7 +196,7 @@
   const P = window.PACK, A = window.WINTER;
   const out = [];
   const pg = () => out.length + 1;
-  const foot = (label) => `<div class="pf"><span>Christmas Family Game Night · ${label} · page ${pg()}</span><span>© 2026 Quiet Table Co. · personal use only</span></div>`;
+  const foot = (label) => `<div class="pf"><span>Christmas Family Game Night · ${label} · page ${pg()}</span><span>© 2026 Pantry Printable Co. · personal use only</span></div>`;
   const head = (title, eyebrow) => `<div class="ph"><h2>${title}</h2><span class="eyebrow">${eyebrow}</span></div>`;
   const how = (html) => `<div class="how"><b>How to play</b>${html}</div>`;
   const games = []; // [no, name, blurb, page]
@@ -482,7 +482,7 @@
     <div class="tips"><b>Printing tips.</b> Print at “Actual size” or “100%” (not “Fit to page”). Use the US Letter file in the US and Canada, A4 everywhere else. Card stock makes cards last longer. Print only the pages you need, and print extra player sheets for bigger groups. Answer keys are on pages ${key1}–${key1 + 1}.</div>
     <div class="tips" style="margin-top:8pt"><b>Planning the night?</b> Start with the Elf Name game as guests arrive, play Bingo or Trivia at the table, hand out gifts with the Left-Right story, and finish with the Gift-Reveal Scavenger Hunt. Puzzles keep kids busy while dinner cooks.</div>
     <div style="margin-top:auto;display:flex;justify-content:center;gap:.35in;align-items:flex-end">${[A.bell(), A.tree(), A.stocking(), A.gingerbread(), A.ornament({ color: '#2F5D50' })].map((s) => s.replace('<svg', '<svg style="width:.6in;height:.7in"')).join('')}</div>
-    <div class="pf"><span>Christmas Family Game Night · Contents · page 2</span><span>© 2026 Quiet Table Co. · personal use only</span></div></section>`;
+    <div class="pf"><span>Christmas Family Game Night · Contents · page 2</span><span>© 2026 Pantry Printable Co. · personal use only</span></div></section>`;
 
   document.getElementById('pages').innerHTML = out.join('');
 })();

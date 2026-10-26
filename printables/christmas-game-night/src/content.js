@@ -1,4 +1,4 @@
-// Christmas Family Game Night: all game content (original writing, Quiet Table Co.).
+// Christmas Family Game Night: all game content (original writing, Pantry Printable Co.).
 window.PACK = {
   bingoWords: [
     'Santa', 'Reindeer', 'Sleigh', 'Snowman', 'Stocking', 'Candy Cane',
