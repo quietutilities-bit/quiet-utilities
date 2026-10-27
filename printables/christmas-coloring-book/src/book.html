@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" data-size="letter" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Bold &amp; Easy Christmas Coloring Book</title>
+<link rel="stylesheet" href="../../_brand/brand.css">
+<script src="../../_brand/art/winter.js"></script>
+<script src="art.js"></script>
+<style>
+  .cpage { padding: 0.45in 0.5in 0.32in; }
+  .cpage .art { flex: 1; min-height: 0; display: flex; }
+  .cpage .art > svg { width: 100%; height: 100%; display: block; }
+  .cpage .pf { flex: none; padding-top: 5pt; font-size: 7pt; }
+
+  .cover { align-items: center; justify-content: center; text-align: center; background: var(--frost); }
+  .cover .frame { position: absolute; inset: 0.4in; border: 3pt solid var(--pine); border-radius: 18pt; }
+  .cover h1 { font-size: 52pt; line-height: 1.02; position: relative; }
+  .cover h1 em { display: block; color: var(--berry); font-size: 26pt; font-weight: 500; margin-bottom: 8pt; }
+  .cover .sub { font-size: 13.5pt; color: var(--ink-soft); margin-top: 14pt; position: relative; }
+  .cover .grid { position: relative; display: grid; grid-template-columns: repeat(3, 1.85in); gap: 12pt; margin-top: 24pt; }
+  .cover .grid > div { background: #fff; border-radius: 12pt; height: 2.35in; padding: 6pt; box-shadow: 0 2pt 6pt rgba(47,93,80,.15); }
+  .cover .grid svg { width: 100%; height: 100%; }
+  .cover .facts { position: relative; display: flex; gap: 9pt; justify-content: center; margin-top: 24pt; flex-wrap: wrap; }
+  .cover .facts span { background: #fff; border: 1pt solid #D7E2DC; border-radius: 99pt; padding: 6pt 14pt; font-size: 10pt; font-weight: 500; }
+  .cover .brandline { position: relative; margin-top: 22pt; font-size: 9pt; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+
+  .intro h2 { color: var(--pine); }
+  .intro .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16pt 26pt; margin-top: 6pt; }
+  .intro h3 { color: var(--berry); margin-bottom: 5pt; }
+  .intro p, .intro li { font-size: 10.5pt; }
+  .intro ul { margin: 0; padding-left: 15pt; }
+  .belongs { margin: 4pt 0 18pt; border: 2.5pt solid var(--ink); border-radius: 16pt; padding: 18pt 22pt; display: flex; align-items: flex-end; gap: 12pt; font-family: var(--serif); font-size: 20pt; font-weight: 600; flex: none; }
+  .belongs .ln { flex: 1; border-bottom: 2pt solid var(--ink); height: 26pt; }
+  .swatches { flex: none; display: grid; grid-template-columns: repeat(8, 1fr); gap: 10pt; margin: 8pt 0 6pt; }
+  .swatches div { border: 2pt solid var(--ink); border-radius: 50%; width: 0.62in; height: 0.62in; justify-self: center; }
+  .contents { columns: 3; font-size: 9pt; color: var(--ink-soft); margin-top: 6pt; }
+  .contents div { break-inside: avoid; padding: 1.5pt 0; }
+  .contents b { color: var(--berry); display: inline-block; width: 16pt; font-family: var(--serif); }
+</style>
+</head>
+<body>
+<div id="book"></div>
+<script>
+const CB = window.CB;
+CB.COLOR.on = location.hash === '#colored';
+const ST = 'stroke="#1b1b1b" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"';
+function pageSvg(i, framed = true) {
+  const pg = CB.PAGES[i];
+  return `<svg viewBox="0 0 1000 1300" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <defs><clipPath id="fr${i}"><rect x="22" y="22" width="956" height="1256" rx="44"/></clipPath></defs>
+    <g ${ST}><g clip-path="url(#fr${i})">${pg.fn()}</g>${framed ? '<rect x="22" y="22" width="956" height="1256" rx="44" fill="none" stroke-width="12"/>' : ''}</g></svg>`;
+}
+window.pageSvg = pageSvg;
+const foot = (l) => `<div class="pf"><span>Bold &amp; Easy Christmas Coloring Book · ${l}</span><span>© 2026 Pantry Printable Co. · personal use only</span></div>`;
+const N = CB.PAGES.length;
+let h = '';
+
+// cover (shown in color)
+const prev = CB.COLOR.on; CB.COLOR.on = true;
+const thumbs = [0, 1, 7].map((i) => `<div>${pageSvg(i)}</div>`).join('');
+CB.COLOR.on = prev;
+h += `<section class="page cover"><div class="frame"></div>
+  <h1><em>Bold &amp; Easy</em>Christmas<br>Coloring Book</h1>
+  <div class="sub">${N} big, simple pictures with thick lines, for kids and grown-ups</div>
+  <div class="grid">${thumbs}</div>
+  <div class="facts"><span>${N} coloring pages</span><span>Thick bold lines</span><span>One picture per page</span><span>US Letter + A4</span></div>
+  <div class="brandline">Pantry Printable Co.</div>
+</section>`;
+
+// intro
+const sw = Array.from({ length: 16 }, () => '<div></div>').join('');
+h += `<section class="page intro">
+  <div class="ph"><h2>Before you color</h2><span class="eyebrow">Read me</span></div>
+  <div class="belongs">This book belongs to <span class="ln"></span></div>
+  <div class="cols">
+    <div><h3>Printing tips</h3><ul>
+      <li>Print at <b>Actual size</b> / 100% (or "Fit" if your printer trims edges).</li>
+      <li>Print <b>one side only</b>, so markers don't bleed through to the next picture.</li>
+      <li>Thicker paper or light card stock works best for markers and paint pens.</li>
+      <li>Print your favorites as many times as you like for your own family.</li>
+    </ul></div>
+    <div><h3>Coloring ideas</h3><ul>
+      <li>Crayons, colored pencils, markers, gel pens or paint pens all work.</li>
+      <li>Big shapes and thick lines make these pages relaxing for little hands and for grown-ups.</li>
+      <li>Cut out finished pictures for cards, gift tags, window art or a holiday banner.</li>
+      <li>Test your colors in the circles below first.</li>
+    </ul></div>
+  </div>
+  <h3 style="color:var(--berry);margin-top:16pt">Test your colors</h3>
+  <div class="swatches">${sw}</div>
+  <h3 style="color:var(--berry);margin-top:12pt">The ${N} pictures</h3>
+  <div class="contents">${CB.PAGES.map((p, i) => `<div><b>${i + 1}</b>${p.title}</div>`).join('')}</div>
+  ${foot('start here')}
+</section>`;
+
+CB.PAGES.forEach((p, i) => {
+  h += `<section class="page cpage"><div class="art">${pageSvg(i)}</div>${foot(`${i + 1}. ${p.title}`)}</section>`;
+});
+document.getElementById('book').innerHTML = h;
+</script>
+</body>
+</html>

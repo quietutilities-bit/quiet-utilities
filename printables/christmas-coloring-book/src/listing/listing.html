@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Listing images</title>
+<link rel="stylesheet" href="../../../_brand/brand.css">
+<script src="../../../_brand/art/winter.js"></script>
+<script src="../art.js"></script>
+<style>
+  :root { --bg: #F1F5F1; }
+  html, body { margin: 0; background: var(--bg); }
+  .stage { position: relative; overflow: hidden; background: var(--bg); font-family: var(--sans); color: var(--ink); }
+  .l { width: 3000px; height: 2250px; }
+  .pin { width: 1000px; height: 1500px; }
+  .sheet { position: absolute; background: #fff; box-shadow: 0 30px 70px rgba(47,93,80,.22), 0 6px 16px rgba(59,47,42,.12); border-radius: 6px; overflow: hidden; }
+  .sheet svg { display: block; width: 100%; height: 100%; }
+  .t { font-family: var(--serif); font-weight: 600; line-height: 1.02; }
+  .t em { font-style: italic; font-weight: 500; color: var(--berry); }
+  .eyebrow { color: var(--berry); }
+  .badge { display: inline-flex; align-items: center; gap: 18px; background: #fff; border: 3px solid #D7E2DC; border-radius: 999px; padding: 22px 44px; font-size: 54px; font-weight: 500; margin: 0 20px 24px 0; }
+  .badge i { width: 26px; height: 26px; border-radius: 50%; background: var(--berry); display: inline-block; }
+  .deco { position: absolute; }
+  .brand { position: absolute; font-size: 40px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  .step { background: #fff; border-radius: 40px; padding: 70px 60px; border: 3px solid #D7E2DC; text-align: center; }
+  .step .n { width: 140px; height: 140px; border-radius: 50%; background: var(--pine); color: #fff; font-family: var(--serif); font-size: 84px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 40px; }
+  .step h3 { font-size: 80px; margin-bottom: 24px; }
+  .step p { font-size: 50px; color: var(--ink-soft); line-height: 1.35; }
+  .grid30 { position: absolute; display: grid; grid-template-columns: repeat(10, 1fr); gap: 34px; }
+  .grid30 > div { background: #fff; border-radius: 10px; padding: 12px; box-shadow: 0 10px 24px rgba(47,93,80,.15); }
+  .grid30 svg { display: block; width: 100%; }
+  .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 70px; }
+  .chips span { border-bottom: 3px solid #D7E2DC; padding: 14px 0 10px; font-size: 46px; font-weight: 500; }
+  .chips span b { color: var(--berry); font-family: var(--serif); display: inline-block; width: 86px; }
+  .lab { position: absolute; font-family: var(--serif); font-size: 64px; font-weight: 600; background: #fff; border-radius: 99px; padding: 14px 44px; box-shadow: 0 8px 20px rgba(47,93,80,.15); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const A = window.WINTER, CB = window.CB;
+const ST = 'stroke="#1b1b1b" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"';
+let uid = 0;
+function svgOf(i, colored) {
+  CB.COLOR.on = !!colored; const id = 'f' + (uid++);
+  const out = `<svg viewBox="0 0 1000 1300" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="${id}"><rect x="22" y="22" width="956" height="1256" rx="44"/></clipPath></defs><g ${ST}><g clip-path="url(#${id})">${CB.PAGES[i].fn()}</g><rect x="22" y="22" width="956" height="1256" rx="44" fill="none"/></g></svg>`;
+  CB.COLOR.on = false; return out;
+}
+// a printed sheet: white paper (8.5x11) with the picture inside the margins
+const sheet = (i, colored, x, y, w, rot = 0, z = 1) => `<div class="sheet" style="left:${x}px;top:${y}px;width:${w}px;height:${w * 11 / 8.5}px;padding:${w * 0.055}px;transform:rotate(${rot}deg);z-index:${z}">${svgOf(i, colored)}</div>`;
+const deco = (svg, x, y, w, extra = '') => `<div class="deco" style="left:${x}px;top:${y}px;width:${w}px;${extra}">${svg}</div>`;
+const brand = (x, y) => `<div class="brand" style="left:${x}px;top:${y}px">Pantry Printable Co.</div>`;
+const N = CB.PAGES.length;
+
+const V = {
+  1: () => `<div class="stage l">
+    ${deco(A.snowflake(), 130, 110, 170)}
+    ${deco(A.holly(), 2650, 1880, 280)}
+    ${sheet(7, true, 150, 330, 1150, -8, 1)}
+    ${sheet(1, false, 620, 260, 1150, 6, 2)}
+    ${sheet(0, true, 340, 170, 1250, -1.5, 3)}
+    <div style="position:absolute;left:1820px;top:250px;width:1100px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Printable · Instant download</div>
+      <div class="t" style="font-size:150px"><em>Bold &amp; Easy</em><br>Christmas Coloring Book</div>
+      <p style="font-size:62px;color:var(--ink-soft);margin:56px 0 64px;line-height:1.3"><b style="color:var(--ink)">${N} big, simple pictures</b> with thick lines for kids, beginners and grown-ups</p>
+      <span class="badge"><i></i>${N} pages</span><span class="badge"><i></i>Thick lines</span><span class="badge"><i></i>US Letter + A4</span>
+    </div>
+    ${brand(1830, 2100)}
+  </div>`,
+
+  2: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:110px;width:3000px;text-align:center">
+      <div class="t" style="font-size:140px">All <em>${N} pictures</em> inside</div>
+      <p style="font-size:56px;color:var(--ink-soft);margin-top:24px">One big picture per page · print your favorites again and again</p>
+    </div>
+    <div style="position:absolute;left:0;top:1830px;width:3000px;text-align:center"><span class="badge"><i></i>Thick bold lines</span><span class="badge"><i></i>Big simple shapes</span><span class="badge"><i></i>Kids, beginners &amp; grown-ups</span></div>
+    <div class="grid30" style="left:110px;top:520px;width:2780px">${CB.PAGES.map((_, i) => `<div>${svgOf(i, false)}</div>`).join('')}</div>
+  </div>`,
+
+  3: () => `<div class="stage l">
+    ${sheet(8, false, 110, 330, 1120, -3, 1)}
+    ${sheet(8, true, 980, 400, 1120, 4, 2)}
+    <div class="lab" style="left:250px;top:220px;z-index:5">Print it</div>
+    <div class="lab" style="left:1600px;top:280px;z-index:5;color:var(--berry)">Color it</div>
+    <div style="position:absolute;left:2230px;top:560px;width:720px">
+      <div class="t" style="font-size:104px;white-space:nowrap">Thick lines,<br><em>big shapes</em></div>
+      <p style="font-size:54px;color:var(--ink-soft);margin-top:50px;line-height:1.35">Easy to color with crayons, markers or pencils. Relaxing for little hands, beginners and grown-ups.</p>
+    </div>
+    ${brand(2280, 2100)}
+  </div>`,
+
+  4: () => `<div class="stage l">
+    <div style="position:absolute;left:180px;top:180px;width:2640px">
+      <div class="t" style="font-size:128px;margin-bottom:46px">What you <em>get</em></div>
+      <div class="chips">${CB.PAGES.map((p, i) => `<span><b>${i + 1}</b>${p.title}</span>`).join('')}</div>
+      <div style="display:flex;gap:90px;margin-top:56px;font-size:56px">
+        <div><b style="font-family:var(--serif);color:var(--berry);font-size:80px">${N + 2}</b> pages (${N} pictures + cover + color test page)</div>
+        <div><b style="font-family:var(--serif);color:var(--berry);font-size:80px">2</b> PDFs: US Letter + A4</div>
+      </div>
+    </div>
+    ${brand(180, 2130)}
+  </div>`,
+
+  5: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:200px;width:3000px;text-align:center">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:30px">Digital download · nothing is shipped</div>
+      <div class="t" style="font-size:150px">How it <em>works</em></div>
+    </div>
+    <div style="position:absolute;left:200px;top:720px;width:2600px;display:grid;grid-template-columns:repeat(3,1fr);gap:80px">
+      <div class="step"><div class="n">1</div><h3>Download</h3><p>Get the PDFs instantly from your Etsy Purchases page.</p></div>
+      <div class="step"><div class="n">2</div><h3>Print</h3><p>Print at home, one side only, as many times as you like.</p></div>
+      <div class="step"><div class="n">3</div><h3>Color</h3><p>Crayons, markers, pencils or paint pens all work.</p></div>
+    </div>
+    <div style="position:absolute;left:0;top:1640px;width:3000px;text-align:center">
+      <span class="badge"><i></i>US Letter (8.5 × 11 in)</span><span class="badge"><i></i>A4 (210 × 297 mm)</span><span class="badge"><i></i>Instant download</span>
+    </div>
+    ${deco(A.sprig(), 1200, 1960, 600)}
+  </div>`,
+
+  6: () => `<div class="stage pin">
+    ${deco(A.snowflake(), 50, 40, 100)}
+    ${deco(A.holly(), 820, 50, 140)}
+    <div style="position:absolute;left:0;top:90px;width:1000px;text-align:center">
+      <div class="t" style="font-size:80px"><em>Bold &amp; Easy</em><br>Christmas<br>Coloring Pages</div>
+      <p style="font-size:38px;color:var(--ink-soft);margin-top:24px">${N} printable pages · thick lines · all ages</p>
+    </div>
+    ${sheet(1, false, 420, 650, 470, 6, 1)}
+    ${sheet(0, true, 110, 610, 470, -4, 2)}
+    <div style="position:absolute;left:0;bottom:46px;width:1000px;text-align:center;z-index:3"><span class="pill" style="font-size:30px;padding:14px 34px;background:var(--berry)">Printable · instant download</span></div>
+  </div>`,
+  7: () => `<div class="stage pin" style="background:#fff">
+    <div style="position:absolute;left:0;top:0;width:1000px;height:430px;background:var(--pine)"></div>
+    <div style="position:absolute;left:0;top:60px;width:1000px;text-align:center;color:#fff">
+      <div style="font-size:32px;letter-spacing:.2em;text-transform:uppercase;font-weight:500">Easy Christmas activity</div>
+      <div class="t" style="font-size:80px;margin-top:26px">${N} Simple Coloring<br>Pages for Kids</div>
+    </div>
+    <div class="grid30" style="left:90px;top:540px;width:820px;grid-template-columns:repeat(3,1fr);gap:24px">${[2, 5, 14, 9, 16, 29].map((i) => `<div>${svgOf(i, false)}</div>`).join('')}</div>
+    <div style="position:absolute;left:0;bottom:40px;width:1000px;text-align:center;font-size:34px;color:var(--ink-soft)">Print at home · US Letter + A4</div>
+  </div>`,
+};
+document.getElementById('root').innerHTML = V[(location.hash || '#1').slice(1)]();
+</script>
+</body>
+</html>
