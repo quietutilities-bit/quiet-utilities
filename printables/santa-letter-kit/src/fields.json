@@ -1,0 +1,590 @@
+{
+ "letter": {
+  "pageH": 792,
+  "pages": 8,
+  "fields": [
+   {
+    "name": "a_date",
+    "page": 1,
+    "x": 423.375,
+    "top": 157.79296875,
+    "w": 136.79296875,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "a_name",
+    "page": 1,
+    "x": 89.296875,
+    "top": 188.1796875,
+    "w": 230.390625,
+    "h": 30,
+    "cls": "fld big"
+   },
+   {
+    "name": "a_age",
+    "page": 1,
+    "x": 265.20703125,
+    "top": 283.7109375,
+    "w": 43.1953125,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "a_deed",
+    "page": 1,
+    "x": 51.83203125,
+    "top": 343.48828125,
+    "w": 508.3359375,
+    "h": 57.59765625,
+    "cls": "fld box"
+   },
+   {
+    "name": "a_learned",
+    "page": 1,
+    "x": 51.83203125,
+    "top": 440.47265625,
+    "w": 208.79296875,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "a_remember",
+    "page": 1,
+    "x": 272.40234375,
+    "top": 500.25,
+    "w": 194.390625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "a_town",
+    "page": 1,
+    "x": 82.4296875,
+    "top": 553.03125,
+    "w": 165.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "a_ps",
+    "page": 1,
+    "x": 76.171875,
+    "top": 586.41796875,
+    "w": 381.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "b_date",
+    "page": 2,
+    "x": 423.375,
+    "top": 157.79296875,
+    "w": 136.79296875,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "b_name",
+    "page": 2,
+    "x": 89.296875,
+    "top": 188.1796875,
+    "w": 230.390625,
+    "h": 30,
+    "cls": "fld big"
+   },
+   {
+    "name": "b_body",
+    "page": 2,
+    "x": 51.83203125,
+    "top": 231.92578125,
+    "w": 508.3359375,
+    "h": 388.11328125,
+    "cls": "fld box"
+   },
+   {
+    "name": "b_ps",
+    "page": 2,
+    "x": 76.171875,
+    "top": 633.03515625,
+    "w": 381.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "c_name",
+    "page": 3,
+    "x": 111.59765625,
+    "top": 387,
+    "w": 388.79296875,
+    "h": 39.99609375,
+    "cls": "fld who"
+   },
+   {
+    "name": "c_year",
+    "page": 3,
+    "x": 375.24609375,
+    "top": 465.6796875,
+    "w": 61.1953125,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "c_reason",
+    "page": 3,
+    "x": 111.59765625,
+    "top": 532.37109375,
+    "w": 388.79296875,
+    "h": 50.390625,
+    "cls": "fld box"
+   },
+   {
+    "name": "c_elf",
+    "page": 3,
+    "x": 365.19140625,
+    "top": 641.953125,
+    "w": 194.9765625,
+    "h": 30,
+    "cls": "fld "
+   },
+   {
+    "name": "c_date",
+    "page": 3,
+    "x": 255.43359375,
+    "top": 705.29296875,
+    "w": 129.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "e_to",
+    "page": 5,
+    "x": 198,
+    "top": 318.41015625,
+    "w": 295.1953125,
+    "h": 31.9921875,
+    "cls": "fld big"
+   },
+   {
+    "name": "e_line1",
+    "page": 5,
+    "x": 198,
+    "top": 353.40234375,
+    "w": 295.1953125,
+    "h": 25.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "e_line2",
+    "page": 5,
+    "x": 198,
+    "top": 382.39453125,
+    "w": 295.1953125,
+    "h": 25.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "t_by1",
+    "page": 6,
+    "x": 137.05078125,
+    "top": 290.19140625,
+    "w": 150.19921875,
+    "h": 16.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "t_by2",
+    "page": 6,
+    "x": 406.30078125,
+    "top": 290.19140625,
+    "w": 150.19921875,
+    "h": 16.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "t_by3",
+    "page": 6,
+    "x": 137.05078125,
+    "top": 499.078125,
+    "w": 150.19921875,
+    "h": 16.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "t_by4",
+    "page": 6,
+    "x": 406.30078125,
+    "top": 499.078125,
+    "w": 150.19921875,
+    "h": 16.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "t_by5",
+    "page": 6,
+    "x": 137.05078125,
+    "top": 707.953125,
+    "w": 150.19921875,
+    "h": 16.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "n1_name",
+    "page": 7,
+    "x": 97.25390625,
+    "top": 128.98828125,
+    "w": 216,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "n1_treat",
+    "page": 7,
+    "x": 175.65234375,
+    "top": 153.6796875,
+    "w": 237.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "n1_msg",
+    "page": 7,
+    "x": 64.79296875,
+    "top": 180.8671875,
+    "w": 482.4140625,
+    "h": 135.80859375,
+    "cls": "fld box"
+   },
+   {
+    "name": "n2_name",
+    "page": 7,
+    "x": 97.25390625,
+    "top": 472.41796875,
+    "w": 216,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "n2_treat",
+    "page": 7,
+    "x": 175.65234375,
+    "top": 497.109375,
+    "w": 237.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "n2_msg",
+    "page": 7,
+    "x": 64.79296875,
+    "top": 524.296875,
+    "w": 482.4140625,
+    "h": 184.46484375,
+    "cls": "fld box"
+   }
+  ],
+  "defaults": {
+   "b_body": "What a wonderful year you have had! The elves have told me all about it, and Mrs. Claus and I are so proud of you.\n\nYour Christmas wishes are written safely in my big book, right beside your name. The workshop is buzzing, the reindeer are practicing their takeoffs, and the cookies in the kitchen smell delicious.\n\nEvery night I look at my big map of the world, and your home is marked with a shiny gold star. Mrs. Claus is baking her famous gingerbread, and the elves are tying every bow extra tight.\n\nKeep being kind, keep helping the people around you, and remember to go to sleep early on Christmas Eve. I'll be stopping by very soon!",
+   "c_year": "2026",
+   "c_elf": "Jingle Snowberry",
+   "n1_treat": "cookies and milk",
+   "n1_msg": "They were the tastiest treats in the whole world, and they kept me warm for the rest of my journey. Your home looked so cozy tonight. Thank you for being such a kind and thoughtful helper this year.",
+   "n2_treat": "snack",
+   "n2_msg": "We munched every last crumb before our long flight home. Our hooves are happy, our tummies are full, and we could smell your yard from way up in the sky! Merry Christmas!"
+  }
+ },
+ "a4": {
+  "pageH": 841.88671875,
+  "pages": 8,
+  "fields": [
+   {
+    "name": "a_date",
+    "page": 1,
+    "x": 406.640625,
+    "top": 157.79296875,
+    "w": 136.79296875,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "a_name",
+    "page": 1,
+    "x": 89.296875,
+    "top": 188.1796875,
+    "w": 230.390625,
+    "h": 30,
+    "cls": "fld big"
+   },
+   {
+    "name": "a_age",
+    "page": 1,
+    "x": 291.50390625,
+    "top": 283.7109375,
+    "w": 43.1953125,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "a_deed",
+    "page": 1,
+    "x": 51.83203125,
+    "top": 369.87890625,
+    "w": 491.6015625,
+    "h": 57.59765625,
+    "cls": "fld box"
+   },
+   {
+    "name": "a_learned",
+    "page": 1,
+    "x": 51.83203125,
+    "top": 466.86328125,
+    "w": 208.79296875,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "a_remember",
+    "page": 1,
+    "x": 272.40234375,
+    "top": 553.03125,
+    "w": 194.390625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "a_town",
+    "page": 1,
+    "x": 120.2109375,
+    "top": 605.8125,
+    "w": 165.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "a_ps",
+    "page": 1,
+    "x": 76.171875,
+    "top": 639.19921875,
+    "w": 381.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "b_date",
+    "page": 2,
+    "x": 406.640625,
+    "top": 157.79296875,
+    "w": 136.79296875,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "b_name",
+    "page": 2,
+    "x": 89.296875,
+    "top": 188.1796875,
+    "w": 230.390625,
+    "h": 30,
+    "cls": "fld big"
+   },
+   {
+    "name": "b_body",
+    "page": 2,
+    "x": 51.83203125,
+    "top": 231.92578125,
+    "w": 491.6015625,
+    "h": 438,
+    "cls": "fld box"
+   },
+   {
+    "name": "b_ps",
+    "page": 2,
+    "x": 76.171875,
+    "top": 682.921875,
+    "w": 381.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "c_name",
+    "page": 3,
+    "x": 103.23046875,
+    "top": 411.9375,
+    "w": 388.79296875,
+    "h": 39.99609375,
+    "cls": "fld who"
+   },
+   {
+    "name": "c_year",
+    "page": 3,
+    "x": 366.87890625,
+    "top": 490.6171875,
+    "w": 61.1953125,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "c_reason",
+    "page": 3,
+    "x": 103.23046875,
+    "top": 557.30859375,
+    "w": 388.79296875,
+    "h": 50.390625,
+    "cls": "fld box"
+   },
+   {
+    "name": "c_elf",
+    "page": 3,
+    "x": 356.82421875,
+    "top": 666.890625,
+    "w": 186.609375,
+    "h": 30,
+    "cls": "fld "
+   },
+   {
+    "name": "c_date",
+    "page": 3,
+    "x": 247.06640625,
+    "top": 730.23046875,
+    "w": 129.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "e_to",
+    "page": 5,
+    "x": 189.6328125,
+    "top": 318.41015625,
+    "w": 295.1953125,
+    "h": 31.9921875,
+    "cls": "fld big"
+   },
+   {
+    "name": "e_line1",
+    "page": 5,
+    "x": 189.6328125,
+    "top": 353.40234375,
+    "w": 295.1953125,
+    "h": 25.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "e_line2",
+    "page": 5,
+    "x": 189.6328125,
+    "top": 382.39453125,
+    "w": 295.1953125,
+    "h": 25.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "t_by1",
+    "page": 6,
+    "x": 137.05078125,
+    "top": 298.51171875,
+    "w": 141.83203125,
+    "h": 16.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "t_by2",
+    "page": 6,
+    "x": 397.93359375,
+    "top": 298.51171875,
+    "w": 141.83203125,
+    "h": 16.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "t_by3",
+    "page": 6,
+    "x": 137.05078125,
+    "top": 524.015625,
+    "w": 141.83203125,
+    "h": 16.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "t_by4",
+    "page": 6,
+    "x": 397.93359375,
+    "top": 524.015625,
+    "w": 141.83203125,
+    "h": 16.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "t_by5",
+    "page": 6,
+    "x": 137.05078125,
+    "top": 749.53125,
+    "w": 141.83203125,
+    "h": 16.9921875,
+    "cls": "fld "
+   },
+   {
+    "name": "n1_name",
+    "page": 7,
+    "x": 97.25390625,
+    "top": 128.98828125,
+    "w": 216,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "n1_treat",
+    "page": 7,
+    "x": 175.65234375,
+    "top": 153.6796875,
+    "w": 237.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "n1_msg",
+    "page": 7,
+    "x": 64.79296875,
+    "top": 180.8671875,
+    "w": 465.6796875,
+    "h": 160.74609375,
+    "cls": "fld box"
+   },
+   {
+    "name": "n2_name",
+    "page": 7,
+    "x": 97.25390625,
+    "top": 497.35546875,
+    "w": 216,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "n2_treat",
+    "page": 7,
+    "x": 175.65234375,
+    "top": 522.046875,
+    "w": 237.59765625,
+    "h": 18.99609375,
+    "cls": "fld "
+   },
+   {
+    "name": "n2_msg",
+    "page": 7,
+    "x": 64.79296875,
+    "top": 549.234375,
+    "w": 465.6796875,
+    "h": 209.4140625,
+    "cls": "fld box"
+   }
+  ],
+  "defaults": {
+   "b_body": "What a wonderful year you have had! The elves have told me all about it, and Mrs. Claus and I are so proud of you.\n\nYour Christmas wishes are written safely in my big book, right beside your name. The workshop is buzzing, the reindeer are practicing their takeoffs, and the cookies in the kitchen smell delicious.\n\nEvery night I look at my big map of the world, and your home is marked with a shiny gold star. Mrs. Claus is baking her famous gingerbread, and the elves are tying every bow extra tight.\n\nKeep being kind, keep helping the people around you, and remember to go to sleep early on Christmas Eve. I'll be stopping by very soon!",
+   "c_year": "2026",
+   "c_elf": "Jingle Snowberry",
+   "n1_treat": "cookies and milk",
+   "n1_msg": "They were the tastiest treats in the whole world, and they kept me warm for the rest of my journey. Your home looked so cozy tonight. Thank you for being such a kind and thoughtful helper this year.",
+   "n2_treat": "snack",
+   "n2_msg": "We munched every last crumb before our long flight home. Our hooves are happy, our tummies are full, and we could smell your yard from way up in the sky! Merry Christmas!"
+  }
+ }
+}

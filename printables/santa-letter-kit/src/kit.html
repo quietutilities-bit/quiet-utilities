@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en" data-size="letter" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Letter from Santa Kit</title>
+<link rel="stylesheet" href="../../_brand/brand.css">
+<script src="../../_brand/art/winter.js"></script>
+<!--
+  Fillable fields: every <span class="fld" data-f="name"> becomes a PDF text field.
+  The rendered PDF is flat; src/fields.mjs reads each field's box per page size and
+  src/add_fields.py adds the AcroForm fields (defaults in FIELD_DEFAULTS below).
+  No shop footer on the pages a child sees (letters, certificate, envelope, tags, notes): it would spoil the magic.
+-->
+<style>
+  :root { --gold-d: #B9862B; }
+  .frame { position: absolute; inset: 0.32in; border: 2.2pt solid var(--berry); border-radius: 6pt; pointer-events: none; }
+  .frame::after { content: ""; position: absolute; inset: 4pt; border: 0.8pt solid var(--gold); border-radius: 4pt; }
+  .page.fr { padding: 0.62in 0.72in; }
+  .page.parch { background: #FFFBF3; }
+
+  .fld { display: inline-block; border-bottom: 1.1pt solid var(--ink); height: 19pt; vertical-align: -4pt; }
+  .fld.box { display: block; border: 0; } /* typed boxes: no fill or lines, so typed text prints clean; readers highlight fields on screen */
+  .fld.big { height: 30pt; }
+
+  /* letterhead */
+  .lh { flex: none; text-align: center; position: relative; }
+  .lh .eyebrow { color: var(--pine); }
+  .lh h1 { font-size: 34pt; color: var(--berry); margin-top: 3pt; }
+  .lh .addr { font-size: 8.6pt; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin-top: 4pt; }
+  .lh .hl { position: absolute; top: -4pt; width: 0.95in; }
+  .lh .orn { display: flex; align-items: center; justify-content: center; gap: 8pt; margin-top: 7pt; }
+  .lh .orn i { height: 1pt; width: 1.3in; background: var(--gold); display: block; }
+  .lh .orn span { width: 12pt; display: block; }
+
+  .letter { flex: 1; min-height: 0; display: flex; flex-direction: column; font-family: var(--serif); font-size: 13.2pt; line-height: 2; margin-top: 14pt; }
+  .letter p { margin: 0 0 7pt; }
+  .letter .date { text-align: right; }
+  .letter .dear { font-size: 15pt; margin-bottom: 4pt; }
+  .sig { flex: none; display: flex; align-items: flex-end; justify-content: space-between; margin-top: 4pt; }
+  .sig .s { font-family: var(--serif); font-style: italic; }
+  .sig .s small { display: block; font-size: 11pt; color: var(--ink-soft); }
+  .sig .s b { display: block; font-size: 34pt; font-weight: 500; color: var(--berry); line-height: 1; margin-top: 2pt; }
+  .sig .s svg { display: block; width: 2.3in; height: 10pt; margin-top: 2pt; }
+  .sig .seal { width: 1.15in; flex: none; }
+
+  /* certificate */
+  .cert { align-items: center; text-align: center; justify-content: center; }
+  .cert h1 { font-size: 46pt; color: var(--berry); line-height: 1; }
+  .cert .lead { font-family: var(--serif); font-style: italic; font-size: 15pt; color: var(--ink-soft); }
+  .cert .who { width: 5.4in; height: 40pt; }
+  .cert .line { font-family: var(--serif); font-size: 14.5pt; line-height: 1.6; }
+  .cert .sigs { display: grid; grid-template-columns: 1fr 1.2in 1fr; gap: 16pt; width: 100%; align-items: end; margin-top: 16pt; }
+  .cert .sigs .c { font-size: 9pt; color: var(--ink-soft); letter-spacing: .08em; text-transform: uppercase; }
+  .cert .sigs .c .n { font-family: var(--serif); font-style: italic; font-size: 22pt; color: var(--berry); text-transform: none; letter-spacing: 0; border-bottom: 1.1pt solid var(--ink); height: 32pt; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 2pt; margin-bottom: 4pt; }
+
+  /* child's letter */
+  .kid { flex: 1; min-height: 0; display: flex; flex-direction: column; font-size: 12pt; }
+  .kid .row { display: flex; align-items: flex-end; gap: 6pt; height: 30pt; flex: none; }
+  .kid .row .l { flex: 1; border-bottom: 1.1pt solid var(--ink); height: 100%; }
+  .kid .row .s { width: 0.8in; border-bottom: 1.1pt solid var(--ink); height: 100%; }
+  .kid .row b { font-family: var(--serif); color: var(--berry); font-size: 13pt; }
+  .kid .q { font-weight: 500; margin-top: 10pt; flex: none; color: var(--pine); }
+  .kid .draw { flex: 1; min-height: 0; border: 1.3pt dashed #B9A995; border-radius: 10pt; margin-top: 8pt; position: relative; }
+  .kid .draw span { position: absolute; top: 6pt; left: 10pt; font-size: 8.5pt; color: var(--ink-soft); letter-spacing: .1em; text-transform: uppercase; }
+
+  /* envelope */
+  .page.env { padding: 0.32in; align-items: center; }
+  .env .top { flex: none; width: 100%; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 0.1in 6pt; }
+  .env .top h2 { font-size: 18pt; color: var(--berry); }
+  .env .top .eyebrow { color: var(--pine); }
+  .net { flex: none; position: relative; width: 7.6in; height: 8.1in; }
+  .net > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .net .front { position: absolute; left: 0.75in; top: 1.6in; width: 6.1in; height: 4.5in; }
+  .net .from { position: absolute; left: 0.22in; top: 0.2in; font-size: 7.4pt; line-height: 1.4; color: var(--ink-soft); letter-spacing: .04em; }
+  .net .from b { color: var(--berry); font-family: var(--serif); font-size: 10pt; letter-spacing: 0; }
+  .net .to { position: absolute; left: 1.55in; top: 1.95in; width: 4.1in; font-family: var(--serif); font-size: 10pt; color: var(--ink-soft); }
+  .net .to .fld { display: block; width: 100%; height: 26pt; margin-bottom: 3pt; }
+  .net .to .fld.big { height: 32pt; }
+  .net .stamp { position: absolute; right: 0.2in; top: 0.18in; width: 0.86in; }
+  .net .pm { position: absolute; right: 0.86in; top: 0.32in; width: 1.55in; }
+  .net .ribbon { position: absolute; left: 0.22in; bottom: 0.2in; font-size: 8pt; letter-spacing: .16em; text-transform: uppercase; color: #fff; background: var(--pine); border-radius: 99pt; padding: 3pt 12pt; font-weight: 500; }
+  .net .rein { position: absolute; right: 0.22in; bottom: 0.18in; width: 1.2in; }
+  .steps { flex: none; width: 7.6in; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10pt; margin-top: 8pt; font-size: 8.4pt; line-height: 1.3; color: var(--ink-soft); }
+  .steps b { color: var(--berry); font-family: var(--serif); font-size: 12pt; display: block; }
+
+  /* tags */
+  .ph { flex: none; }
+  .ph .art { width: 0.42in; flex: none; margin-left: 8pt; }
+  .ph .right { display: flex; align-items: flex-end; }
+  .intro { flex: none; font-size: 10pt; color: var(--ink-soft); margin: -4pt 0 10pt; }
+  .tags { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, minmax(0, 1fr)); border: 0.75pt dashed #B9A995; }
+  .tag { border: 0.75pt dashed #B9A995; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10pt 18pt; min-height: 0; position: relative; }
+  .tag .hoof { width: 0.55in; flex: none; }
+  .tag h3 { font-size: 17pt; color: var(--berry); margin: 3pt 0 4pt; }
+  .tag .poem { font-family: var(--serif); font-style: italic; font-size: 10.4pt; line-height: 1.45; }
+  .tag .by { width: 100%; display: flex; gap: 5pt; align-items: flex-end; font-size: 8.5pt; color: var(--ink-soft); margin-top: 7pt; }
+  .tag .by .fld { flex: 1; height: 17pt; }
+  .tag.recipe { background: var(--frost); text-align: left; align-items: stretch; }
+  .tag.recipe h3 { color: var(--pine); }
+  .tag.recipe ul, .tag.recipe ol { margin: 0 0 4pt; padding-left: 14pt; font-size: 9.6pt; line-height: 1.4; }
+  .tag.recipe .rnote { font-size: 8.4pt; color: var(--ink-soft); }
+  .fold { position: absolute; left: 0; right: 0; top: 0.42in; border-top: 0.75pt dotted #C9BBA8; }
+  .fold span { position: absolute; right: 6pt; top: -9pt; font-size: 6.5pt; color: #B5A89C; letter-spacing: .1em; text-transform: uppercase; }
+
+  /* morning notes */
+  .page.notes { padding: 0.35in; }
+  .note { flex: 1; min-height: 0; position: relative; padding: 0.38in 0.55in; display: flex; flex-direction: column; }
+  .note + .note { border-top: 0.9pt dashed #B9A995; }
+  .note .fr2 { position: absolute; inset: 0.14in; border: 1.6pt solid var(--berry); border-radius: 8pt; }
+  .note.r .fr2 { border-color: var(--pine); }
+  .note .hd { flex: none; display: flex; align-items: center; justify-content: space-between; }
+  .note .hd h2 { font-size: 26pt; color: var(--berry); }
+  .note.r .hd h2 { color: var(--pine); }
+  .note .hd .eyebrow { color: var(--ink-soft); }
+  .note .hd .ic { width: 0.9in; flex: none; }
+  .note .body { flex: 1; min-height: 0; display: flex; flex-direction: column; font-family: var(--serif); font-size: 13pt; line-height: 1.9; margin-top: 6pt; }
+  .note .body .fld.box { flex: 1; min-height: 0; margin: 4pt 0 6pt; }
+  .note .who { font-family: var(--serif); font-style: italic; text-align: right; flex: none; }
+  .note .who b { font-size: 24pt; font-weight: 500; color: var(--berry); }
+  .note.r .who b { color: var(--pine); font-size: 13pt; }
+  .note .cutl { position: absolute; right: 8pt; top: -7pt; font-size: 7pt; color: var(--ink-soft); background: #fff; padding: 0 4pt; letter-spacing: .1em; }
+
+  /* start page */
+  .start .ttl { flex: none; text-align: center; padding-top: 2pt; }
+  .start .ttl h1 { font-size: 38pt; }
+  .start .ttl h1 em { color: var(--berry); }
+  .start .ttl .sub { font-size: 11pt; color: var(--ink-soft); margin-top: 6pt; }
+  .start .cols { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.05fr 1fr; gap: 0 24pt; margin-top: 14pt; align-content: start; }
+  .start h3 { color: var(--pine); margin: 0 0 5pt; font-size: 13.5pt; }
+  .start ol, .start ul { margin: 0 0 10pt; padding-left: 15pt; font-size: 9.9pt; line-height: 1.42; }
+  .start li { margin-bottom: 2.5pt; }
+  .start .contents { list-style: none; padding: 0; }
+  .start .contents li { display: flex; gap: 8pt; border-bottom: 0.8pt solid var(--line); padding: 3.5pt 0; margin: 0; }
+  .start .contents li b { color: var(--berry); width: 14pt; font-family: var(--serif); flex: none; }
+  .start .contents li small { display: block; color: var(--ink-soft); font-size: 8.4pt; }
+  .start .box { background: var(--frost); border-radius: 10pt; padding: 10pt 14pt; font-size: 9.6pt; line-height: 1.42; flex: none; }
+  .start .box b { color: var(--berry); }
+  .start .art { flex: none; display: flex; justify-content: center; gap: 12pt; align-items: flex-end; margin-bottom: 6pt; }
+</style>
+</head>
+<body>
+<div id="pages"></div>
+<script>
+// default (pre-filled, editable) values for fields
+window.FIELD_DEFAULTS = {
+  b_body: "What a wonderful year you have had! The elves have told me all about it, and Mrs. Claus and I are so proud of you.\n\nYour Christmas wishes are written safely in my big book, right beside your name. The workshop is buzzing, the reindeer are practicing their takeoffs, and the cookies in the kitchen smell delicious.\n\nEvery night I look at my big map of the world, and your home is marked with a shiny gold star. Mrs. Claus is baking her famous gingerbread, and the elves are tying every bow extra tight.\n\nKeep being kind, keep helping the people around you, and remember to go to sleep early on Christmas Eve. I'll be stopping by very soon!",
+  c_year: "2026",
+  c_elf: "Jingle Snowberry",
+  n1_treat: "cookies and milk",
+  n1_msg: "They were the tastiest treats in the whole world, and they kept me warm for the rest of my journey. Your home looked so cozy tonight. Thank you for being such a kind and thoughtful helper this year.",
+  n2_treat: "snack",
+  n2_msg: "We munched every last crumb before our long flight home. Our hooves are happy, our tummies are full, and we could smell your yard from way up in the sky! Merry Christmas!",
+};
+(function () {
+  const A = window.WINTER, C = A.C;
+  const out = [];
+  const f = (name, w, cls = '', extra = '') => `<span class="fld ${cls}" data-f="${name}" style="${w ? `width:${w};` : ''}${extra}"></span>`;
+  const frame = '<div class="frame"></div>';
+
+  // ---- small original SVG pieces
+  const star = (fill = C.gold) => `<svg viewBox="0 0 20 20"><path d="M10 1 L12.4 7.3 L19 7.6 L13.8 11.7 L15.6 18.2 L10 14.4 L4.4 18.2 L6.2 11.7 L1 7.6 L7.6 7.3 Z" fill="${fill}"/></svg>`;
+  const hoof = (c = C.bark) => `<svg viewBox="0 0 60 60"><g fill="${c}">
+      <path d="M27.5 4 C15 7 6 22 7 36 C8 45 16 49 27.5 46 Z"/>
+      <path d="M32.5 4 C45 7 54 22 53 36 C52 45 44 49 32.5 46 Z"/>
+      <ellipse cx="12" cy="55" rx="4" ry="3"/><ellipse cx="48" cy="55" rx="4" ry="3"/></g></svg>`;
+  const hoofs = (c) => `<svg viewBox="0 0 120 60">${[[0, 14, -14], [36, 0, 8], [72, 16, -6]].map(([x, y, r]) => `<g transform="translate(${x} ${y}) rotate(${r} 22 22) scale(.72)">${hoof(c).replace(/<\/?svg[^>]*>/g, '')}</g>`).join('')}</svg>`;
+  function seal(label = 'NORTH POLE · OFFICIAL SEAL · ', inner = 'NP', flip = false) {
+    let bumps = '';
+    for (let i = 0; i < 28; i++) { const a = (i / 28) * Math.PI * 2; bumps += `<circle cx="${50 + Math.cos(a) * 45}" cy="${50 + Math.sin(a) * 45}" r="5.4" fill="${C.gold}"/>`; }
+    return `<svg viewBox="0 0 100 100"><g ${flip ? 'transform="rotate(180 50 50)"' : ''}>${bumps}
+      <circle cx="50" cy="50" r="45" fill="${C.gold}"/><circle cx="50" cy="50" r="39" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.2"/>
+      <circle cx="50" cy="50" r="25" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1"/>
+      <defs><path id="sc${flip ? 'f' : ''}" d="M50 50 m-32 0 a32 32 0 1 1 64 0 a32 32 0 1 1 -64 0"/></defs>
+      <text font-family="Poppins" font-weight="500" font-size="7.4" fill="#fff"><textPath href="#sc${flip ? 'f' : ''}" textLength="199" lengthAdjust="spacing">${label}</textPath></text>
+      <path d="M50 30 L54.5 42 L67 42.4 L57.2 50 L60.8 62.4 L50 55.2 L39.2 62.4 L42.8 50 L33 42.4 L45.5 42 Z" fill="${C.berry}"/>
+      <text x="50" y="72" text-anchor="middle" font-family="Lora" font-weight="700" font-size="8" fill="#fff">${inner}</text></g></svg>`;
+  }
+  const swash = `<svg viewBox="0 0 220 10" preserveAspectRatio="none"><path d="M2 6 C40 1 80 9 120 5 S190 2 218 6" stroke="${C.gold}" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>`;
+  const stamp = `<svg viewBox="0 0 86 100">
+      <rect x="0" y="0" width="86" height="100" fill="#fff"/>
+      ${Array.from({ length: 9 }, (_, i) => `<circle cx="${5 + i * 9.5}" cy="0" r="2.6" fill="#F3EEE6"/><circle cx="${5 + i * 9.5}" cy="100" r="2.6" fill="#F3EEE6"/>`).join('')}
+      ${Array.from({ length: 10 }, (_, i) => `<circle cx="0" cy="${5 + i * 10}" r="2.6" fill="#F3EEE6"/><circle cx="86" cy="${5 + i * 10}" r="2.6" fill="#F3EEE6"/>`).join('')}
+      <rect x="7" y="7" width="72" height="86" fill="${C.berry}"/>
+      <g transform="translate(23 14) scale(.4)">${A.tree({ color: C.pine }).replace(/<\/?svg[^>]*>/g, '')}</g>
+      <text x="43" y="80" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="8" fill="#fff" letter-spacing="1">NORTH POLE</text>
+      <text x="43" y="89" text-anchor="middle" font-family="Poppins" font-size="6" fill="#fff" letter-spacing="1">SLEIGH MAIL</text></svg>`;
+  const postmark = `<svg viewBox="0 0 155 70"><g fill="none" stroke="${C.ink}" stroke-opacity=".45" stroke-width="1.6">
+      <circle cx="35" cy="35" r="31"/><circle cx="35" cy="35" r="22"/>
+      ${[16, 26, 36, 46, 56].map((y) => `<path d="M72 ${y} q10 -5 20 0 t20 0 t20 0 t20 0"/>`).join('')}</g>
+      <defs><path id="pmc" d="M35 35 m-26.5 0 a26.5 26.5 0 1 1 53 0"/><path id="pmc2" d="M8.5 35 a26.5 26.5 0 0 0 53 0"/></defs>
+      <text font-family="Poppins" font-weight="700" font-size="6.6" letter-spacing="1.3" fill="${C.ink}" fill-opacity=".5"><textPath href="#pmc" startOffset="50%" text-anchor="middle">NORTH POLE</textPath></text>
+      <text font-family="Poppins" font-weight="700" font-size="6.6" letter-spacing="1.3" fill="${C.ink}" fill-opacity=".5" dy="5"><textPath href="#pmc2" startOffset="50%" text-anchor="middle">SLEIGH MAIL</textPath></text>
+      <text x="35" y="33" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="9" fill="${C.ink}" fill-opacity=".5">DEC</text>
+      <text x="35" y="44" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="11" fill="${C.ink}" fill-opacity=".5">24</text></svg>`;
+
+  const letterhead = () => `<div class="lh">
+      <div class="hl" style="left:-0.1in">${A.holly()}</div><div class="hl" style="right:-0.1in;transform:scaleX(-1)">${A.holly()}</div>
+      <div class="eyebrow">From the desk of</div>
+      <h1>Santa Claus</h1>
+      <div class="addr">Workshop No. 1 · Candy Cane Lane · The North Pole</div>
+      <div class="orn"><i></i><span>${star()}</span><span style="width:16pt">${star(C.berry)}</span><span>${star()}</span><i></i></div>
+    </div>`;
+  const signature = (sealLabel) => `<div class="sig">
+      <div class="s"><small>With love and a jolly ho, ho, ho,</small><b>Santa Claus</b>${swash}</div>
+      <div class="seal">${seal(sealLabel)}</div></div>`;
+
+  // ---------- 1. start here
+  out.push(`<section class="page start tint">
+    <div class="art"><div style="width:.7in">${A.gift({ color: C.berry })}</div><div style="width:1.05in">${A.tree()}</div><div style="width:1.1in">${seal()}</div><div style="width:.7in">${A.gift({ color: C.pine })}</div></div>
+    <div class="ttl"><div class="eyebrow">Fillable PDF · 8 pages</div><h1 style="margin-top:6pt"><em>Letter from Santa</em> Kit</h1>
+      <div class="sub">Type your child’s name and news, print, and leave a little North Pole magic for Christmas morning.</div></div>
+    <div class="cols">
+      <div>
+        <h3>Fill it in (2 minutes)</h3>
+        <ol>
+          <li>Open this PDF in the free <b>Adobe Acrobat Reader</b> (computer, phone or tablet). Chrome, Edge and Mac Preview work too.</li>
+          <li>Click or tap a <b>highlighted spot</b> (your reader shades every box you can type in) and type. The highlight shows only on screen; it does not print.</li>
+          <li>Some boxes come with friendly sample words. Keep them or type over them with your own.</li>
+          <li>Save, then print at <b>“Actual size” / 100%</b>. Print as many copies as you like, one per child.</li>
+        </ol>
+        <h3>Prefer a pen?</h3>
+        <ul><li>Every page also prints blank: write on the lines and in the open spaces by hand.</li></ul>
+        <h3>Make it extra magical</h3>
+        <ul>
+          <li>Print the letter and certificate on cream or parchment paper, or card stock.</li>
+          <li>Sign the letter again with a gold or red pen for a real-ink touch.</li>
+          <li>Fold the letter in quarters and slip it into the North Pole envelope (page 6).</li>
+          <li>Leave the reindeer note and a few “hoofprints” of oats by the door.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>What’s inside</h3>
+        <ul class="contents">
+          ${[['Start here', 'This page, for grown-ups only'], ['Letter from Santa', 'Fill in the blanks: name, age, good deeds, P.S.'], ['Letter from Santa, write-your-own', 'One big box with a sample letter to edit'], ['Nice List certificate', 'Name, year, reason, signed by Santa and his elf'], ['Letter to Santa', 'For your child to write and draw'], ['North Pole envelope', 'Cut, fold, glue; fillable address'], ['Reindeer food tags', '5 tags + the recipe card'], ['Christmas morning notes', 'Thank-yous from Santa and the reindeer']].map(([t, s], i) => `<li><b>${i + 1}</b><span>${t}<small>${s}</small></span></li>`).join('')}
+        </ul>
+        <div class="box" style="margin-top:12pt"><b>For grown-ups:</b> the pages your child will see carry no shop name or web address, so nothing gives Santa away. Keep this first page to yourself!</div>
+      </div>
+    </div>
+    <div class="pf"><span>Letter from Santa Kit · Start here</span><span>© 2026 Pantry Printable Co. · personal use only</span></div>
+  </section>`);
+
+  // ---------- 2. letter: fill in the blanks
+  out.push(`<section class="page fr parch">${frame}${letterhead()}
+    <div class="letter">
+      <p class="date">North Pole, ${f('a_date', '1.9in')}</p>
+      <p class="dear">Dear ${f('a_name', '3.2in', 'big')},</p>
+      <p>Ho, ho, ho! Greetings from the North Pole, where the snow is deep, the cocoa is hot and the workshop is busier than ever. My elves have kept a careful watch this year, and they tell me you are now ${f('a_age', '0.6in')} years old. My, how you have grown!</p>
+      <p style="margin-bottom:0">Mrs. Claus and I were especially proud when you</p>
+      ${f('a_deed', '', 'box', 'height:0.8in;margin:3pt 0 10pt')}
+      <p>The elves also told me that this year you learned to ${f('a_learned', '2.9in')}. The whole workshop cheered when we heard!</p>
+      <p>Your wishes are written safely in my big book, right beside your name. Before Christmas Eve, please remember to ${f('a_remember', '2.7in')}, listen to your grown-ups and be kind to everyone you meet. The reindeer and I will be flying over ${f('a_town', '2.3in')} very soon!</p>
+      <p style="margin-bottom:0">P.S. ${f('a_ps', '5.3in')}</p>
+    </div>
+    ${signature('NORTH POLE · OFFICIAL SEAL · ')}
+  </section>`);
+
+  // ---------- 3. letter: write your own
+  out.push(`<section class="page fr parch">${frame}${letterhead()}
+    <div class="letter">
+      <p class="date">North Pole, ${f('b_date', '1.9in')}</p>
+      <p class="dear">Dear ${f('b_name', '3.2in', 'big')},</p>
+      ${f('b_body', '', 'box', 'flex:1;min-height:0;margin:4pt 0 10pt')}
+      <p style="margin-bottom:0">P.S. ${f('b_ps', '5.3in')}</p>
+    </div>
+    ${signature('NORTH POLE · OFFICIAL SEAL · ')}
+  </section>`);
+
+  // ---------- 4. Nice List certificate
+  out.push(`<section class="page fr parch cert">${frame}
+    <div class="hl" style="position:absolute;top:.55in;left:.6in;width:1in">${A.holly()}</div>
+    <div class="hl" style="position:absolute;top:.55in;right:.6in;width:1in;transform:scaleX(-1)">${A.holly()}</div>
+    <div style="width:1.2in;margin-bottom:10pt">${A.tree()}</div>
+    <div class="eyebrow" style="color:var(--pine);font-size:10pt">Official · North Pole</div>
+    <h1 style="margin:8pt 0 4pt">Nice List<br>Certificate</h1>
+    <div class="orn" style="display:flex;gap:8pt;align-items:center;margin:8pt 0 20pt"><i style="height:1pt;width:1.4in;background:var(--gold);display:block"></i><span style="width:14pt;display:block">${star()}</span><i style="height:1pt;width:1.4in;background:var(--gold);display:block"></i></div>
+    <div class="lead">This certifies that</div>
+    ${f('c_name', '', 'who', 'margin:8pt 0 14pt')}
+    <div class="line">has been officially placed on<br><b style="color:var(--berry)">Santa’s Nice List</b> for the year ${f('c_year', '0.85in')}</div>
+    <div class="lead" style="margin-top:18pt">with special mention for</div>
+    ${f('c_reason', '5.4in', 'box', 'height:0.7in;margin-top:6pt')}
+    <div class="sigs">
+      <div class="c"><div class="n">Santa Claus</div>Head of the Nice List</div>
+      <div>${seal('NICE LIST · APPROVED · ')}</div>
+      <div class="c"><div class="n" style="padding:0">${f('c_elf', '100%', '', 'border:0;height:30pt')}</div>Chief List Elf</div>
+    </div>
+    <div style="margin-top:16pt;font-size:10pt;color:var(--ink-soft)">Date: ${f('c_date', '1.8in')}</div>
+  </section>`);
+
+  // ---------- 5. letter to Santa (handwritten)
+  const L = (n = 1) => Array.from({ length: n }, () => `<div class="row"><span class="l"></span></div>`).join('');
+  out.push(`<section class="page fr">${frame}
+    <div class="lh"><div class="hl" style="left:-0.1in;width:.8in">${A.stocking()}</div><div class="hl" style="right:-0.1in;width:.8in">${A.gift({ color: C.berry })}</div>
+      <div class="eyebrow">My letter to</div><h1 style="font-size:40pt">Dear Santa,</h1>
+      <div class="orn"><i></i><span>${star()}</span><span style="width:16pt">${star(C.berry)}</span><span>${star()}</span><i></i></div></div>
+    <div class="kid" style="margin-top:8pt">
+      <div class="row">My name is <span class="l"></span> and I am <span class="s"></span> years old.</div>
+      <div class="q">This year I was kind when I...</div>${L(2)}
+      <div class="q">Something new I learned this year:</div>${L(1)}
+      <div class="q">My Christmas wishes:</div>
+      <div class="row"><b>1</b><span class="l"></span></div><div class="row"><b>2</b><span class="l"></span></div><div class="row"><b>3</b><span class="l"></span></div>
+      <div class="q">A gift I would love to give someone else:</div>${L(1)}
+      <div class="draw"><span>A picture for Santa</span></div>
+      <div class="row" style="margin-top:6pt">Love from <span class="l" style="flex:none;width:2.6in"></span></div>
+    </div>
+  </section>`);
+
+  // ---------- 6. envelope (net: front 6.1 x 4.5 in at (0.75, 1.6); top flap 1.6, bottom 2.0, side flaps 0.75)
+  const N = { W: 7.6, H: 8.1, x: 0.75, y: 1.6, w: 6.1, h: 4.5 };
+  const u = 100; // svg units per inch
+  const X = N.x * u, Y = N.y * u, R = (N.x + N.w) * u, B = (N.y + N.h) * u;
+  const netSvg = `<svg viewBox="0 0 ${N.W * u} ${N.H * u}">
+      <path d="M${X} ${Y} L${X + 70} 18 Q${N.W * u / 2} 0 ${R - 70} 18 L${R} ${Y}" fill="${C.frost}"/>
+      <path d="M${X} ${B} L${X + 60} ${N.H * u - 10} L${R - 60} ${N.H * u - 10} L${R} ${B}" fill="${C.frost}"/>
+      <path d="M${X} ${Y} L4 ${Y + 45} L4 ${B - 45} L${X} ${B}" fill="#F4F7F5"/>
+      <path d="M${R} ${Y} L${N.W * u - 4} ${Y + 45} L${N.W * u - 4} ${B - 45} L${R} ${B}" fill="#F4F7F5"/>
+      <rect x="${X}" y="${Y}" width="${N.w * u}" height="${N.h * u}" fill="#FFFDF9"/>
+      <rect x="${X + 9}" y="${Y + 9}" width="${N.w * u - 18}" height="${N.h * u - 18}" fill="none" stroke="${C.berry}" stroke-width="2.2" stroke-dasharray="14 7"/>
+      <g fill="none" stroke="#9C8B79" stroke-width="1.3" stroke-dasharray="7 5">
+        <path d="M${X} ${Y} L${X + 70} 18 Q${N.W * u / 2} 0 ${R - 70} 18 L${R} ${Y} L${N.W * u - 4} ${Y + 45} L${N.W * u - 4} ${B - 45} L${R} ${B} L${R - 60} ${N.H * u - 10} L${X + 60} ${N.H * u - 10} L${X} ${B} L4 ${B - 45} L4 ${Y + 45} Z"/></g>
+      <g fill="none" stroke="#B9A995" stroke-width="1" stroke-dasharray="1.5 4"><rect x="${X}" y="${Y}" width="${N.w * u}" height="${N.h * u}"/></g>
+      <g transform="translate(${N.W * u / 2 - 34} 44) scale(.68)">${seal('SEALED AT THE NORTH POLE · ', 'NP', true).replace(/<\/?svg[^>]*>/g, '')}</g>
+      <g font-family="Poppins" font-size="9" fill="#9C8B79" letter-spacing="1.5" text-anchor="middle">
+        <text x="${N.W * u / 2}" y="${Y - 8}">FOLD BACK · GLUE LAST</text>
+        <text x="${N.W * u / 2}" y="${B + 18}">FOLD BACK · GLUE ON SIDE FLAPS</text>
+        <text transform="translate(${X - 16} ${(Y + B) / 2}) rotate(-90)">FOLD BACK FIRST</text>
+        <text transform="translate(${R + 16} ${(Y + B) / 2}) rotate(90)">FOLD BACK FIRST</text></g>
+      <g font-family="Poppins" font-size="8" fill="#9C8B79" letter-spacing="1"><text x="8" y="40">✂ cut on the dashed line</text></g>
+    </svg>`;
+  out.push(`<section class="page env">
+    <div class="top"><h2>North Pole envelope</h2><span class="eyebrow">Cut · fold · glue</span></div>
+    <div class="net">${netSvg}
+      <div class="front">
+        <div class="from"><b>Santa Claus</b><br>Workshop No. 1, Candy Cane Lane<br>The North Pole</div>
+        <div class="pm">${postmark}</div>
+        <div class="stamp">${stamp}</div>
+        <div class="to">To:
+          ${f('e_to', '', 'big')}${f('e_line1', '')}${f('e_line2', '')}</div>
+        <div class="ribbon">Special delivery by sleigh</div>
+        <div class="rein">${hoofs(C.bark)}</div>
+      </div>
+    </div>
+    <div class="steps">
+      <div><b>1 · Cut</b>Cut around the outside dashed line. Print on regular paper or light card stock.</div>
+      <div><b>2 · Fold</b>Fold the two side flaps back, then the bottom flap. Glue the bottom flap onto the side flaps.</div>
+      <div><b>3 · Fill</b>Fold the letter in half and in half again and slide it in. It fits the certificate too.</div>
+      <div><b>4 · Seal</b>Fold the top flap down and glue or tape it. The gold seal sits on the back.</div>
+    </div>
+  </section>`);
+
+  // ---------- 7. reindeer food tags
+  const poem = 'Sprinkle this on the lawn tonight<br>when the moon is shining bright.<br>Santa’s reindeer, passing by,<br>will smell the oats from way up high!';
+  const tag = (i) => `<div class="tag"><div class="fold"><span>fold</span></div><div class="hoof" style="margin-top:.2in">${hoofs(C.bark)}</div><h3>Magic Reindeer Food</h3><div class="poem">${poem}</div><div class="by">Made with love by ${f(`t_by${i}`, '')}</div></div>`;
+  out.push(`<section class="page">
+    <div class="ph"><h2>Reindeer food tags</h2><div class="right"><span class="eyebrow">For Christmas Eve</span><div class="art">${A.star()}</div></div></div>
+    <div class="intro">Print on card stock and cut out. Fill a small snack bag with reindeer food, fold a tag over the top on the dotted line and staple it shut.</div>
+    <div class="tags">
+      ${[1, 2, 3, 4, 5].map(tag).join('')}
+      <div class="tag recipe">
+        <h3>How to make reindeer food</h3>
+        <ul><li>1 cup rolled oats</li><li>2 tablespoons colored sugar or sprinkles</li><li>a pinch of cinnamon (optional)</li></ul>
+        <ol><li>Mix everything in a bowl and spoon into small bags.</li><li>On Christmas Eve, sprinkle it on the lawn or by the door.</li></ol>
+        <div class="rnote">Kind to wildlife: please skip glitter, which birds and animals can swallow.</div>
+      </div>
+    </div>
+  </section>`);
+
+  // ---------- 8. Christmas morning notes
+  out.push(`<section class="page notes">
+    <div class="note"><div class="fr2"></div>
+      <div class="hd"><div><div class="eyebrow">Christmas morning</div><h2>A note from Santa</h2></div><div class="ic">${A.mug ? A.mug() : A.star()}</div></div>
+      <div class="body"><div>Dear ${f('n1_name', '3in')},</div><div>Thank you for the ${f('n1_treat', '3.3in')}!</div>
+        ${f('n1_msg', '', 'box')}
+        <div class="who">Love, <b>Santa</b></div></div></div>
+    <div class="note r"><div class="fr2"></div><span class="cutl">✂ cut here</span>
+      <div class="hd"><div><div class="eyebrow">Christmas morning</div><h2>From the reindeer</h2></div><div class="ic">${hoofs(C.bark)}</div></div>
+      <div class="body"><div>Dear ${f('n2_name', '3in')},</div><div>Thank you for the ${f('n2_treat', '3.3in')}!</div>
+        ${f('n2_msg', '', 'box')}
+        <div class="who"><b>Dasher, Dancer, Prancer, Vixen, Comet, Cupid, Donner &amp; Blitzen</b></div></div></div>
+  </section>`);
+
+  document.getElementById('pages').innerHTML = out.join('');
+})();
+</script>
+</body>
+</html>
