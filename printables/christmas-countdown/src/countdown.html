@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en" data-size="letter" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Christmas Countdown for Kids</title>
+<link rel="stylesheet" href="../../_brand/brand.css">
+<script src="../../_brand/art/winter.js"></script>
+<script src="color.js"></script>
+<script src="content.js"></script>
+<style>
+  .eyebrow { color: var(--berry); }
+  .page.tint { background: #F4F7F3; }
+  .pf { flex: none; }
+  .ph { flex: none; }
+  .how { flex: none; background: var(--frost); border-radius: 9pt; padding: 8pt 12pt; font-size: 10pt; line-height: 1.4; margin-bottom: 12pt; }
+  .how b { color: var(--pine); font-family: var(--serif); font-size: 11pt; margin-right: 4pt; }
+  .blank { display: inline-block; border-bottom: 1.2pt solid var(--ink); min-width: 2in; height: 1.2em; vertical-align: bottom; }
+
+  /* cover */
+  .cover { align-items: center; text-align: center; justify-content: center; }
+  .cover .frame { position: absolute; inset: 0.35in; border: 3pt solid var(--pine); border-radius: 18pt; }
+  .cover h1 { font-size: 54pt; line-height: 1.0; position: relative; }
+  .cover h1 em { display: block; color: var(--berry); font-size: 28pt; font-weight: 500; margin-bottom: 8pt; }
+  .cover .sub { font-size: 13.5pt; color: var(--ink-soft); margin-top: 12pt; position: relative; }
+  .cover .nums { position: relative; display: grid; grid-template-columns: repeat(6, 0.78in); gap: 9pt; margin-top: 22pt; }
+  .cover .nums span { height: 0.78in; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-weight: 700; font-size: 22pt; color: #fff; }
+  .cover .facts { position: relative; display: flex; gap: 9pt; justify-content: center; margin-top: 24pt; flex-wrap: wrap; width: 6.4in; }
+  .cover .facts span { background: #fff; border: 1pt solid #D7E2DC; border-radius: 99pt; padding: 6pt 14pt; font-size: 10pt; font-weight: 500; }
+  .cover .brandline { position: relative; margin-top: 20pt; font-size: 9pt; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  .corner { position: absolute; }
+
+  /* guide */
+  .guide .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt 24pt; }
+  .guide h3 { color: var(--berry); margin: 4pt 0 5pt; }
+  .guide p, .guide li { font-size: 10pt; }
+  .guide ul { margin: 0 0 6pt; padding-left: 15pt; }
+  .guide li { margin-bottom: 2pt; }
+  .toc { columns: 2; column-gap: 24pt; font-size: 9.4pt; margin-top: 4pt; }
+  .toc div { break-inside: avoid; display: flex; gap: 6pt; padding: 3pt 0; border-bottom: 1pt solid var(--line); }
+  .toc b { color: var(--berry); font-family: var(--serif); width: 20pt; flex: none; }
+  .toc span { flex: 1; }
+  .toc i { color: var(--ink-soft); font-style: normal; }
+
+  /* tree chart */
+  .chart { flex: 1; min-height: 0; display: flex; }
+  .chart > svg { width: 100%; height: 100%; display: block; }
+
+  /* calendar */
+  .cal { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(6, 1fr); gap: 7pt; }
+  .cal > div { border: 1.4pt solid var(--line); border-radius: 9pt; padding: 6pt 8pt; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto 1fr; gap: 2pt 6pt; min-height: 0; position: relative; background: #fff; }
+  .cal .n { font-family: var(--serif); font-weight: 700; font-size: 20pt; color: var(--berry); line-height: 1; }
+  .cal .ic { justify-self: end; width: 0.42in; height: 0.42in; }
+  .cal .ic svg { width: 100%; height: 100%; }
+  .cal .t { grid-column: 1 / 3; font-size: 9.2pt; font-weight: 500; line-height: 1.2; align-self: start; padding-right: 0.32in; }
+  .cal .done { position: absolute; right: 6pt; bottom: 5pt; width: 0.3in; height: 0.3in; }
+  .cal > div:nth-child(8n+2), .cal > div:nth-child(8n+4), .cal > div:nth-child(8n+5), .cal > div:nth-child(8n+7) { background: #F6F9F7; }
+  .cal > div.eve { border-color: var(--berry); background: #FBF0EF; }
+
+  /* activity cards */
+  .acards { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, minmax(0, 1fr)); border: 0.75pt dashed #B9A995; }
+  .acard { border: 0.75pt dashed #B9A995; padding: 10pt 14pt 8pt; overflow: hidden; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; min-height: 0; }
+  .acard .top { width: 100%; display: flex; justify-content: space-between; align-items: center; flex: none; }
+  .acard .day { display: flex; align-items: center; gap: 6pt; }
+  .acard .day b { width: 0.52in; height: 0.52in; border-radius: 50%; background: var(--berry); color: #fff; font-family: var(--serif); font-size: 20pt; display: flex; align-items: center; justify-content: center; }
+  .acard:nth-child(even) .day b { background: var(--pine); }
+  .acard .day span { font-size: 7.5pt; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); text-align: left; line-height: 1.25; }
+  .acard .pill { background: var(--frost); color: var(--pine); }
+  .acard .ic { width: 1in; height: 0.7in; flex: none; margin: 5pt 0 5pt; }
+  .acard .ic svg { width: 100%; height: 100%; }
+  .acard h3 { font-size: 17pt; flex: none; margin-bottom: 4pt; }
+  .acard p { font-size: 10.8pt; line-height: 1.34; max-width: 3.2in; margin: 0 0 4pt; flex: none; }
+  .acard .need { margin-top: auto; font-size: 8.5pt; line-height: 1.4; color: var(--ink-soft); flex: none; }
+  .acard .need b { color: var(--berry); font-weight: 500; }
+  .acard .need .pg { display: block; color: var(--pine); font-weight: 500; }
+  .acard .wl { width: 90%; border-bottom: 1pt solid var(--ink-soft); height: 19pt; flex: none; }
+  .acard.blankc .day b { background: #fff; border: 1.5pt solid var(--berry); }
+
+  /* number tags */
+  .tags { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(6, minmax(0, 1fr)); gap: 4pt; }
+  .tags > div { display: flex; align-items: center; justify-content: center; min-height: 0; }
+  .tags .tg { height: 100%; aspect-ratio: 1; max-width: 100%; border: 1pt dashed #B9A995; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 6pt; }
+  .tags .in { width: 100%; height: 100%; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; }
+  .tags .in b { font-family: var(--serif); font-size: 30pt; line-height: 1; }
+  .tags .in span { font-size: 7pt; letter-spacing: .16em; text-transform: uppercase; margin-top: 2pt; }
+
+  /* coloring */
+  .cpage { padding: 0.42in 0.5in 0.32in; }
+  .cpage .ct { flex: none; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6pt; }
+  .cpage .ct h2 { font-size: 20pt; }
+  .cpage .art { flex: 1; min-height: 0; display: flex; }
+  .cpage .art > svg { width: 100%; height: 100%; display: block; }
+  .cpage .pf { padding-top: 5pt; font-size: 7pt; }
+
+  /* wish list */
+  .wish { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr); gap: 20pt; }
+  .wish ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: space-between; }
+  .wish li { display: flex; align-items: flex-end; gap: 8pt; border-bottom: 1.2pt solid var(--ink-soft); padding-bottom: 2pt; height: 0.62in; }
+  .wish li b { font-family: var(--serif); color: var(--berry); font-size: 16pt; }
+  .wish .draw { border: 2pt dashed var(--pine); border-radius: 16pt; display: flex; flex-direction: column; padding: 10pt; text-align: center; }
+  .wish .draw span { font-family: var(--serif); font-style: italic; color: var(--pine); font-size: 13pt; }
+  .namebar { flex: none; display: flex; gap: 20pt; font-size: 12pt; margin-bottom: 16pt; }
+  .namebar div { flex: 1; display: flex; align-items: flex-end; gap: 8pt; }
+  .namebar .ln { flex: 1; border-bottom: 1.2pt solid var(--ink); height: 18pt; }
+  .goodlist { flex: none; margin-top: 16pt; border: 1.4pt solid var(--line); border-radius: 12pt; padding: 10pt 14pt; }
+  .goodlist h3 { color: var(--berry); margin-bottom: 6pt; }
+  .goodlist .ln { border-bottom: 1.2pt solid var(--ink-soft); height: 26pt; }
+
+  /* maze + count */
+  .maze { flex: 1; min-height: 0; display: flex; }
+  .maze > svg { width: 100%; height: 100%; }
+  .cnt { flex: 1; min-height: 0; border: 2pt solid var(--ink); border-radius: 14pt; position: relative; overflow: hidden; background: #fff; }
+  .cnt > div { position: absolute; }
+  .cnt svg { width: 100%; height: 100%; display: block; }
+  .tally { flex: none; display: grid; grid-template-columns: repeat(6, 1fr); gap: 8pt; margin-top: 12pt; }
+  .tally div { border: 1.4pt solid var(--line); border-radius: 10pt; padding: 6pt; display: flex; flex-direction: column; align-items: center; gap: 4pt; }
+  .tally .ic { width: 0.5in; height: 0.5in; }
+  .tally .ic svg { width: 100%; height: 100%; }
+  .tally .bx { width: 0.55in; height: 0.42in; border: 1.4pt solid var(--ink); border-radius: 6pt; }
+
+  /* coupons */
+  .coupons { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, minmax(0, 1fr)); border: 0.75pt dashed #B9A995; }
+  .coupons > div { border: 0.75pt dashed #B9A995; padding: 10pt; display: flex; min-height: 0; }
+  .coupons .cp { flex: 1; border: 2pt solid var(--berry); border-radius: 10pt; display: flex; align-items: center; gap: 10pt; padding: 8pt 12pt; }
+  .coupons > div:nth-child(4n+2) .cp, .coupons > div:nth-child(4n+3) .cp { border-color: var(--pine); }
+  .coupons .ic { width: 0.62in; height: 0.62in; flex: none; }
+  .coupons .ic svg { width: 100%; height: 100%; }
+  .coupons .tx { flex: 1; text-align: left; }
+  .coupons .lab { font-size: 7pt; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
+  .coupons h3 { font-size: 14.5pt; margin: 2pt 0 1pt; }
+  .coupons .s { font-size: 9pt; color: var(--ink-soft); }
+  .coupons .ft { display: flex; gap: 8pt; font-size: 8pt; margin-top: 5pt; }
+  .coupons .ft span { flex: 1; border-bottom: 1pt solid var(--ink-soft); padding-bottom: 1pt; }
+
+  /* certificate */
+  .cert { align-items: center; justify-content: center; text-align: center; }
+  .cert .frame { position: absolute; inset: 0.4in; border: 4pt double var(--berry); border-radius: 18pt; }
+  .cert .frame2 { position: absolute; inset: 0.58in; border: 1pt solid var(--gold); border-radius: 12pt; }
+  .cert h1 { font-size: 46pt; position: relative; }
+  .cert h1 em { display: block; font-size: 22pt; color: var(--pine); font-weight: 500; margin-bottom: 6pt; }
+  .cert .who { position: relative; width: 5.4in; border-bottom: 1.6pt solid var(--ink); height: 0.8in; margin: 30pt auto 10pt; }
+  .cert p { position: relative; font-size: 12.5pt; color: var(--ink-soft); max-width: 5.4in; margin: 0 auto; }
+  .cert .sig { position: relative; display: flex; gap: 40pt; margin-top: 60pt; width: 5.4in; }
+  .cert .sig div { flex: 1; border-top: 1.2pt solid var(--ink); padding-top: 4pt; font-size: 9.5pt; color: var(--ink-soft); }
+
+  /* answers */
+  .ans { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.3fr 1fr; grid-template-rows: minmax(0, 1fr); gap: 22pt; }
+  .ans h3 { color: var(--berry); margin-bottom: 8pt; }
+  .ans .mz { height: 7in; }
+  .ans .mz svg { width: 100%; height: 100%; }
+  .ans table { border-collapse: collapse; width: 100%; font-size: 11pt; }
+  .ans td { border-bottom: 1pt solid var(--line); padding: 6pt 4pt; }
+  .ans td.ic { width: 0.45in; }
+  .ans td.ic svg { width: 0.36in; height: 0.36in; display: block; }
+  .ans td b { font-family: var(--serif); font-size: 15pt; color: var(--berry); }
+</style>
+</head>
+<body>
+<div id="book"></div>
+<script>
+(function () {
+  const A = window.WINTER, D = window.CC, CD = window.CD;
+  const out = [];
+  const pg = () => out.length + 1;
+  const T = 'Christmas Countdown for Kids';
+  const foot = (label) => `<div class="pf"><span>${T} · ${label} · page ${pg()}</span><span>© 2026 Pantry Printable Co. · personal use only</span></div>`;
+  const head = (title, eyebrow) => `<div class="ph"><h2>${title}</h2><span class="eyebrow">${eyebrow}</span></div>`;
+  let ccid = 0;
+  const icon = (k, o = {}) => k === 'candycane' ? A.candycane({ id: 'cc' + (ccid++) }) : A[k](o);
+  const ST = 'stroke="#1b1b1b" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"';
+  const colorSvg = (key, uid) => {
+    const p = CD.PAGES.find((x) => x.key === key);
+    return `<svg viewBox="0 0 1000 1300" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="fr${uid}"><rect x="22" y="22" width="956" height="1256" rx="44"/></clipPath></defs><g ${ST}><g clip-path="url(#fr${uid})">${p.fn()}</g><rect x="22" y="22" width="956" height="1256" rx="44" fill="none"/></g></svg>`;
+  };
+  window.colorSvg = colorSvg;
+
+  // page plan: sheets referenced by cards get page numbers
+  const plan = ['cover', 'guide', 'tree', 'cal', 'c1', 'c2', 'c3', 'c4', 'cblank', 'tags', 'wish', 'lights', 'owl', 'decorate', 'maze', 'coupons', 'sled', 'count', 'jar', 'bunny', 'ornaments', 'cert', 'answers'];
+  const P = (k) => plan.indexOf(k) + 1;
+  const names = { wish: 'Wish List', lights: 'Christmas Lights', owl: 'Winter Owl', decorate: 'Decorate Your Tree', maze: 'Reindeer Maze', coupons: 'Kindness Coupons', sled: 'Sled Full of Presents', count: 'Count It Up', jar: 'Candy Jar', bunny: 'Cozy Bunny', ornaments: 'Ornament Trio', cert: 'Countdown Certificate' };
+
+  // seeded random
+  let seed = 2412;
+  const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+  const shuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const cols = ['#B23A3A', '#2F5D50', '#D9A441', '#4C7A68', '#8E2C2C', '#A9C6D3'];
+
+  // 1 cover
+  const prev = CD.COLOR.on; CD.COLOR.on = true;
+  const thumb = (k, i) => `<div style="background:#fff;border-radius:10pt;padding:5pt;width:1.5in;height:1.95in;box-shadow:0 2pt 6pt rgba(47,93,80,.15)">${colorSvg(k, 'cv' + i)}</div>`;
+  const thumbs = ['owl', 'ornaments', 'bunny'].map(thumb).join('');
+  CD.COLOR.on = prev;
+  out.push(`<section class="page tint cover"><div class="frame"></div>
+    <div class="corner" style="top:.6in;left:.7in;width:.8in">${A.ornament()}</div>
+    <div class="corner" style="top:.62in;right:.7in;width:1.05in">${A.holly()}</div>
+    <div class="eyebrow" style="position:relative">Printable · ages 3 to 10</div>
+    <h1 style="margin-top:8pt"><em>24 days of fun</em>Christmas<br>Countdown for Kids</h1>
+    <div class="sub">One activity card for every day from December 1 to Christmas Eve</div>
+    <div class="nums">${[1, 2, 3, 22, 23, 24].map((n, i) => `<span style="background:${cols[i % 4]}">${n}</span>`).join('')}</div>
+    <div style="position:relative;display:flex;gap:14pt;margin-top:22pt">${thumbs}</div>
+    <div class="facts"><span>24 activity cards</span><span>Countdown tree + calendar</span><span>6 coloring pages</span><span>Maze, counting &amp; more</span></div>
+    <div class="brandline">Pantry Printable Co.</div>
+  </section>`);
+
+  // 2 guide
+  const toc = [['Countdown Tree chart', 'tree'], ['Countdown Calendar chart', 'cal'], ['24 activity cards', 'c1'], ['6 blank cards (write your own)', 'cblank'], ['Number tags 1-24', 'tags'], ['My Wish List', 'wish'], ['Decorate Your Tree', 'decorate'], ['Reindeer Maze', 'maze'], ['Kindness Coupons', 'coupons'], ['Count It Up', 'count'], ['6 coloring pages', 'lights'], ['Countdown Certificate', 'cert'], ['Answers (grown-ups)', 'answers']];
+  out.push(`<section class="page guide">${head('Start here', 'For grown-ups')}
+    <div class="cols">
+      <div><h3>How it works</h3><ul>
+        <li>Print the cards and cut them apart along the dashed lines.</li>
+        <li>Each day from <b>December 1</b>, your child opens or picks the card for that day and does the activity together with you.</li>
+        <li>After each activity, color one ornament on the <b>Countdown Tree</b> or the star on the <b>Countdown Calendar</b>.</li>
+        <li>Some cards use a page in this pack (the card tells you which). Print those pages too.</li>
+      </ul>
+      <h3>Ways to hand out the cards</h3><ul>
+        <li>Tuck each card in an envelope or paper bag and stick on a <b>number tag</b>.</li>
+        <li>Fold the cards into a jar and pull one out each morning.</li>
+        <li>Clip them to a string with clothespins as a countdown garland.</li>
+      </ul></div>
+      <div><h3>Make it fit your family</h3><ul>
+        <li>Busy day? Swap cards around. The calendar shows the suggested order.</li>
+        <li>Use the <b>6 blank cards</b> for your own traditions: a visit to grandma, a school concert, a special outing.</li>
+        <li>Most activities use things you already have at home, and none need anything you have to buy.</li>
+        <li>Little ones (3 to 5) will need help with scissors, the maze and reading the cards. Older kids can read the cards out loud.</li>
+      </ul>
+      <h3>Printing tips</h3><ul>
+        <li>Print at <b>Actual size</b> / 100%. Card stock makes the cards and tags sturdier.</li>
+        <li>Print the coloring pages one side only, and as many times as you like for your own family.</li>
+      </ul></div>
+    </div>
+    <h3 style="color:var(--berry);margin-top:10pt">What’s inside</h3>
+    <div class="toc">${toc.sort((a, b) => P(a[1]) - P(b[1])).map(([t, k]) => `<div><b>${P(k)}</b><span>${t}</span></div>`).join('')}</div>
+    ${foot('start here')}</section>`);
+
+  // 3 tree chart: 24 ornaments to color
+  const rows = [2, 3, 4, 4, 5, 6];
+  let ornSvg = '', n = 1;
+  const top = 250, rowH = 165;
+  rows.forEach((k, r) => {
+    const y = top + r * rowH + 60, half = 120 + r * 62;
+    for (let i = 0; i < k; i++) {
+      const x = k === 1 ? 500 : 500 - half + (2 * half * i) / (k - 1);
+      ornSvg += `<g><line x1="${x}" y1="${y - 64}" x2="${x}" y2="${y - 44}" stroke="#3B2F2A" stroke-width="4"/><rect x="${x - 14}" y="${y - 50}" width="28" height="16" rx="3" fill="#D9A441"/><circle cx="${x}" cy="${y}" r="48" fill="#fff" stroke="#3B2F2A" stroke-width="5"/><text x="${x}" y="${y + 13}" text-anchor="middle" font-family="Lora" font-weight="700" font-size="38" fill="#3B2F2A">${n++}</text></g>`;
+    }
+  });
+  const treeSvg = `<svg viewBox="0 0 1000 1300" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <rect x="440" y="1180" width="120" height="100" rx="8" fill="#8A5A3B"/>
+    <path d="M500 120 L640 330 L590 330 L740 560 L680 560 L840 800 L770 800 L950 1190 L50 1190 L230 800 L160 800 L320 560 L260 560 L410 330 L360 330 Z" fill="#4C7A68" stroke="#2F5D50" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M500 120 L640 330 L590 330 L740 560 L680 560 L840 800 L770 800 L950 1190 L500 1190 Z" fill="#000" fill-opacity=".08"/>
+    ${ornSvg}
+    <path d="${(() => { let d = ''; for (let i = 0; i < 10; i++) { const a = (-90 + i * 36) * Math.PI / 180, rr = i % 2 ? 42 : 92; d += (i ? 'L' : 'M') + (500 + rr * Math.cos(a)).toFixed(1) + ' ' + (110 + rr * Math.sin(a)).toFixed(1) + ' '; } return d + 'Z'; })()}" fill="#fff" stroke="#D9A441" stroke-width="8" stroke-linejoin="round"/>
+    <text x="500" y="122" text-anchor="middle" font-family="Lora" font-weight="700" font-size="30" fill="#B23A3A">25</text>
+  </svg>`;
+  out.push(`<section class="page">${head('Countdown Tree', 'Color one ornament a day')}
+    <div class="how"><b>How to use</b>Each day after your activity, color the ornament with that day’s number. When all 24 are done, color the star: it’s Christmas!</div>
+    <div style="flex:none;display:flex;align-items:flex-end;gap:8pt;font-size:12pt;margin-bottom:6pt">My name: <span class="blank" style="width:3in"></span></div>
+    <div class="chart">${treeSvg}</div>
+    ${foot('Countdown Tree')}</section>`);
+
+  // 4 calendar
+  const starSvg = `<svg viewBox="0 0 40 40"><path d="M20 3 L24.6 14.2 L36.6 15 L27.4 22.8 L30.3 34.6 L20 28.2 L9.7 34.6 L12.6 22.8 L3.4 15 L15.4 14.2 Z" fill="#fff" stroke="#D9A441" stroke-width="2.6" stroke-linejoin="round"/></svg>`;
+  out.push(`<section class="page">${head('Countdown Calendar', 'December 1 to 24')}
+    <div class="how"><b>How to use</b>Here is the suggested order of the 24 cards. Color the star in each box when you finish that day’s activity.</div>
+    <div class="cal">${D.days.map((d, i) => `<div class="${i === 23 ? 'eve' : ''}"><span class="n">${i + 1}</span><span class="ic">${icon(d[4])}</span><span class="t">${d[0]}</span><span class="done">${starSvg}</span></div>`).join('')}</div>
+    ${foot('Countdown Calendar')}</section>`);
+
+  // 5-8 cards
+  const card = (d, i) => `<div class="acard"><div class="top"><div class="day"><b>${i + 1}</b><span>December</span></div><span class="pill">${d[3]}</span></div>
+    <div class="ic">${icon(d[4])}</div><h3>${d[0]}</h3><p>${d[1]}</p>
+    <div class="need"><b>You’ll need:</b> ${d[2]}${d[5] ? `<span class="pg">Use page ${P(d[5])}: ${names[d[5]]}</span>` : ''}</div></div>`;
+  for (let pgI = 0; pgI < 4; pgI++) {
+    out.push(`<section class="page">${head('Activity cards', `Days ${pgI * 6 + 1} to ${pgI * 6 + 6}`)}
+      <div class="acards">${D.days.slice(pgI * 6, pgI * 6 + 6).map((d, j) => card(d, pgI * 6 + j)).join('')}</div>
+      ${foot(`cards ${pgI * 6 + 1}-${pgI * 6 + 6}`)}</section>`);
+  }
+  // 9 blank cards
+  const bIcons = ['tree', 'gift', 'star', 'snowman', 'bell', 'holly'];
+  out.push(`<section class="page">${head('Write your own', 'Blank cards')}
+    <div class="acards">${bIcons.map((k) => `<div class="acard blankc"><div class="top"><div class="day"><b></b><span>December ____</span></div><span class="pill">Our idea</span></div>
+      <div class="ic">${icon(k)}</div><div class="wl"></div><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>`).join('')}</div>
+    ${foot('blank cards')}</section>`);
+
+  // 10 number tags
+  out.push(`<section class="page">${head('Number tags', 'For envelopes, bags or jars')}
+    <div class="tags">${Array.from({ length: 24 }, (_, i) => `<div><div class="tg"><div class="in" style="background:${cols[i % 4]}"><b>${i + 1}</b><span>open me</span></div></div></div>`).join('')}</div>
+    ${foot('number tags')}</section>`);
+
+  // 11 wish list
+  out.push(`<section class="page">${head('My Christmas Wish List', `Day ${D.days.findIndex((d) => d[5] === 'wish') + 1}`)}
+    <div class="namebar"><div>Name <span class="ln"></span></div><div style="flex:.5">Age <span class="ln"></span></div></div>
+    <div class="wish"><ol>${Array.from({ length: 8 }, (_, i) => `<li><b>${i + 1}</b></li>`).join('')}</ol>
+      <div class="draw"><span>Draw the thing you wish for most</span></div></div>
+    <div class="goodlist"><h3>Something kind I did this year</h3><div class="ln"></div><div class="ln"></div></div>
+    ${foot('Wish List')}</section>`);
+
+  const colorPage = (key, dayKey) => {
+    const day = D.days.findIndex((d) => d[5] === key) + 1;
+    out.push(`<section class="page cpage"><div class="ct"><h2>${names[key]}</h2><span class="eyebrow">Day ${day}${key === 'decorate' ? ' · draw ornaments, lights &amp; gifts' : ' · coloring page'}</span></div><div class="art">${colorSvg(key, key)}</div>${foot(names[key])}</section>`);
+  };
+  colorPage('lights'); colorPage('owl'); colorPage('decorate');
+
+  // maze
+  const MW = 11, MH = 13;
+  const walls = []; // cell walls: [r][c] = {n,e,s,w}
+  for (let r = 0; r < MH; r++) { walls.push([]); for (let c = 0; c < MW; c++) walls[r].push({ n: 1, e: 1, s: 1, w: 1 }); }
+  const seen = new Set(['0,0']), stack = [[0, 0]];
+  while (stack.length) {
+    const [r, c] = stack[stack.length - 1];
+    const nb = shuffle([[r - 1, c, 'n', 's'], [r + 1, c, 's', 'n'], [r, c - 1, 'w', 'e'], [r, c + 1, 'e', 'w']]).filter(([rr, cc]) => rr >= 0 && cc >= 0 && rr < MH && cc < MW && !seen.has(rr + ',' + cc));
+    if (!nb.length) { stack.pop(); continue; }
+    const [rr, cc, a, b] = nb[0];
+    walls[r][c][a] = 0; walls[rr][cc][b] = 0; seen.add(rr + ',' + cc); stack.push([rr, cc]);
+  }
+  // solve (BFS) from top-left to bottom-right
+  const prevC = {}, q = [[0, 0]], vis = new Set(['0,0']);
+  while (q.length) {
+    const [r, c] = q.shift(); if (r === MH - 1 && c === MW - 1) break;
+    for (const [rr, cc, a] of [[r - 1, c, 'n'], [r + 1, c, 's'], [r, c - 1, 'w'], [r, c + 1, 'e']]) {
+      if (walls[r][c][a] || vis.has(rr + ',' + cc)) continue;
+      vis.add(rr + ',' + cc); prevC[rr + ',' + cc] = [r, c]; q.push([rr, cc]);
+    }
+  }
+  const path = []; let cur = [MH - 1, MW - 1];
+  while (cur) { path.unshift(cur); cur = prevC[cur[0] + ',' + cur[1]]; }
+  window.MAZE = { walls, path };
+  const CS = 80, OX = 60, OY = 150;
+  const mazeSvg = (sol, art) => {
+    let d = '';
+    for (let r = 0; r < MH; r++) for (let c = 0; c < MW; c++) {
+      const x = OX + c * CS, y = OY + r * CS, w = walls[r][c];
+      if (w.n && !(r === 0 && c === 0)) d += `M${x} ${y} L${x + CS} ${y} `;
+      if (w.w) d += `M${x} ${y} L${x} ${y + CS} `;
+      if (r === MH - 1 && w.s && c !== MW - 1) d += `M${x} ${y + CS} L${x + CS} ${y + CS} `;
+      if (c === MW - 1 && w.e) d += `M${x + CS} ${y} L${x + CS} ${y + CS} `;
+    }
+    const sp = sol ? `<path d="M${OX + CS / 2} ${OY - 40} ${path.map(([r, c]) => `L${OX + c * CS + CS / 2} ${OY + r * CS + CS / 2}`).join(' ')} L${OX + (MW - 1) * CS + CS / 2} ${OY + MH * CS + 40}" fill="none" stroke="#B23A3A" stroke-width="14" stroke-linejoin="round" stroke-linecap="round" stroke-opacity=".8"/>` : '';
+    const H = OY + MH * CS + 190;
+    return `<svg viewBox="0 0 1000 ${H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      ${sp}<path d="${d}" stroke="#3B2F2A" stroke-width="9" stroke-linecap="round" fill="none"/>
+      ${art ? A.sleigh().replace('<svg ', `<svg x="${OX + (MW - 1) * CS - 330}" y="${OY + MH * CS + 20}" width="260" height="160" `) + A.star().replace('<svg ', `<svg x="${OX + CS + 60}" y="${OY - 135}" width="110" height="110" `) + A.snowflake().replace('<svg ', `<svg x="${OX + 6 * CS}" y="${OY - 125}" width="90" height="90" `) : ''}
+      <text x="${OX + CS / 2}" y="${OY - 60}" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="30" fill="#2F5D50">START</text>
+      <path d="M${OX + CS / 2 - 16} ${OY - 40} L${OX + CS / 2 + 16} ${OY - 40} L${OX + CS / 2} ${OY - 14} Z" fill="#2F5D50"/>
+      <text x="${OX + (MW - 1) * CS + CS / 2}" y="${OY + MH * CS + 70}" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="30" fill="#B23A3A">SLEIGH</text>
+    </svg>`;
+  };
+  const MAZE_W = OX * 2 + MW * CS;
+  const mazePage = () => `<section class="page">${head('Reindeer Maze', `Day ${D.days.findIndex((d) => d[5] === 'maze') + 1} · puzzle`)}
+    <div class="how"><b>How to play</b>The reindeer got lost on the way to the sleigh! Start at the top and find the one path to the sleigh at the bottom. Try it with your finger first, then draw it with a pencil.</div>
+    <div class="maze">${mazeSvg(false, true)}</div>
+    ${foot('Reindeer Maze')}</section>`;
+  out.push(mazePage());
+
+  // coupons
+  const cIcons = ['gift', 'star', 'holly', 'bell', 'mug', 'mitten', 'ornament', 'stocking'];
+  out.push(`<section class="page">${head('Kindness Coupons', `Day ${D.days.findIndex((d) => d[5] === 'coupons') + 1} · cut out and give`)}
+    <div class="coupons">${D.coupons.map(([t, s], i) => `<div><div class="cp"><div class="ic">${icon(cIcons[i])}</div><div class="tx"><div class="lab">This coupon is good for</div><h3>${t}</h3><div class="s">${s}</div><div class="ft"><span>To:</span><span>From:</span></div></div></div></div>`).join('')}</div>
+    ${foot('Kindness Coupons')}</section>`);
+
+  colorPage('sled');
+
+  // count it up: place icons in a jittered grid
+  const items = shuffle(D.count.flatMap(([k, m]) => Array(m).fill(k)));
+  const GC = 6, GR = 7;
+  const cells = shuffle(Array.from({ length: GC * GR }, (_, i) => i)).slice(0, items.length);
+  window.COUNT = Object.fromEntries(D.count);
+  const placed = items.map((k, i) => {
+    const cell = cells[i], c = cell % GC, r = Math.floor(cell / GC);
+    const x = (c + 0.18 + rnd() * 0.22) / GC * 100, y = (r + 0.12 + rnd() * 0.2) / GR * 100, rot = Math.round((rnd() - 0.5) * 40);
+    const o = k === 'ornament' ? { color: ['#B23A3A', '#2F5D50', '#D9A441'][i % 3] } : k === 'gift' ? { color: ['#B23A3A', '#2F5D50'][i % 2] } : {};
+    return `<div style="left:${x.toFixed(1)}%;top:${y.toFixed(1)}%;width:9.5%;height:10%;transform:rotate(${rot}deg)">${icon(k, o)}</div>`;
+  }).join('');
+  out.push(`<section class="page">${head('Count It Up', `Day ${D.days.findIndex((d) => d[5] === 'count') + 1} · counting`)}
+    <div class="how"><b>How to play</b>Count each kind of Christmas thing in the picture and write the number in its box. Tip: cross each one off with a pencil as you count it.</div>
+    <div class="cnt">${placed}</div>
+    <div class="tally">${D.count.map(([k]) => `<div><span class="ic">${icon(k)}</span><span class="bx"></span></div>`).join('')}</div>
+    ${foot('Count It Up')}</section>`);
+
+  colorPage('jar'); colorPage('bunny'); colorPage('ornaments');
+
+  // certificate
+  out.push(`<section class="page tint cert"><div class="frame"></div><div class="frame2"></div>
+    <div style="position:relative;width:1.8in;margin-bottom:16pt">${A.star()}</div>
+    <div class="eyebrow" style="position:relative">Christmas Eve · Day 24</div>
+    <h1 style="margin-top:8pt"><em>Official</em>Countdown Champion</h1>
+    <div class="who"></div>
+    <p>finished all 24 days of the Christmas Countdown with kindness, creativity and lots of fun. Merry Christmas!</p>
+    <div class="sig"><div>Signed</div><div>Date</div></div>
+    <div style="position:relative;display:flex;gap:36pt;margin-top:56pt;align-items:flex-end"><div style="width:1.2in">${A.gift()}</div><div style="width:1.3in">${A.tree()}</div><div style="width:1.2in">${A.gift({ color: '#2F5D50' })}</div></div>
+  </section>`);
+
+  // answers
+  out.push(`<section class="page">${head('Answers', 'For grown-ups')}
+    <div class="ans"><div><h3>Reindeer Maze (page ${P('maze')})</h3><div class="mz">${mazeSvg(true)}</div></div>
+    <div><h3>Count It Up (page ${P('count')})</h3><table>${D.count.map(([k, m]) => `<tr><td class="ic">${icon(k)}</td><td>${k === 'gift' ? 'presents' : k === 'snowflake' ? 'snowflakes' : k + 's'}</td><td style="text-align:right"><b>${m}</b></td></tr>`).join('')}</table>
+    <h3 style="margin-top:22pt">Coloring pages</h3><p style="font-size:10pt">There are no wrong colors! Purple snow and green owls are always welcome.</p></div></div>
+    ${foot('answers')}</section>`);
+
+  if (out.length !== plan.length) console.error('page plan mismatch', out.length, plan.length);
+  window.PAGE_COUNT = out.length;
+  window.qtReady = new Promise((r) => setTimeout(() => { const bad = [...document.querySelectorAll('.acard')].filter((c) => c.scrollHeight > c.clientHeight + 1).length; if (bad) console.warn('CARD OVERFLOW ' + bad); document.title += bad ? ' OVERFLOW' + bad : ''; r(); }, 50));
+  document.getElementById('book').innerHTML = out.join('');
+})();
+</script>
+</body>
+</html>

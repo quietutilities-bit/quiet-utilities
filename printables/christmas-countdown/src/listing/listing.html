@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Listing images</title>
+<link rel="stylesheet" href="../../../_brand/brand.css">
+<script src="../../../_brand/art/winter.js"></script>
+<!-- page previews in img/pNN.png: pdftoppm -r 110 -singlefile of the US Letter PDF -->
+<style>
+  :root { --bg: #F4EFE6; }
+  html, body { margin: 0; background: var(--bg); }
+  .stage { position: relative; overflow: hidden; background: var(--bg); font-family: var(--sans); color: var(--ink); }
+  .l { width: 3000px; height: 2250px; }
+  .pin { width: 1000px; height: 1500px; }
+  .sheet { position: absolute; background: #fff; box-shadow: 0 30px 70px rgba(120,40,40,.20), 0 6px 16px rgba(59,47,42,.12); border-radius: 6px; overflow: hidden; }
+  .sheet img { width: 100%; display: block; }
+  .t { font-family: var(--serif); font-weight: 600; line-height: 1.02; }
+  .t em { font-style: italic; font-weight: 500; color: var(--berry); }
+  .eyebrow { color: var(--berry); }
+  .badge { display: inline-flex; align-items: center; gap: 18px; background: #fff; border: 3px solid #E6DCCB; border-radius: 999px; padding: 22px 44px; font-size: 54px; font-weight: 500; margin: 0 20px 24px 0; }
+  .badge i { width: 26px; height: 26px; border-radius: 50%; background: var(--berry); display: inline-block; }
+  .deco { position: absolute; }
+  .brand { position: absolute; font-size: 40px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  .step { background: #fff; border-radius: 40px; padding: 70px 60px; border: 3px solid #E6DCCB; text-align: center; }
+  .step .n { width: 140px; height: 140px; border-radius: 50%; background: var(--berry); color: #fff; font-family: var(--serif); font-size: 84px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 40px; }
+  .step h3 { font-size: 80px; margin-bottom: 24px; }
+  .step p { font-size: 50px; color: var(--ink-soft); line-height: 1.35; }
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 0 90px; width: 2620px; }
+  .chips span { border-bottom: 3px solid #E6DCCB; padding: 26px 0 22px; font-size: 60px; font-weight: 500; }
+  .chips span b { color: var(--berry); font-family: var(--serif); display: inline-block; width: 100px; }
+  .chips span small { display: block; font-size: 42px; color: var(--ink-soft); font-weight: 400; padding-left: 100px; margin-top: 6px; }
+  .callout { position: absolute; background: var(--pine); color: #fff; border-radius: 999px; padding: 20px 46px; font-size: 50px; font-weight: 500; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const A = window.WINTER;
+const img = (p) => `<img src="img/${p}.png">`;
+const sheet = (p, x, y, w, rot = 0, z = 1) => `<div class="sheet" style="left:${x}px;top:${y}px;width:${w}px;transform:rotate(${rot}deg);z-index:${z}">${img(p)}</div>`;
+const deco = (svg, x, y, w, extra = '') => `<div class="deco" style="left:${x}px;top:${y}px;width:${w}px;${extra}">${svg}</div>`;
+const brand = (x, y) => `<div class="brand" style="left:${x}px;top:${y}px">Pantry Printable Co.</div>`;
+const GET = [
+  ['24 activity cards', 'one for each day, December 1 to 24'],
+  ['Countdown Tree chart', 'color one ornament a day'],
+  ['Countdown Calendar chart', 'the suggested order at a glance'],
+  ['6 blank cards', 'add your own family traditions'],
+  ['24 number tags', 'for envelopes, bags or jars'],
+  ['6 coloring pages', 'owl, bunny, lights, candy jar & more'],
+  ['Maze, counting page, wish list', 'plus Decorate Your Tree'],
+  ['Kindness coupons + certificate', 'and a grown-ups guide with answers'],
+];
+const V = {
+  1: () => `<div class="stage l">
+    ${deco(A.snowflake(), 130, 110, 170)}
+    ${deco(A.holly(), 2650, 1880, 280)}
+    ${sheet('p05', 300, 330, 1060, -7, 1)}
+    ${sheet('p03', 700, 300, 1000, 5, 2)}
+    ${sheet('p01', 420, 180, 1180, -1.5, 3)}
+    <div style="position:absolute;left:1790px;top:250px;width:1130px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Printable · Ages 3 to 10</div>
+      <div class="t" style="font-size:170px"><em>Christmas</em><br>Countdown for Kids</div>
+      <p style="font-size:64px;color:var(--ink-soft);margin:56px 0 64px;line-height:1.3">24 days of easy activities, <b style="color:var(--ink)">print at home</b> and start on December 1</p>
+      <span class="badge"><i></i>24 activity cards</span><span class="badge"><i></i>Countdown chart</span><span class="badge"><i></i>Coloring pages</span>
+    </div>
+    ${brand(1800, 2100)}
+  </div>`,
+  2: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:120px;width:3000px;text-align:center">
+      <div class="t" style="font-size:146px">One <em>activity</em> a day</div>
+      <p style="font-size:58px;color:var(--ink-soft);margin-top:30px">Crafts, cozy nights, kindness and games, mostly with things you already have</p>
+    </div>
+    ${sheet('p05', 300, 540, 1120, -3, 1)}
+    ${sheet('p04', 1580, 540, 1120, 3, 2)}
+    <div class="callout" style="left:260px;top:1980px;z-index:5">24 activity cards</div>
+    <div class="callout" style="left:1900px;top:1980px;z-index:5;background:var(--berry)">Countdown calendar</div>
+  </div>`,
+  3: () => `<div class="stage l">
+    ${sheet('p20', 1700, 360, 900, 6, 1)}
+    ${sheet('p15', 1180, 250, 980, -4, 2)}
+    ${sheet('p16', 2050, 1150, 760, 8, 3)}
+    <div style="position:absolute;left:170px;top:330px;width:1000px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Activity pages included</div>
+      <div class="t" style="font-size:140px">Color, <em>count</em> &amp; play</div>
+      <p style="font-size:62px;color:var(--ink-soft);margin:56px 0;line-height:1.35">6 hand-drawn coloring pages, a reindeer maze, a counting page, kindness coupons and a wish list.</p>
+    </div>
+    ${deco(A.gift(), 200, 1780, 260)}
+    ${deco(A.gift({ color: '#2F5D50' }), 520, 1820, 220)}
+    ${brand(170, 2140)}
+  </div>`,
+  4: () => `<div class="stage l">
+    <div style="position:absolute;left:190px;top:220px;width:2620px">
+      <div class="t" style="font-size:130px;margin-bottom:40px">What you <em>get</em>: 23 pages</div>
+      <div class="chips">${GET.map(([g, s], i) => `<span><b>${i + 1}</b>${g}<small>${s}</small></span>`).join('')}</div>
+      <div style="display:flex;gap:80px;margin-top:56px;font-size:58px">
+        <div><b style="font-family:var(--serif);color:var(--berry);font-size:84px">2</b> PDFs: US Letter + A4</div>
+        <div><b style="font-family:var(--serif);color:var(--berry);font-size:84px">✓</b> Hand-drawn art, no AI</div>
+      </div>
+    </div>
+    ${deco(A.tree(), 2600, 1420, 260)}
+    ${brand(190, 2130)}
+  </div>`,
+  5: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:200px;width:3000px;text-align:center">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:30px">Digital download · nothing is shipped</div>
+      <div class="t" style="font-size:150px">How it <em>works</em></div>
+    </div>
+    <div style="position:absolute;left:200px;top:720px;width:2600px;display:grid;grid-template-columns:repeat(3,1fr);gap:80px">
+      <div class="step"><div class="n">1</div><h3>Download</h3><p>Get the PDFs instantly from your Etsy Purchases page.</p></div>
+      <div class="step"><div class="n">2</div><h3>Print &amp; cut</h3><p>Print at home and cut the cards apart. Card stock works great.</p></div>
+      <div class="step"><div class="n">3</div><h3>Count down</h3><p>Open one card a day from December 1 and color the chart.</p></div>
+    </div>
+    <div style="position:absolute;left:0;top:1640px;width:3000px;text-align:center">
+      <span class="badge"><i></i>US Letter (8.5 × 11 in)</span><span class="badge"><i></i>A4 (210 × 297 mm)</span><span class="badge"><i></i>Print as often as you like</span>
+    </div>
+    ${deco(A.sprig(), 1200, 1960, 600)}
+  </div>`,
+  6: () => `<div class="stage pin">
+    ${deco(A.snowflake(), 50, 40, 100)}
+    ${deco(A.holly(), 820, 50, 140)}
+    <div style="position:absolute;left:0;top:90px;width:1000px;text-align:center">
+      <div class="t" style="font-size:88px"><em>Christmas</em><br>Countdown for Kids</div>
+      <p style="font-size:38px;color:var(--ink-soft);margin-top:24px">24 activity cards, countdown chart<br>&amp; coloring pages · printable</p>
+    </div>
+    ${sheet('p03', 380, 640, 520, 6, 1)}
+    ${sheet('p05', 100, 600, 540, -4, 2)}
+    <div style="position:absolute;left:0;bottom:50px;width:1000px;text-align:center"><span class="pill" style="font-size:30px;padding:14px 34px;background:var(--berry)">Print, cut, count down</span></div>
+  </div>`,
+  7: () => `<div class="stage pin" style="background:#fff">
+    <div style="position:absolute;left:0;top:0;width:1000px;height:450px;background:var(--pine)"></div>
+    <div style="position:absolute;left:0;top:64px;width:1000px;text-align:center;color:#fff">
+      <div style="font-size:32px;letter-spacing:.2em;text-transform:uppercase;font-weight:500">December 1 to 24</div>
+      <div class="t" style="font-size:78px;margin-top:26px">24 Easy Christmas<br>Activities for Kids</div>
+    </div>
+    ${sheet('p04', 195, 490, 610, -2, 1)}
+    <div style="position:absolute;left:0;bottom:46px;width:1000px;text-align:center;font-size:34px;color:var(--ink-soft)">Activity cards · countdown chart · coloring pages</div>
+  </div>`,
+};
+document.getElementById('root').innerHTML = V[(location.hash || '#1').slice(1)]();
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+// Christmas Countdown for Kids: original activity wording (Pantry Printable Co.).
+// [day title, card text, you'll need, type, WINTER icon, sheet key or '']
+window.CC = {
+  days: [
+    ['Light up the page', 'Color the Christmas Lights page. Make every bulb a different color!', 'crayons or markers', 'Color', 'star', 'lights'],
+    ['My wish list', 'Fill in your wish list. Draw the one thing you wish for most.', 'a pencil', 'Make', 'gift', 'wish'],
+    ['Paper snowflakes', 'Fold a square of paper, snip little shapes, then open it up. No two are the same!', 'paper, safety scissors', 'Make', 'snowflake', ''],
+    ['Cocoa night', 'Make warm cocoa together. Count how many marshmallows float in your mug.', 'cocoa, marshmallows', 'Cozy', 'mug', ''],
+    ['Who-who is cold?', 'Color the Winter Owl and give it a warm hat in your favorite colors.', 'crayons or markers', 'Color', 'snowflake', 'owl'],
+    ['Deck the tree', 'Draw ornaments, lights and presents on your very own Christmas tree.', 'crayons or markers', 'Make', 'tree', 'decorate'],
+    ['Dance party', 'Pick five favorite holiday songs and dance like nobody is watching.', 'music', 'Play', 'bell', ''],
+    ['Reindeer maze', 'Help the reindeer find the way to the sleigh. Trace the path with your finger first.', 'a pencil', 'Puzzle', 'sleigh', 'maze'],
+    ['Cookie day', 'Bake or decorate cookies. Save the best one for someone you love.', 'cookies, icing, sprinkles', 'Make', 'gingerbread', ''],
+    ['Kindness coupons', 'Cut out the kindness coupons and give them to your family.', 'safety scissors', 'Kind', 'holly', 'coupons'],
+    ['Downhill fun', 'Color the Sled Full of Presents. Who do you think the gifts are for?', 'crayons or markers', 'Color', 'gift', 'sled'],
+    ['Blanket fort', 'Build a cozy blanket fort and read a winter story inside it.', 'blankets, pillows, a book', 'Cozy', 'stocking', ''],
+    ['Count it up', 'Find and count the Christmas things on the counting page.', 'a pencil', 'Puzzle', 'ornament', 'count'],
+    ['Make a card', 'Draw a Christmas card for someone special and give it to them.', 'paper, crayons', 'Kind', 'star', ''],
+    ['Lights walk', 'Go for a walk or a drive to look at Christmas lights. Vote for your favorite house.', 'warm coats', 'Play', 'tree', ''],
+    ['Sweet treats', 'Color the Candy Jar. Give every candy its own stripes or dots.', 'crayons or markers', 'Color', 'candycane', 'jar'],
+    ['Movie night', 'Pick a holiday movie, make popcorn and snuggle up together.', 'popcorn', 'Cozy', 'mug', ''],
+    ['Give a little', 'Choose a toy or book you have outgrown to give to another child.', 'a toy or book', 'Kind', 'gift', ''],
+    ['Snow bunny', 'Color the Cozy Bunny and its present. What do you think is inside?', 'crayons or markers', 'Color', 'mitten', 'bunny'],
+    ['Paper chain', 'Make a paper chain to hang in your room. Add one loop for every family member.', 'paper strips, tape', 'Make', 'ornament', ''],
+    ['Game night', 'Play a board game, a card game or I spy as a family.', 'a game', 'Play', 'bell', ''],
+    ['Shiny ornaments', 'Color the Ornament Trio. Then make up a pattern of your own.', 'crayons or markers', 'Color', 'ornament', 'ornaments'],
+    ['Thank-you note', 'Draw a thank-you picture for a neighbor, teacher or mail carrier.', 'paper, crayons', 'Kind', 'snowman', ''],
+    ['Christmas Eve!', 'Read a bedtime story, set out a cookie and fill in your Countdown certificate.', 'a cookie, a pencil', 'Cozy', 'star', 'cert'],
+  ],
+  coupons: [
+    ['One big hug', 'whenever you need it'],
+    ['I will set the table', 'for one dinner'],
+    ['I will help tidy up', 'one room, no grumbling'],
+    ['You pick the song', 'and I will dance to it'],
+    ['One bedtime story', 'I will read to you'],
+    ['A helping hand', 'with any job you choose'],
+    ['Your turn first', 'in our next game'],
+    ['A secret treat', 'from me to you'],
+  ],
+  // counting page: [WINTER icon, how many]
+  count: [['star', 7], ['bell', 5], ['mitten', 4], ['ornament', 6], ['gift', 3], ['snowflake', 8]],
+};
