@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en" data-size="letter" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Secret Santa Kit</title>
+<link rel="stylesheet" href="../../_brand/brand.css">
+<script src="../../_brand/art/winter.js"></script>
+<!--
+  Secret Santa Kit (Pantry Printable Co.). 11 pages, fillable.
+  Every <span class="fld" data-f="name"> becomes a PDF text field: src/fields.mjs measures them,
+  src/add_fields.py adds the AcroForm fields. Rebuild everything with ../build.sh.
+  Works for families, friends, classrooms and offices: no kid-only wording.
+-->
+<style>
+  .fld { display: inline-block; border-bottom: 1.1pt solid var(--ink); height: 18pt; vertical-align: -4pt; }
+  .fld.box { display: block; border: 0; }
+  .fld.cell { display: block; border: 0; width: 100%; height: 100%; }
+  .lbl { font-size: 8.4pt; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
+
+  .ph .right { display: flex; align-items: flex-end; gap: 8pt; }
+  .ph .art { width: 0.42in; flex: none; }
+  .intro { flex: none; font-size: 9.8pt; color: var(--ink-soft); margin: -5pt 0 10pt; }
+
+  /* start page */
+  .start .ttl { flex: none; text-align: center; }
+  .start .ttl h1 { font-size: 40pt; }
+  .start .ttl h1 em { color: var(--berry); }
+  .start .ttl .sub { font-size: 11pt; color: var(--ink-soft); margin-top: 6pt; }
+  .start .art { flex: none; display: flex; justify-content: center; gap: 12pt; align-items: flex-end; margin-bottom: 8pt; }
+  .start .cols { flex: none; display: grid; grid-template-columns: 1.08fr 1fr; gap: 0 22pt; margin-top: 14pt; align-content: start; }
+  .start h3 { color: var(--pine); margin: 0 0 5pt; font-size: 13pt; }
+  .start ol, .start ul { margin: 0 0 10pt; padding-left: 15pt; font-size: 9.9pt; line-height: 1.4; }
+  .start li { margin-bottom: 2.4pt; }
+  .start .contents { list-style: none; padding: 0; }
+  .start .contents li { display: flex; gap: 8pt; border-bottom: 0.8pt solid var(--line); padding: 3.1pt 0; margin: 0; }
+  .start .contents li b { color: var(--berry); width: 16pt; font-family: var(--serif); flex: none; }
+  .start .contents li small { display: block; color: var(--ink-soft); font-size: 8.2pt; }
+  .start .box { background: var(--frost); border-radius: 10pt; padding: 9pt 13pt; font-size: 9.6pt; line-height: 1.42; }
+  .tl { flex: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10pt; margin-top: 4pt; }
+  .tl > div { background: #fff; border: 1pt solid var(--line); border-radius: 10pt; padding: 8pt 10pt; font-size: 9pt; line-height: 1.35; color: var(--ink-soft); }
+  .tl b { display: block; font-family: var(--serif); color: var(--berry); font-size: 12pt; margin-bottom: 2pt; }
+  .tl > div:nth-child(even) b { color: var(--pine); }
+  .start .box b { color: var(--berry); }
+
+  /* invitations (2 per page) */
+  .halves { flex: 1; min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); }
+  .half { position: relative; padding: 0.3in 0.42in; display: flex; flex-direction: column; min-height: 0; }
+  .half + .half { border-top: 0.9pt dashed #B9A995; }
+  .half .fr2 { position: absolute; inset: 0.12in; border: 1.6pt solid var(--berry); border-radius: 9pt; pointer-events: none; }
+  .half.g .fr2 { border-color: var(--pine); }
+  .cutl { position: absolute; right: 10pt; top: -7pt; font-size: 7pt; color: var(--ink-soft); background: #fff; padding: 0 4pt; letter-spacing: .1em; z-index: 2; }
+  .inv { align-items: center; text-align: center; }
+  .inv .top { flex: none; display: flex; align-items: center; gap: 14pt; justify-content: center; }
+  .inv .top .a { width: 0.62in; flex: none; }
+  .inv h2 { font-size: 30pt; color: var(--berry); line-height: 1.02; }
+  .inv.g h2 { color: var(--pine); }
+  .inv .lead { font-family: var(--serif); font-style: italic; font-size: 12pt; color: var(--ink-soft); margin-top: 2pt; }
+  .inv .grid { flex: 1; min-height: 0; width: 100%; display: grid; grid-template-columns: auto 1fr auto 1fr; gap: 0 10pt; align-content: center; text-align: left; }
+  .inv .grid .lbl { align-self: end; padding-bottom: 3pt; }
+  .inv .grid .fld { display: block; width: 100%; height: 30pt; }
+  .inv .grid .wide { grid-column: span 3; }
+  .inv .foot { flex: none; font-size: 9pt; color: var(--ink-soft); }
+
+  /* rules */
+  .rules .head { flex: none; text-align: center; }
+  .rules .head h1 { font-size: 42pt; color: var(--berry); }
+  .rules .head .grp { display: flex; justify-content: center; align-items: flex-end; gap: 8pt; margin-top: 8pt; font-family: var(--serif); font-size: 13pt; }
+  .rules .facts { flex: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10pt; margin: 14pt 0 10pt; }
+  .rules .fact { background: var(--frost); border-radius: 10pt; padding: 9pt 11pt 10pt; text-align: center; }
+  .rules .fact .fld { display: block; width: 100%; height: 24pt; border-bottom-color: var(--pine); }
+  .rules ol.rl { flex: 1; min-height: 0; list-style: none; padding: 0; margin: 4pt 0 0; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: minmax(0, 1fr); gap: 8pt 16pt; counter-reset: r; }
+  .rules ol.rl li { counter-increment: r; display: flex; gap: 10pt; align-items: flex-start; font-size: 11.2pt; line-height: 1.42; min-height: 0; overflow: hidden; }
+  .rules ol.rl li::before { content: counter(r); flex: none; width: 24pt; height: 24pt; border-radius: 50%; background: var(--berry); color: #fff; font-family: var(--serif); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 12pt; }
+  .rules ol.rl li:nth-child(even)::before { background: var(--pine); }
+  .rules ol.rl li b { display: block; font-family: var(--serif); font-size: 13.5pt; margin-bottom: 1pt; }
+  .rules .org { flex: none; display: flex; justify-content: center; gap: 8pt; align-items: flex-end; font-size: 10pt; margin-top: 8pt; }
+
+  /* wish lists */
+  .wl .hd { flex: none; display: flex; align-items: center; gap: 12pt; }
+  .wl .hd .a { width: 0.7in; flex: none; }
+  .wl .hd h1 { font-size: 34pt; color: var(--berry); }
+  .wl .hd .eyebrow { color: var(--pine); }
+  .wl .me { flex: none; display: grid; grid-template-columns: auto 1fr auto 1.1fr; gap: 0 8pt; align-items: end; margin: 12pt 0 4pt; font-size: 10pt; }
+  .wl .me .fld { display: block; width: 100%; height: 22pt; }
+  .sec { flex: none; font-family: var(--serif); font-weight: 600; font-size: 13.5pt; color: var(--pine); margin: 10pt 0 5pt; display: flex; align-items: center; gap: 8pt; }
+  .sec::after { content: ""; flex: 1; height: 1pt; background: var(--line); }
+  .favs { flex: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0 16pt; }
+  .favs > div { display: flex; align-items: flex-end; gap: 6pt; height: 25pt; font-size: 9.6pt; }
+  .favs > div span { flex: none; color: var(--ink-soft); }
+  .favs > div .fld { flex: 1; height: 19pt; }
+  .sizes { flex: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 12pt; }
+  .sizes > div { display: flex; align-items: flex-end; gap: 5pt; height: 24pt; font-size: 9.6pt; color: var(--ink-soft); }
+  .sizes > div .fld { flex: 1; height: 19pt; }
+  .wishes { flex: none; }
+  .wishes > div { display: flex; align-items: flex-end; gap: 8pt; height: 27pt; }
+  .wishes > div b { font-family: var(--serif); color: var(--berry); font-size: 14pt; width: 14pt; flex: none; }
+  .wishes > div .fld { flex: 1; height: 21pt; }
+  .two { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 16pt; }
+  .two > div { display: flex; flex-direction: column; min-height: 0; }
+  .lined { flex: 1; min-height: 0; position: relative; background: repeating-linear-gradient(to bottom, transparent 0, transparent 21pt, var(--ink) 21pt, var(--ink) 22.1pt); }
+  .lined .fld.box { position: absolute; inset: 0; height: auto; }
+
+  /* mini wish lists */
+  .mini .top { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12pt; }
+  .mini .top h2 { font-size: 24pt; color: var(--berry); }
+  .mini.g .top h2 { color: var(--pine); }
+  .mini .top .a { width: 0.55in; flex: none; }
+  .mini .row { flex: none; display: flex; gap: 6pt; align-items: flex-end; height: 24pt; font-size: 9.4pt; }
+  .mini .row span { color: var(--ink-soft); flex: none; }
+  .mini .row .fld { flex: 1; height: 19pt; }
+  .mini .cols { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 14pt; align-content: space-evenly; }
+
+  /* name-draw slips */
+  .slips { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, minmax(0, 1fr)); border: 0.75pt dashed #B9A995; }
+  .slip { border: 0.75pt dashed #B9A995; display: grid; grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); min-height: 0; overflow: hidden; position: relative; }
+  .slip .front { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: var(--frost); }
+  .slip:nth-child(even) .front { background: #F7E9E6; }
+  .slip .front .a { width: 0.46in; height: 0.46in; }
+  .slip .front .a svg { width: 100%; height: 100%; }
+  .slip .front b { font-family: var(--serif); font-size: 13.5pt; color: var(--berry); line-height: 1.05; margin-top: 3pt; }
+  .slip .front small { font-size: 7.2pt; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+  .slip .back { display: flex; flex-direction: column; justify-content: center; padding: 0 12pt; text-align: center; }
+  .slip .back small { font-size: 7.6pt; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+  .slip .back .fld { display: block; width: 100%; height: 26pt; margin-top: 2pt; }
+  .slip .fold { position: absolute; left: 0; right: 0; top: 50%; border-top: 0.75pt dotted #A99A88; }
+  .slip .fold span { position: absolute; right: 4pt; top: -8pt; font-size: 6pt; color: #A99A88; letter-spacing: .1em; text-transform: uppercase; background: #fff; padding: 0 2pt; }
+
+  /* tracker */
+  .meta { flex: none; display: grid; grid-template-columns: auto 1.5fr auto 0.8fr auto 1fr; gap: 0 8pt; align-items: end; font-size: 9.6pt; margin-bottom: 10pt; }
+  .meta span { color: var(--ink-soft); }
+  .meta .fld { display: block; width: 100%; height: 20pt; }
+  table.trk { flex: 1; min-height: 0; width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 9pt; }
+  table.trk th { background: var(--pine); color: #fff; font-weight: 500; font-size: 8.4pt; letter-spacing: .08em; text-transform: uppercase; padding: 5pt 6pt; text-align: left; }
+  table.trk th:first-child { border-radius: 6pt 0 0 0; } table.trk th:last-child { border-radius: 0 6pt 0 0; }
+  table.trk td { border-bottom: 0.8pt solid var(--line); height: 0.355in; padding: 0 4pt; vertical-align: middle; }
+  table.trk tr:nth-child(even) td { background: #F6F9F7; }
+  table.trk td.n { color: var(--ink-soft); font-size: 8pt; text-align: center; padding: 0; }
+  table.trk td.ck { text-align: center; }
+  table.trk td.ck i { display: inline-block; width: 11pt; height: 11pt; border: 1.1pt solid var(--ink-soft); border-radius: 2pt; vertical-align: middle; }
+
+  /* gift tags */
+  .tags { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, minmax(0, 1fr)); gap: 9pt; }
+  .gt { position: relative; border: 1.3pt solid var(--berry); border-radius: 10pt 10pt 10pt 10pt; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8pt 12pt; min-height: 0; overflow: hidden; }
+  .gt.g { border-color: var(--pine); }
+  .gt.o { border-color: var(--gold); }
+  .gt .hole { position: absolute; top: 7pt; left: 50%; width: 10pt; height: 10pt; margin-left: -5pt; border-radius: 50%; border: 1pt solid #B9A995; }
+  .gt .a { width: 0.48in; height: 0.48in; margin-top: 8pt; flex: none; }
+  .gt .a svg { width: 100%; height: 100%; }
+  .gt h3 { font-size: 13.5pt; color: var(--berry); margin: 3pt 0 2pt; }
+  .gt.g h3 { color: var(--pine); }
+  .gt .to { width: 100%; display: flex; align-items: flex-end; gap: 4pt; font-size: 8.6pt; color: var(--ink-soft); }
+  .gt .to .fld { flex: 1; height: 18pt; }
+  .gt .fr { font-family: var(--serif); font-style: italic; font-size: 10pt; margin-top: 5pt; }
+
+  /* guess + thank-you cards */
+  .cards6 { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, minmax(0, 1fr)); border: 0.75pt dashed #B9A995; }
+  .cards4 { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(2, minmax(0, 1fr)); border: 0.75pt dashed #B9A995; }
+  .gc { border: 0.75pt dashed #B9A995; padding: 14pt 16pt; display: flex; flex-direction: column; min-height: 0; overflow: hidden; position: relative; }
+  .gc .t { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8pt; }
+  .gc h3 { font-size: 15pt; color: var(--berry); }
+  .gc:nth-child(4n+2) h3, .gc:nth-child(4n+3) h3 { color: var(--pine); }
+  .gc .t .a { width: 0.42in; height: 0.42in; flex: none; }
+  .gc .t .a svg { width: 100%; height: 100%; }
+  .gc .q { flex: none; display: flex; align-items: flex-end; gap: 6pt; height: 23pt; font-size: 9.6pt; color: var(--ink-soft); }
+  .gc .q i { flex: 1; border-bottom: 1pt solid var(--ink); height: 100%; }
+  .gc .q.l { padding-left: 0; }
+  .gc .note { font-size: 8.4pt; color: var(--ink-soft); margin-top: auto; padding-top: 4pt; }
+  .ty { align-items: center; text-align: center; padding: 18pt 20pt; }
+  .ty .a { width: 0.75in; height: 0.75in; flex: none; }
+  .ty .a svg { width: 100%; height: 100%; }
+  .ty h3 { font-size: 22pt; color: var(--berry); margin: 6pt 0 2pt; line-height: 1.05; }
+  .ty:nth-child(even) h3 { color: var(--pine); }
+  .ty .s { font-family: var(--serif); font-style: italic; font-size: 10.5pt; color: var(--ink-soft); }
+  .ty .lines { flex: 1; min-height: 0; width: 100%; display: flex; flex-direction: column; justify-content: space-evenly; margin: 6pt 0; }
+  .ty .lines i { display: block; border-bottom: 1pt solid var(--ink); height: 1pt; }
+  .ty .from { flex: none; width: 100%; display: flex; gap: 6pt; align-items: flex-end; font-size: 9pt; color: var(--ink-soft); height: 20pt; }
+  .ty .from i { flex: 1; border-bottom: 1pt solid var(--ink); height: 100%; }
+</style>
+</head>
+<body>
+<div id="pages"></div>
+<script>
+(function () {
+  const A = window.WINTER, C = A.C;
+  const out = [];
+  const f = (name, w, cls = '', extra = '') => `<span class="fld ${cls}" data-f="${name}" style="${w ? `width:${w};` : ''}${extra}"></span>`;
+  const pf = (t) => `<div class="pf"><span>Secret Santa Kit · ${t}</span><span>© 2026 Pantry Printable Co. · personal use only</span></div>`;
+  const head = (title, eyebrow, art) => `<div class="ph"><h2>${title}</h2><div class="right"><span class="eyebrow">${eyebrow}</span><div class="art">${art}</div></div></div>`;
+  const ART = [() => A.gift(), () => A.ornament({ color: C.pine }), () => A.star(), () => A.gift({ color: C.pine }), () => A.ornament(), () => A.mitten ? A.mitten() : A.star(), () => A.bell ? A.bell() : A.star(), () => A.tree(), () => A.stocking(), () => A.mug(), () => A.snowflake(), () => A.holly()];
+
+  // ---------- 1. start here (for the organizer)
+  out.push(`<section class="page start tint">
+    <div class="art"><div style="width:.62in">${A.gift({ color: C.pine })}</div><div style="width:.9in">${A.gift()}</div><div style="width:.62in">${A.ornament({ color: C.pine })}</div><div style="width:.75in">${A.gift({ color: C.gold, ribbon: C.berry })}</div></div>
+    <div class="ttl"><div class="eyebrow">Fillable PDF · 11 pages · for 4 to 24 people</div><h1 style="margin-top:6pt"><em>Secret Santa</em> Kit</h1>
+      <div class="sub">Everything to run a fun, fair gift exchange for family, friends, a class or the office.</div></div>
+    <div class="cols">
+      <div>
+        <h3>Run it in 5 steps</h3>
+        <ol>
+          <li><b>Invite.</b> Type the date, place and budget on the invitation (page 2) and send it or hand it out.</li>
+          <li><b>Set the rules.</b> Fill in the rules poster (page 3) and share it with the group.</li>
+          <li><b>Draw names.</b> Type or write one name on each slip (pages 6–7), fold, and let everyone draw from a hat. Drew yourself? Put it back and draw again.</li>
+          <li><b>Share wish lists.</b> Everyone fills in a wish list (page 4 or 5) and passes it to the organizer, who hands it to the right Secret Santa.</li>
+          <li><b>Exchange!</b> Add a gift tag (page 9), then play “Guess your Secret Santa” (page 10) and write thank-you notes (page 11).</li>
+        </ol>
+        <h3>Drawing names when you can’t meet</h3>
+        <ul><li>The organizer types every name on the slips, draws for everyone, notes the pairs on the tracker (page 8) and messages each person privately.</li>
+          <li>Couples or housemates shouldn’t draw each other? Draw again, or match them up first on the tracker.</li></ul>
+        <div class="box" style="margin-top:2pt"><b>Typing or writing?</b> Open the PDF in the free Adobe Acrobat Reader (Chrome, Edge and Mac Preview work too), click a box and type, then print at “Actual size”. Every page also prints blank to fill in by hand.</div>
+      </div>
+      <div>
+        <h3>What’s inside</h3>
+        <ul class="contents">
+          ${[['Start here', 'This page, for the organizer'], ['Invitations', '2 per page, fillable'], ['Rules poster', 'Budget, dates and 8 friendly rules'], ['Wish list, full page', 'Favorites, sizes, wishes, “please no”'], ['Mini wish lists', '2 per page, quick version'], ['Name-draw slips', '24 fold-over slips on 2 pages'], ['Organizer’s tracker', 'Who has whom, for up to 20 people'], ['Gift tags', '12 tags, “From: your Secret Santa”'], ['Guess your Secret Santa', '6 game cards for the big reveal'], ['Thank-you notes', '4 per page']].map(([t, s], i) => `<li><b>${i + 1}</b><span>${t}<small>${s}</small></span></li>`).join('')}
+        </ul>
+      </div>
+    </div>
+    <div class="sec" style="margin-top:auto">A simple timeline</div>
+    <div class="tl"><div><b>3 weeks before</b>Send invitations, set the budget and the date.</div><div><b>2 weeks before</b>Draw names and hand out wish lists.</div><div><b>1 week before</b>Wish lists reach their Secret Santas. Shop!</div><div><b>Exchange day</b>Tag gifts, swap, guess and reveal.</div></div>
+    ${pf('Start here')}
+  </section>`);
+
+  // ---------- 2. invitations
+  const inv = (p, g) => `<div class="half inv ${g ? 'g' : ''}"><div class="fr2"></div>${g ? '<span class="cutl">✂ cut here</span>' : ''}
+      <div class="top"><div class="a">${g ? A.ornament({ color: C.pine }) : A.gift()}</div><div><div class="eyebrow" style="color:var(--ink-soft)">You’re invited to a</div><h2>Secret Santa<br>Gift Exchange</h2></div><div class="a">${g ? A.gift({ color: C.pine }) : A.ornament()}</div></div>
+      <div class="lead">Draw a name, find a little gift, and keep it a secret!</div>
+      <div class="grid">
+        <span class="lbl">Who</span><div class="wide">${f(p + 'who')}</div>
+        <span class="lbl">Date</span><div>${f(p + 'date')}</div><span class="lbl">Time</span><div>${f(p + 'time')}</div>
+        <span class="lbl">Where</span><div class="wide">${f(p + 'where')}</div>
+        <span class="lbl">Budget</span><div>${f(p + 'budget')}</div><span class="lbl">Names drawn</span><div>${f(p + 'draw')}</div>
+        <span class="lbl">RSVP to</span><div class="wide">${f(p + 'rsvp')}</div>
+      </div>
+      <div class="foot">Bring your wrapped gift with its tag · Wish lists make shopping easy</div>
+    </div>`;
+  out.push(`<section class="page" style="padding:0.35in">
+    <div class="halves">${inv('i1_', false)}${inv('i2_', true)}</div>
+  </section>`);
+
+  // ---------- 3. rules poster
+  const RULES = [
+    ['Keep it secret', 'Don’t tell anyone whose name you drew, not even a hint, until the reveal.'],
+    ['Stick to the budget', 'Spend up to the limit, not over. Thoughtful beats expensive every time.'],
+    ['Read their wish list', 'Use it for ideas. Check the “please no” box for allergies and dislikes.'],
+    ['Wrap it and tag it', 'Wrap your gift and use a tag that says “From: your Secret Santa”.'],
+    ['Drew yourself?', 'Put the slip back and draw again. Tell the organizer if it happens twice.'],
+    ['Be on time', 'Bring your gift on exchange day so nobody goes home empty-handed.'],
+    ['Homemade is welcome', 'Baking, crafts and kind coupons count, as long as they fit the budget.'],
+    ['Guess, then reveal', 'Everyone guesses their Secret Santa before the big reveal. Have fun!'],
+  ];
+  out.push(`<section class="page rules">
+    <div class="head">
+      <div style="display:flex;justify-content:center;gap:10pt;align-items:flex-end;margin-bottom:6pt"><div style="width:.55in">${A.ornament()}</div><div style="width:.8in">${A.gift({ color: C.pine })}</div><div style="width:.55in">${A.ornament({ color: C.gold })}</div></div>
+      <div class="eyebrow" style="color:var(--pine)">How we play</div>
+      <h1>Secret Santa Rules</h1>
+      <div class="grp"><span>for</span>${f('r_group', '4.2in', '', 'height:22pt')}</div>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="lbl">Gift budget</div>${f('r_budget')}</div>
+      <div class="fact"><div class="lbl">Wish lists due</div>${f('r_wish')}</div>
+      <div class="fact"><div class="lbl">Gift exchange</div>${f('r_date')}</div>
+    </div>
+    <ol class="rl">${RULES.map(([t, s]) => `<li><span><b>${t}</b>${s}</span></li>`).join('')}</ol>
+    <div class="org"><span class="lbl">Questions? Ask</span>${f('r_org', '3.2in')}</div>
+    ${pf('Rules')}
+  </section>`);
+
+  // ---------- 4. wish list, full page
+  const FAV = [['Favorite color', 'color'], ['Favorite snack', 'snack'], ['Favorite drink', 'drink'], ['Sweet or salty?', 'sweet'], ['Hobbies', 'hobby'], ['Favorite scent', 'scent'], ['Favorite store', 'store'], ['Team, book or show', 'team'], ['Coffee, tea or cocoa?', 'cup'], ['I collect', 'collect']];
+  out.push(`<section class="page wl">
+    <div class="hd"><div class="a">${A.stocking()}</div><div><div class="eyebrow">Dear Secret Santa,</div><h1>My Wish List</h1></div></div>
+    <div class="me"><span class="lbl">My name</span>${f('w_name')}<span class="lbl">Group</span>${f('w_group')}</div>
+    <div class="sec">A few of my favorite things</div>
+    <div class="favs">${FAV.map(([l, k]) => `<div><span>${l}</span>${f('w_' + k)}</div>`).join('')}</div>
+    <div class="sec">My sizes</div>
+    <div class="sizes">${[['Shirt', 'shirt'], ['Socks', 'socks'], ['Gloves', 'gloves'], ['Other', 'size']].map(([l, k]) => `<div>${l}${f('w_' + k)}</div>`).join('')}</div>
+    <div class="sec">Three things I’d love</div>
+    <div class="wishes">${[1, 2, 3].map((i) => `<div><b>${i}</b>${f('w_wish' + i)}</div>`).join('')}</div>
+    <div class="two" style="margin-top:4pt">
+      <div><div class="sec">Please no… <span style="font-family:var(--sans);font-weight:400;font-size:8.6pt;color:var(--ink-soft)">(allergies, dislikes)</span></div><div class="lined">${f('w_no', '', 'box lined')}</div></div>
+      <div><div class="sec">Little things that make my day</div><div class="lined">${f('w_joy', '', 'box lined')}</div></div>
+    </div>
+    ${pf('Wish list')}
+  </section>`);
+
+  // ---------- 5. mini wish lists (2 per page)
+  const mini = (p, g) => `<div class="half mini ${g ? 'g' : ''}"><div class="fr2"></div>${g ? '<span class="cutl">✂ cut here</span>' : ''}
+      <div class="top"><div><div class="eyebrow" style="color:var(--ink-soft)">Secret Santa</div><h2>Wish List</h2></div>
+        <div class="row" style="flex:1;max-width:3.6in"><span>Name</span>${f(p + 'name')}</div><div class="a">${g ? A.mitten() : A.stocking()}</div></div>
+      <div class="cols">
+        <div class="row"><span>Favorite color</span>${f(p + 'color')}</div><div class="row"><span>Favorite treat</span>${f(p + 'treat')}</div>
+        <div class="row"><span>Hobbies</span>${f(p + 'hobby')}</div><div class="row"><span>Favorite drink</span>${f(p + 'drink')}</div>
+        <div class="row"><span><b style="color:var(--berry);font-family:var(--serif)">1</b> I’d love</span>${f(p + 'wish1')}</div><div class="row"><span><b style="color:var(--berry);font-family:var(--serif)">2</b> I’d love</span>${f(p + 'wish2')}</div>
+        <div class="row"><span><b style="color:var(--berry);font-family:var(--serif)">3</b> I’d love</span>${f(p + 'wish3')}</div><div class="row"><span>Sizes</span>${f(p + 'size')}</div>
+        <div class="row" style="grid-column:span 2"><span>Please no (allergies, dislikes)</span>${f(p + 'no')}</div>
+      </div>
+    </div>`;
+  out.push(`<section class="page" style="padding:0.35in">
+    <div class="halves">${mini('m1_', false)}${mini('m2_', true)}</div>
+  </section>`);
+
+  // ---------- 6-7. name-draw slips
+  const slip = (i) => `<div class="slip"><div class="front"><div class="a">${ART[i % ART.length]()}</div><small>Shhh! It’s a secret</small><b>Secret Santa</b></div>
+      <div class="back"><small>You’re the Secret Santa for</small>${f('s' + (i + 1))}</div>
+      <div class="fold"><span>fold</span></div></div>`;
+  for (const pg of [0, 1]) {
+    out.push(`<section class="page">
+      ${head('Name-draw slips', pg ? 'Slips 13–24' : 'Slips 1–12', A.gift())}
+      <div class="intro">Type or write one name on each slip, cut them out and fold each one on the dotted line, printed sides together, so the name is hidden. Drop them in a hat, bowl or stocking and take turns drawing.</div>
+      <div class="slips">${Array.from({ length: 12 }, (_, k) => slip(pg * 12 + k)).join('')}</div>
+      ${pf('Name-draw slips')}
+    </section>`);
+  }
+
+  // ---------- 8. organizer's tracker
+  const rows = Array.from({ length: 20 }, (_, i) => `<tr><td class="n">${i + 1}</td><td>${f(`k_g${i + 1}`, '', 'cell')}</td><td>${f(`k_r${i + 1}`, '', 'cell')}</td><td class="ck"><i></i></td><td class="ck"><i></i></td><td>${f(`k_n${i + 1}`, '', 'cell')}</td></tr>`).join('');
+  out.push(`<section class="page">
+    ${head('Organizer’s tracker', 'For the organizer only', A.star())}
+    <div class="meta"><span>Group</span>${f('k_group')}<span>Budget</span>${f('k_budget')}<span>Exchange</span>${f('k_date')}</div>
+    <table class="trk"><colgroup><col style="width:5%"><col style="width:24%"><col style="width:24%"><col style="width:9%"><col style="width:9%"><col style="width:29%"></colgroup>
+      <thead><tr><th></th><th>Secret Santa</th><th>Gives to</th><th style="text-align:center">List</th><th style="text-align:center">Gift</th><th>Notes</th></tr></thead>
+      <tbody>${rows}</tbody></table>
+    ${pf('Organizer’s tracker · keep it hidden!')}
+  </section>`);
+
+  // ---------- 9. gift tags
+  const TAGART = [() => A.gift(), () => A.ornament({ color: C.pine }), () => A.star(), () => A.holly(), () => A.stocking(), () => A.gift({ color: C.pine })];
+  const gt = (i) => { const k = ['', 'g', 'o'][i % 3]; return `<div class="gt ${k}"><div class="hole"></div><div class="a">${TAGART[i % TAGART.length]()}</div><h3>Merry Christmas!</h3>
+      <div class="to">To:${f('g_to' + (i + 1))}</div><div class="fr">From: your Secret Santa</div></div>`; };
+  out.push(`<section class="page">
+    ${head('Gift tags', 'From: your Secret Santa', A.ornament())}
+    <div class="intro">Type or write each name, print on card stock, cut out, punch the hole and tie the tag on with ribbon or tape it to the gift.</div>
+    <div class="tags">${Array.from({ length: 12 }, (_, i) => gt(i)).join('')}</div>
+    ${pf('Gift tags')}
+  </section>`);
+
+  // ---------- 10. guess your Secret Santa
+  const q = (t) => `<div class="q"><span>${t}</span><i></i></div>`;
+  const gc = (i) => `<div class="gc"><div class="t"><div><div class="lbl">Game card</div><h3>Guess your Secret Santa</h3></div><div class="a">${[A.star(), A.gift({ color: C.pine }), A.ornament({ color: C.pine }), A.gift(), A.bell ? A.bell() : A.star(), A.ornament()][i]}</div></div>
+      ${q('My name')}${q('I think my Secret Santa is')}${q('My best clue')}<div class="q"><i></i></div>${q('It was really')}
+      <div class="note">Everyone guesses first, then the Secret Santas stand up. One point for every right guess!</div></div>`;
+  out.push(`<section class="page">
+    ${head('Guess your Secret Santa', 'The big reveal game', A.star())}
+    <div class="intro">Hand out one card per person after the gifts are opened. Read the guesses out loud, then reveal who was who. Most right guesses wins bragging rights (or the last cookie).</div>
+    <div class="cards6">${[0, 1, 2, 3, 4, 5].map(gc).join('')}</div>
+    ${pf('Guess your Secret Santa')}
+  </section>`);
+
+  // ---------- 11. thank-you notes
+  const ty = (i) => `<div class="gc ty"><div class="a">${[A.gift(), A.mug({ color: C.pine }), A.ornament({ color: C.pine }), A.stocking()][i]}</div><h3>Thank you,<br>Secret Santa!</h3><div class="s">You made my Christmas merry and bright.</div>
+      <div class="lines"><i></i><i></i><i></i><i></i></div><div class="from"><span>From</span><i></i></div></div>`;
+  out.push(`<section class="page">
+    ${head('Thank-you notes', 'Write, cut, give', A.gift({ color: C.pine }))}
+    <div class="cards4">${[0, 1, 2, 3].map(ty).join('')}</div>
+    ${pf('Thank-you notes')}
+  </section>`);
+
+  document.getElementById('pages').innerHTML = out.join('');
+})();
+</script>
+</body>
+</html>

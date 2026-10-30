@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Listing images</title>
+<link rel="stylesheet" href="../../../_brand/brand.css">
+<script src="../../../_brand/art/winter.js"></script>
+<!-- page previews in img/ are the filled-in SAMPLE PDF (add_fields.py --sample), pdftoppm -r 110; build.sh makes them -->
+<style>
+  :root { --bg: #F4EFE6; }
+  html, body { margin: 0; background: var(--bg); }
+  .stage { position: relative; overflow: hidden; background: var(--bg); font-family: var(--sans); color: var(--ink); }
+  .l { width: 3000px; height: 2250px; }
+  .pin { width: 1000px; height: 1500px; }
+  .sheet { position: absolute; background: #fff; box-shadow: 0 30px 70px rgba(120,40,40,.20), 0 6px 16px rgba(59,47,42,.12); border-radius: 6px; overflow: hidden; }
+  .sheet img { width: 100%; display: block; }
+  .t { font-family: var(--serif); font-weight: 600; line-height: 1.02; }
+  .t em { font-style: italic; font-weight: 500; color: var(--berry); }
+  .eyebrow { color: var(--berry); }
+  .badge { display: inline-flex; align-items: center; gap: 18px; background: #fff; border: 3px solid #E6DCCB; border-radius: 999px; padding: 22px 44px; font-size: 54px; font-weight: 500; margin: 0 20px 24px 0; }
+  .badge i { width: 26px; height: 26px; border-radius: 50%; background: var(--berry); display: inline-block; }
+  .deco { position: absolute; }
+  .brand { position: absolute; font-size: 40px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  .step { background: #fff; border-radius: 40px; padding: 70px 60px; border: 3px solid #E6DCCB; text-align: center; }
+  .step .n { width: 140px; height: 140px; border-radius: 50%; background: var(--berry); color: #fff; font-family: var(--serif); font-size: 84px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 40px; }
+  .step h3 { font-size: 80px; margin-bottom: 24px; }
+  .step p { font-size: 50px; color: var(--ink-soft); line-height: 1.35; }
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 0 90px; width: 2620px; }
+  .chips span { border-bottom: 3px solid #E6DCCB; padding: 26px 0 22px; font-size: 60px; font-weight: 500; }
+  .chips span b { color: var(--berry); font-family: var(--serif); display: inline-block; width: 100px; }
+  .chips span small { display: block; font-size: 42px; color: var(--ink-soft); font-weight: 400; padding-left: 100px; margin-top: 6px; }
+  .callout { position: absolute; background: var(--pine); color: #fff; border-radius: 999px; padding: 20px 46px; font-size: 50px; font-weight: 500; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const A = window.WINTER;
+const img = (p) => `<img src="img/${p}.png">`;
+const sheet = (p, x, y, w, rot = 0, z = 1) => `<div class="sheet" style="left:${x}px;top:${y}px;width:${w}px;transform:rotate(${rot}deg);z-index:${z}">${img(p)}</div>`;
+const deco = (svg, x, y, w, extra = '') => `<div class="deco" style="left:${x}px;top:${y}px;width:${w}px;${extra}">${svg}</div>`;
+const brand = (x, y) => `<div class="brand" style="left:${x}px;top:${y}px">Pantry Printable Co.</div>`;
+const GET = [
+  ['Invitations', '2 per page, fillable'],
+  ['Rules poster', 'budget, dates + 8 friendly rules'],
+  ['Wish list, full page', 'favorites, sizes, 3 wishes, “please no”'],
+  ['Mini wish lists', '2 per page, quick version'],
+  ['24 name-draw slips', 'type or write names, fold, draw'],
+  ['Organizer’s tracker', 'who has whom, up to 20 people'],
+  ['12 gift tags', '“From: your Secret Santa”'],
+  ['Guess your Secret Santa', '6 game cards for the reveal'],
+  ['Thank-you notes', '4 per page'],
+  ['Organizer guide', '5 steps, timeline, remote draw tips'],
+];
+
+const V = {
+  1: () => `<div class="stage l">
+    ${deco(A.snowflake(), 130, 110, 170)}
+    ${deco(A.gift({ color: '#2F5D50' }), 2640, 1830, 280)}
+    ${sheet('p04', 280, 330, 1060, -7, 1)}
+    ${sheet('p06', 720, 300, 1000, 5, 2)}
+    ${sheet('p02', 420, 190, 1160, -1.5, 3)}
+    <div style="position:absolute;left:1790px;top:250px;width:1140px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Fillable PDF · Instant download</div>
+      <div class="t" style="font-size:176px"><em>Secret Santa</em><br>Kit</div>
+      <p style="font-size:64px;color:var(--ink-soft);margin:56px 0 64px;line-height:1.3">Everything to run a fun gift exchange for <b style="color:var(--ink)">family, friends or the office</b></p>
+      <span class="badge"><i></i>Invitations</span><span class="badge"><i></i>Wish lists</span><span class="badge"><i></i>Name draw</span><span class="badge"><i></i>Gift tags</span>
+    </div>
+    ${brand(1800, 2100)}
+  </div>`,
+
+  2: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:120px;width:3000px;text-align:center">
+      <div class="t" style="font-size:146px">Wish lists that make <em>shopping easy</em></div>
+      <p style="font-size:58px;color:var(--ink-soft);margin-top:30px">Type in Adobe Reader, Chrome or Preview, or print and write by hand</p>
+    </div>
+    ${sheet('p04', 300, 540, 1120, -3, 1)}
+    ${sheet('p05', 1580, 540, 1120, 3, 2)}
+    <div class="callout" style="left:260px;top:1980px;z-index:5">Full-page wish list</div>
+    <div class="callout" style="left:2000px;top:1980px;z-index:5;background:var(--berry)">2 mini lists per page</div>
+  </div>`,
+
+  3: () => `<div class="stage l">
+    ${sheet('p08', 1760, 330, 940, 6, 1)}
+    ${sheet('p06', 1200, 220, 1040, -3, 2)}
+    ${sheet('p09', 2160, 1180, 700, 8, 3)}
+    <div style="position:absolute;left:170px;top:330px;width:980px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Draw names the easy way</div>
+      <div class="t" style="font-size:140px">Fold, draw, <em>shhh!</em></div>
+      <p style="font-size:62px;color:var(--ink-soft);margin:56px 0;line-height:1.35">24 fold-over name slips, a private organizer’s tracker and 12 “From: your Secret Santa” gift tags.</p>
+    </div>
+    ${deco(A.ornament(), 200, 1780, 220)}
+    ${deco(A.gift(), 470, 1800, 240)}
+    ${brand(170, 2140)}
+  </div>`,
+
+  4: () => `<div class="stage l">
+    <div style="position:absolute;left:190px;top:200px;width:2620px">
+      <div class="t" style="font-size:130px;margin-bottom:36px">What you <em>get</em>: 11 pages</div>
+      <div class="chips">${GET.map(([g, s], i) => `<span><b>${i + 1}</b>${g}<small>${s}</small></span>`).join('')}</div>
+      <div style="display:flex;gap:80px;margin-top:50px;font-size:58px">
+        <div><b style="font-family:var(--serif);color:var(--berry);font-size:84px">2</b> fillable PDFs: US Letter + A4</div>
+        <div><b style="font-family:var(--serif);color:var(--berry);font-size:84px">4–24</b> people</div>
+      </div>
+    </div>
+    ${deco(A.tree(), 2600, 1460, 240)}
+    ${brand(190, 2150)}
+  </div>`,
+
+  5: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:200px;width:3000px;text-align:center">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:30px">Digital download · nothing is shipped</div>
+      <div class="t" style="font-size:150px">How it <em>works</em></div>
+    </div>
+    <div style="position:absolute;left:200px;top:720px;width:2600px;display:grid;grid-template-columns:repeat(3,1fr);gap:80px">
+      <div class="step"><div class="n">1</div><h3>Download</h3><p>Get the PDFs instantly from your Etsy Purchases page.</p></div>
+      <div class="step"><div class="n">2</div><h3>Type</h3><p>Open in free Adobe Reader and type dates, names and wishes.</p></div>
+      <div class="step"><div class="n">3</div><h3>Print</h3><p>Print at home or share the PDF. Print as many as you need.</p></div>
+    </div>
+    <div style="position:absolute;left:0;top:1640px;width:3000px;text-align:center">
+      <span class="badge"><i></i>US Letter (8.5 × 11 in)</span><span class="badge"><i></i>A4 (210 × 297 mm)</span><span class="badge"><i></i>Fillable PDF</span>
+    </div>
+    ${deco(A.sprig(), 1200, 1960, 600)}
+  </div>`,
+
+  6: () => `<div class="stage pin">
+    ${deco(A.snowflake(), 50, 40, 100)}
+    ${deco(A.ornament(), 840, 40, 110)}
+    <div style="position:absolute;left:0;top:90px;width:1000px;text-align:center">
+      <div class="t" style="font-size:96px"><em>Secret Santa</em><br>Kit</div>
+      <p style="font-size:38px;color:var(--ink-soft);margin-top:24px">Fillable printable · invitations, wish lists,<br>name-draw slips &amp; gift tags</p>
+    </div>
+    ${sheet('p06', 380, 640, 520, 6, 1)}
+    ${sheet('p04', 100, 590, 540, -4, 2)}
+    <div style="position:absolute;left:0;bottom:50px;width:1000px;text-align:center"><span class="pill" style="font-size:30px;padding:14px 34px;background:var(--berry)">Family · friends · office</span></div>
+  </div>`,
+  7: () => `<div class="stage pin" style="background:#fff">
+    <div style="position:absolute;left:0;top:0;width:1000px;height:450px;background:var(--pine)"></div>
+    <div style="position:absolute;left:0;top:64px;width:1000px;text-align:center;color:#fff">
+      <div style="font-size:32px;letter-spacing:.2em;text-transform:uppercase;font-weight:500">Gift exchange made easy</div>
+      <div class="t" style="font-size:80px;margin-top:26px">How to Host a<br>Secret Santa</div>
+    </div>
+    ${sheet('p03', 200, 490, 600, -2, 1)}
+    <div style="position:absolute;left:0;bottom:46px;width:1000px;text-align:center;font-size:34px;color:var(--ink-soft)">Rules · wish lists · name draw · tags</div>
+  </div>`,
+};
+document.getElementById('root').innerHTML = V[(location.hash || '#1').slice(1)]();
+</script>
+</body>
+</html>
