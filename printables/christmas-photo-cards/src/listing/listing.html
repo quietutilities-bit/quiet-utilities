@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Listing images</title>
+<link rel="stylesheet" href="../../../_brand/brand.css">
+<script src="../../../_brand/art/winter.js"></script>
+<script src="../scene.js"></script>
+<!-- Card previews (../previews/cardN-3x.png) are Canva thumbnails of the 3 template designs
+     (Lanczos x3). The grey photo box is covered by an original sample illustration (scene.js). -->
+<style>
+  :root { --bg: #F4EFE6; }
+  html, body { margin: 0; background: var(--bg); }
+  .stage { position: relative; overflow: hidden; background: var(--bg); font-family: var(--sans); color: var(--ink); }
+  .l { width: 3000px; height: 2250px; }
+  .pin { width: 1000px; height: 1500px; }
+  .card { position: absolute; box-shadow: 0 34px 80px rgba(60,40,30,.24), 0 6px 18px rgba(59,47,42,.14); background: #fff; }
+  .card img { width: 100%; display: block; }
+  .card .ph { position: absolute; overflow: hidden; }
+  .t { font-family: var(--serif); font-weight: 600; line-height: 1.02; }
+  .t em { font-style: italic; font-weight: 500; color: var(--berry); }
+  .eyebrow { color: var(--berry); }
+  .badge { display: inline-flex; align-items: center; gap: 18px; background: #fff; border: 3px solid #E6DCCB; border-radius: 999px; padding: 22px 44px; font-size: 54px; font-weight: 500; margin: 0 20px 24px 0; }
+  .badge i { width: 26px; height: 26px; border-radius: 50%; background: var(--berry); display: inline-block; }
+  .deco { position: absolute; }
+  .brand { position: absolute; font-size: 40px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  .note { position: absolute; font-size: 36px; color: var(--ink-soft); font-style: italic; }
+  .step { background: #fff; border-radius: 40px; padding: 60px 46px; border: 3px solid #E6DCCB; text-align: center; }
+  .step .n { width: 130px; height: 130px; border-radius: 50%; background: var(--berry); color: #fff; font-family: var(--serif); font-size: 78px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 36px; }
+  .step h3 { font-size: 70px; margin-bottom: 22px; }
+  .step p { font-size: 46px; color: var(--ink-soft); line-height: 1.35; margin: 0; }
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 0 90px; width: 2620px; }
+  .chips span { border-bottom: 3px solid #E6DCCB; padding: 26px 0 22px; font-size: 60px; font-weight: 500; }
+  .chips span b { color: var(--berry); font-family: var(--serif); display: inline-block; width: 100px; }
+  .chips span small { display: block; font-size: 42px; color: var(--ink-soft); font-weight: 400; padding-left: 100px; margin-top: 6px; }
+  .callout { position: absolute; background: var(--pine); color: #fff; border-radius: 999px; padding: 20px 46px; font-size: 50px; font-weight: 500; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const A = window.WINTER, S = window.SCENE;
+// photo box of each Canva design, as fractions of the card (page px: 480x672 portrait, 672x480 landscape)
+const CARDS = {
+  1: { ar: 480 / 672, box: [30 / 480, 30 / 672, 420 / 480, 408 / 672], scene: 'cabin' },
+  2: { ar: 480 / 672, box: [30 / 480, 30 / 672, 420 / 480, 408 / 672], scene: 'forest' },
+  3: { ar: 672 / 480, box: [0, 0, 326 / 672, 1], scene: 'window' },
+};
+const pct = (v) => (v * 100).toFixed(3) + '%';
+const card = (n, x, y, w, rot = 0, z = 1, scene) => {
+  const c = CARDS[n], e = 0.004, [bx, by, bw, bh] = c.box.map((v, i) => i < 2 ? Math.max(0, v - e) : v + 2 * e + (i === 3 ? 0.008 : 0));  // pad to hide thumbnail edge blur
+  return `<div class="card" style="left:${x}px;top:${y}px;width:${w}px;transform:rotate(${rot}deg);z-index:${z}">
+    <img src="../previews/card${n}-3x.png">
+    <div class="ph" style="left:${pct(bx)};top:${pct(by)};width:${pct(bw)};height:${pct(bh)}">${S[scene || c.scene]()}</div></div>`;
+};
+const deco = (svg, x, y, w, extra = '') => `<div class="deco" style="left:${x}px;top:${y}px;width:${w}px;${extra}">${svg}</div>`;
+const brand = (x, y) => `<div class="brand" style="left:${x}px;top:${y}px">Pantry Printable Co.</div>`;
+const note = (x, y, extra = '') => `<div class="note" style="left:${x}px;top:${y}px;${extra}">Sample image shown. Add your own photo.</div>`;
+const GET = [
+  ['"Merry & Bright"', 'portrait 5 × 7 in, cream with holly'],
+  ['"Joy to the World"', 'portrait 5 × 7 in, deep green and gold'],
+  ['"Season\'s Greetings"', 'landscape 7 × 5 in, photo + little tree'],
+  ['3 Canva template links', 'in one easy PDF; open with a free account'],
+  ['Change every word', 'greeting, family name, year, colors'],
+  ['Step-by-step guide', 'add your photo, download, print or order'],
+];
+
+const V = {
+  1: () => `<div class="stage l">
+    ${deco(A.snowflake(), 120, 90, 150)}
+    ${card(2, 700, 200, 820, 6, 1)}
+    ${card(1, 170, 230, 820, -6, 2)}
+    ${card(3, 560, 1390, 980, -2, 3)}
+    <div style="position:absolute;left:1700px;top:250px;width:1180px">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:40px">Canva template · Instant download</div>
+      <div class="t" style="font-size:168px"><em>Christmas</em><br>Photo Card<br>Templates</div>
+      <p style="font-size:64px;color:var(--ink-soft);margin:56px 0 64px;line-height:1.3">3 designs. Drop in your photo, type your names, <b style="color:var(--ink)">print or order</b>.</p>
+      <span class="badge"><i></i>Edit in Canva</span><span class="badge"><i></i>Free account works</span><span class="badge"><i></i>5 × 7 in</span>
+    </div>
+    ${note(1700, 2010)}
+    ${brand(1700, 2110)}
+  </div>`,
+
+  2: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:110px;width:3000px;text-align:center">
+      <div class="t" style="font-size:140px">Two <em>portrait</em> designs</div>
+      <p style="font-size:58px;color:var(--ink-soft);margin-top:26px">5 × 7 in · drag your photo onto the box and it snaps in</p>
+    </div>
+    ${card(1, 430, 470, 1000, -2.5, 1)}
+    ${card(2, 1570, 470, 1000, 2.5, 2)}
+    ${note(0, 2150, 'width:3000px;text-align:center')}
+  </div>`,
+
+  3: () => `<div class="stage l">
+    ${card(3, 150, 380, 1900, -1.5, 1)}
+    <div style="position:absolute;left:2150px;top:420px;width:760px">
+      <div class="eyebrow" style="font-size:44px;margin-bottom:36px">Design 3</div>
+      <div class="t" style="font-size:124px">Plus a <em>landscape</em> card</div>
+      <p style="font-size:56px;color:var(--ink-soft);margin:46px 0;line-height:1.35">7 × 5 in, with room for a wide family photo. Change the greeting, names and year.</p>
+    </div>
+    ${deco(A.tree(), 2400, 1560, 300)}
+    ${note(150, 1880)}
+    ${brand(2150, 2120)}
+  </div>`,
+
+  4: () => `<div class="stage l">
+    <div style="position:absolute;left:190px;top:200px;width:2620px">
+      <div class="t" style="font-size:130px;margin-bottom:40px">What you <em>get</em></div>
+      <div class="chips">${GET.map(([g, s], i) => `<span><b>${i + 1}</b>${g}<small>${s}</small></span>`).join('')}</div>
+      <div style="display:flex;gap:80px;margin-top:64px;font-size:56px;flex-wrap:wrap">
+        <div><b style="font-family:var(--serif);color:var(--berry);font-size:80px">✓</b> Works with a free Canva account</div>
+        <div><b style="font-family:var(--serif);color:var(--berry);font-size:80px">✓</b> Print at home or at a photo shop</div>
+      </div>
+    </div>
+    ${card(1, 900, 1230, 470, -3, 1)}${card(2, 1430, 1230, 470, 2, 1)}${card(3, 1960, 1330, 760, -1, 1)}
+    ${deco(A.holly(), 300, 1500, 360)}
+    ${brand(190, 2120)}
+  </div>`,
+
+  5: () => `<div class="stage l">
+    <div style="position:absolute;left:0;top:170px;width:3000px;text-align:center">
+      <div class="eyebrow" style="font-size:46px;margin-bottom:30px">Digital download · nothing is shipped</div>
+      <div class="t" style="font-size:150px">How it <em>works</em></div>
+    </div>
+    <div style="position:absolute;left:150px;top:660px;width:2700px;display:grid;grid-template-columns:repeat(4,1fr);gap:60px">
+      <div class="step"><div class="n">1</div><h3>Open</h3><p>Download the PDF and click a template link. Canva opens your own copy.</p></div>
+      <div class="step"><div class="n">2</div><h3>Add photo</h3><p>Upload your photo and drag it onto the photo box.</p></div>
+      <div class="step"><div class="n">3</div><h3>Type</h3><p>Click the text to change the greeting, names and year.</p></div>
+      <div class="step"><div class="n">4</div><h3>Print</h3><p>Download a print PDF or JPG, or order prints from any shop.</p></div>
+    </div>
+    <div style="position:absolute;left:0;top:1720px;width:3000px;text-align:center">
+      <span class="badge"><i></i>5 × 7 in cards</span><span class="badge"><i></i>Canva (free or Pro)</span><span class="badge"><i></i>Computer, phone or tablet</span>
+    </div>
+  </div>`,
+
+  6: () => `<div class="stage pin">
+    ${deco(A.snowflake(), 50, 40, 90)}
+    ${deco(A.holly(), 830, 40, 130)}
+    <div style="position:absolute;left:0;top:90px;width:1000px;text-align:center">
+      <div class="t" style="font-size:86px"><em>Christmas</em><br>Photo Card Templates</div>
+      <p style="font-size:38px;color:var(--ink-soft);margin-top:22px">3 designs · edit in Canva · 5 × 7 in</p>
+    </div>
+    ${card(2, 430, 560, 470, 5, 1)}
+    ${card(1, 100, 590, 470, -5, 2)}
+    <div style="position:absolute;left:0;bottom:46px;width:1000px;text-align:center"><span class="pill" style="font-size:30px;padding:14px 34px;background:var(--berry)">Add your photo, print, done</span></div>
+  </div>`,
+  7: () => `<div class="stage pin" style="background:#fff">
+    <div style="position:absolute;left:0;top:0;width:1000px;height:470px;background:var(--pine)"></div>
+    <div style="position:absolute;left:0;top:70px;width:1000px;text-align:center;color:#fff">
+      <div style="font-size:32px;letter-spacing:.2em;text-transform:uppercase;font-weight:500">Edit in Canva in minutes</div>
+      <div class="t" style="font-size:78px;margin-top:26px">DIY Family<br>Christmas Cards</div>
+    </div>
+    ${card(3, 90, 540, 820, -2, 1)}
+    <div style="position:absolute;left:0;top:1230px;width:1000px;text-align:center;font-size:34px;color:var(--ink-soft)">Merry &amp; Bright · Joy to the World ·<br>Season's Greetings</div>
+    <div style="position:absolute;left:0;bottom:40px;width:1000px;text-align:center;font-size:26px;color:var(--ink-soft);font-style:italic">Sample image shown</div>
+  </div>`,
+};
+document.getElementById('root').innerHTML = V[(location.hash || '#1').slice(1)]();
+</script>
+</body>
+</html>

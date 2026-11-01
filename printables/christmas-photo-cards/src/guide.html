@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" data-size="letter" data-theme="christmas">
+<head>
+<meta charset="utf-8">
+<title>Christmas Photo Card Templates</title>
+<link rel="stylesheet" href="../../_brand/brand.css">
+<script src="../../_brand/art/winter.js"></script>
+<script src="links.js"></script>
+<!--
+  Buyer file for the Christmas Photo Card Templates (Pantry Printable Co.).
+  2 pages: the 3 Canva template links + how to edit; printing tips + FAQ.
+  Links come from links.js; a missing link prints a red warning (do not upload until all 3 exist).
+-->
+<style>
+  .ttl { flex: none; text-align: center; }
+  .ttl h1 { font-size: 34pt; }
+  .ttl h1 em { color: var(--berry); }
+  .ttl .sub { font-size: 11pt; color: var(--ink-soft); margin-top: 5pt; }
+  .designs { flex: none; display: grid; grid-template-columns: 1fr 1fr 1.32fr; gap: 14pt; margin: 16pt 0 12pt; align-items: end; }
+  .d { text-align: center; }
+  .d .th { background: #fff; box-shadow: 0 3pt 10pt rgba(59,47,42,.18); margin: 0 auto 8pt; }
+  .d .th img { width: 100%; display: block; }
+  .d h3 { font-size: 12.5pt; }
+  .d .sz { font-size: 8.6pt; color: var(--ink-soft); margin: 1pt 0 6pt; }
+  .btn { display: block; background: var(--pine); color: #fff; text-decoration: none; border-radius: 99pt; padding: 6pt 8pt; font-weight: 500; font-size: 10pt; }
+  .btn.alt { background: var(--berry); }
+  .url { font-size: 6.4pt; color: var(--ink-soft); word-break: break-all; margin-top: 3pt; line-height: 1.25; }
+  .missing { background: #fde8e8; color: #b00020; border: 1.5pt solid #b00020; border-radius: 6pt; padding: 5pt; font-size: 8.5pt; font-weight: 600; }
+  .steps { flex: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8pt; margin-top: 6pt; }
+  .steps > div { background: #fff; border: 1pt solid var(--line); border-radius: 10pt; padding: 8pt 9pt; font-size: 8.8pt; line-height: 1.36; color: var(--ink-soft); }
+  .steps b { display: block; font-family: var(--serif); color: var(--berry); font-size: 13pt; margin-bottom: 2pt; }
+  .steps > div:nth-child(even) b { color: var(--pine); }
+  .steps i { color: var(--ink); font-style: normal; font-weight: 500; }
+  h3.sec { color: var(--pine); margin: 12pt 0 6pt; font-size: 13pt; flex: none; }
+  .box { flex: none; background: var(--frost); border-radius: 10pt; padding: 9pt 13pt; font-size: 9.6pt; line-height: 1.42; }
+  .box b { color: var(--berry); }
+  .cols { flex: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0 22pt; }
+  .cols ul, .cols ol { margin: 0 0 8pt; padding-left: 14pt; font-size: 9.8pt; line-height: 1.42; }
+  .cols li { margin-bottom: 3pt; }
+  .faq { flex: none; font-size: 9.7pt; line-height: 1.42; }
+  .faq p { margin: 0 0 6.5pt; }
+  .faq b { color: var(--ink); }
+  .art { flex: none; display: flex; justify-content: center; gap: 10pt; align-items: flex-end; }
+  .art > div { width: 0.5in; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const A = window.WINTER, L = window.LINKS || {};
+const D = [
+  [1, 'Merry &amp; Bright', 'Portrait · 5 × 7 in', ''],
+  [2, 'Joy to the World', 'Portrait · 5 × 7 in', 'alt'],
+  [3, 'Season’s Greetings', 'Landscape · 7 × 5 in', ''],
+];
+const link = (n, cls) => L[n]
+  ? `<a class="btn ${cls}" href="${L[n]}">Open design ${n} in Canva</a><div class="url">${L[n]}</div>`
+  : `<div class="missing">TEMPLATE LINK ${n} MISSING<br>(do not upload this file yet)</div>`;
+const foot = (p) => `<div class="pf"><span>Pantry Printable Co. · Christmas Photo Card Templates</span><span>For personal use · page ${p} of 2</span></div>`;
+
+document.getElementById('root').innerHTML = `
+<section class="page tint">
+  <div class="art">${['star', 'tree', 'star'].map((k, i) => `<div style="${i === 1 ? 'width:0.62in' : ''}">${A[k]()}</div>`).join('')}</div>
+  <div class="ttl">
+    <div class="eyebrow">Start here</div>
+    <h1>Your <em>Christmas</em> Photo Cards</h1>
+    <div class="sub">Click a button to open your own copy of each design in Canva (a free account is all you need).</div>
+  </div>
+  <div class="designs">${D.map(([n, name, sz, cls]) => `<div class="d">
+      <div class="th" style="width:${n === 3 ? '100%' : '86%'}"><img src="previews/card${n}.png"></div>
+      <h3>${name}</h3><div class="sz">${sz}</div>${link(n, cls)}</div>`).join('')}</div>
+  <h3 class="sec">How to make your card (about 10 minutes)</h3>
+  <div class="steps">
+    <div><b>1 · Open</b>Click a button above. Log in or sign up free, then click <i>Use template</i>. Canva makes a copy that is yours.</div>
+    <div><b>2 · Photo</b>Click the <i>Drag your photo here</i> label and press Delete. Go to <i>Uploads</i>, upload your photo and drag it onto the grey box: it snaps in.</div>
+    <div><b>3 · Fit</b>Double-click the photo to move or zoom it inside the box. Click <i>Done</i>.</div>
+    <div><b>4 · Words</b>Double-click any text to change the greeting, your family name and the year.</div>
+    <div><b>5 · Save</b><i>Share › Download</i>, choose <i>PDF Print</i> (or JPG for online print shops). Tick <i>Crop marks and bleed</i> for a print shop.</div>
+  </div>
+  <div class="box" style="margin-top:12pt"><b>Tip:</b> use a bright, sharp photo (from your phone is fine). Portrait photos suit designs 1 and 2, a wide photo suits design 3. You can open the same link again any time to make a fresh copy.</div>
+  ${foot(1)}
+</section>
+<section class="page">
+  <div class="ph"><h2>Printing &amp; <em style="color:var(--berry)">questions</em></h2><div style="width:0.5in">${A.holly()}</div></div>
+  <div class="cols">
+    <div>
+      <h3 class="sec" style="margin-top:0">Print at home</h3>
+      <ul>
+        <li>Download <i>PDF Print</i>. Print on matte or glossy cardstock that fits your printer (5 × 7 in photo paper, or Letter / A4 and trim).</li>
+        <li>In the print window choose <i>Actual size</i> / <i>100%</i>, best quality.</li>
+        <li>Printing several on one Letter sheet? In Canva, add a page, set it to 8.5 × 11 in and place two cards on it.</li>
+      </ul>
+      <h3 class="sec">Order prints</h3>
+      <ul>
+        <li><b>Photo shops and pharmacies</b> (online or in store): download a high-quality JPG or PDF and upload it as a 5 × 7 card.</li>
+        <li><b>Canva Print</b>: click <i>Print</i> in Canva to order cards straight from the design.</li>
+        <li>Send by email or text: download as PNG or JPG and share.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="sec" style="margin-top:0">Questions</h3>
+      <div class="faq">
+        <p><b>Do I need Canva Pro?</b> No. The templates use only free features. Your photo is the only image you add.</p>
+        <p><b>Can I change colors and fonts?</b> Yes, everything is editable. Click a shape or text and use the color and font menus.</p>
+        <p><b>Can I use it on my phone?</b> Yes, open the link in the free Canva app or a browser.</p>
+        <p><b>Can I make a different size?</b> With Canva Pro use <i>Resize</i>; on the free plan, copy the pieces into a new design of the size you want.</p>
+        <p><b>I deleted the photo box by mistake.</b> Open the template link again for a fresh copy.</p>
+        <p><b>Can I send it to more people?</b> Print and send as many cards as you like for your own family. Please don't share or resell the template links or files.</p>
+      </div>
+    </div>
+  </div>
+  <div class="box" style="margin-top:10pt">Need help? Send us a message on Etsy and we'll reply within a day. If something doesn't work, we will make it right.</div>
+  <div class="art" style="margin-top:auto;padding-top:12pt">${['ornament', 'gift', 'ornament'].map((k) => `<div>${A[k]()}</div>`).join('')}</div>
+  ${foot(2)}
+</section>`;
+</script>
+</body>
+</html>
