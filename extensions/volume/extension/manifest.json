@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Quiet Volume Booster",
+  "name": "Quiet Volume Booster – Boost & Control Volume Per Site",
   "short_name": "Quiet Volume",
-  "version": "1.0.0",
-  "description": "Boost quiet videos up to 600%, or turn loud sites down. Remembers each site. No ads, no tracking.",
+  "version": "1.0.1",
+  "description": "Volume booster up to 600% for quiet videos, or turn loud sites down. Remembers each site's volume. No ads, no tracking.",
   "author": "Quiet Utilities",
   "permissions": ["storage", "activeTab", "scripting"],
   "optional_host_permissions": ["<all_urls>"],

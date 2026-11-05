@@ -1,7 +1,7 @@
 # Quiet Volume Booster — store listing
 
-**Name:** Quiet Volume Booster
-**Short summary (132 max):** Boost quiet videos up to 600%, or turn loud sites down. Remembers each site. No ads, no tracking.
+**Name:** Quiet Volume Booster – Boost & Control Volume Per Site (comes from the package)
+**Short summary (132 max, comes from the package):** Volume booster up to 600% for quiet videos, or turn loud sites down. Remembers each site's volume. No ads, no tracking.
 **Category:** Productivity (Chrome: Tools if asked for a sub-category; Edge: Productivity; Firefox: Photos, Music & Videos)
 **Language:** English (United States)
 **Price:** Free, with an optional one-time Pro upgrade inside the extension
@@ -11,7 +11,7 @@
 
 ## Description (Chrome and Firefox — paste as is)
 
-Some videos are too quiet even at full volume. Some sites are always too loud. Quiet Volume Booster fixes both, and remembers each site so you only set it once.
+A volume booster and per-site volume control for Chrome. Some videos are too quiet even at full volume. Some sites are always too loud. Quiet Volume Booster fixes both, and remembers each site so you only set it once.
 
 HOW IT WORKS
 • Boost up to 600%, or turn a site down below 100%. One slider, plus quick buttons for 50%, 100%, 200%, 400% and 600%.
