@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Quiet Grayscale",
+  "name": "Quiet Grayscale – Black and White Websites",
   "short_name": "Quiet Gray",
-  "version": "1.0.0",
-  "description": "Turn websites black and white to cut distraction and rest your eyes. Pick the sites, or go gray everywhere.",
+  "version": "1.0.1",
+  "description": "Make websites black and white (grayscale) to cut distraction and rest your eyes. Pick the sites, or turn every site gray.",
   "author": "Quiet Utilities",
   "permissions": ["storage", "activeTab", "scripting"],
   "optional_host_permissions": ["<all_urls>"],

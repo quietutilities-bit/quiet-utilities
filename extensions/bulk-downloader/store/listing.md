@@ -3,19 +3,19 @@
 Paste these into the Developer Dashboard when creating the item.
 
 ## Package
-Upload: `quiet-bulk-downloader-1.0.4.zip`
+Upload: `quiet-bulk-downloader-1.0.5.zip`
 
 ## Store listing tab
 
-**Title** (comes from the package): Quiet Bulk Downloader
+**Title** (comes from the package): Quiet Bulk Downloader – Download All Images & Files
 
-**Summary** (comes from the package): Download every file, image or link on a page in one click. Filter by type, pick what you want, save it all into one folder.
+**Summary** (comes from the package): Bulk download all images, PDFs, videos and files on a page in one click. Filter by type, pick what you want, save to one folder.
 
 **Description:**
 
-Download every file on a page in one click.
+Bulk download all images, PDFs, videos and other files on any web page in one click.
 
-Quiet Bulk Downloader finds the documents, images, audio, video and archives on the page you're looking at and lists them, sorted by type. Untick anything you don't want, pick a folder, and click Download. That's it.
+Quiet Bulk Downloader is an image downloader and file downloader in one. It finds the documents, images, audio, video and archives on the page you're looking at and lists them, sorted by type. Untick anything you don't want, pick a folder, and click Download. That's it.
 
 WHAT IT DOES
 • Finds files linked or embedded on the page, including inside embedded frames

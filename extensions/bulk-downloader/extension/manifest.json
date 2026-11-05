@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Quiet Bulk Downloader",
+  "name": "Quiet Bulk Downloader – Download All Images & Files",
   "short_name": "Quiet Bulk",
-  "version": "1.0.4",
-  "description": "Download every file, image or link on a page in one click. Filter by type, pick what you want, save it all into one folder.",
+  "version": "1.0.5",
+  "description": "Bulk download all images, PDFs, videos and files on a page in one click. Filter by type, pick what you want, save to one folder.",
   "author": "Quiet Utilities",
   "permissions": [
     "activeTab",

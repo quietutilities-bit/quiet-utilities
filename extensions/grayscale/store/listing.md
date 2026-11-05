@@ -1,7 +1,7 @@
 # Quiet Grayscale — store listing
 
-**Name:** Quiet Grayscale
-**Short summary (132 max):** Turn websites black and white to cut distraction and rest your eyes. Pick the sites, or go gray everywhere.
+**Name:** Quiet Grayscale – Black and White Websites
+**Short summary (132 max):** Make websites black and white (grayscale) to cut distraction and rest your eyes. Pick the sites, or turn every site gray.
 **Category:** Productivity (Chrome: Workflow & Planning if asked for a sub-category)
 **Language:** English (United States)
 **Price:** Free
@@ -11,7 +11,7 @@
 
 ## Description (Chrome and Firefox — paste as is)
 
-Color is how websites grab your attention. Quiet Grayscale turns it down.
+Make any website black and white. Color is how websites grab your attention; Quiet Grayscale turns it down with a grayscale filter for the sites you pick, or for every site.
 
 Switch a site to black and white and the red badges, flashy thumbnails and bright buttons lose their pull. Many people find it makes endless scrolling less tempting and long reading easier on the eyes.
 

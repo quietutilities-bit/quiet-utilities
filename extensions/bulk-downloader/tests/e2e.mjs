@@ -12,7 +12,17 @@ const { chromium } = require('playwright');
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const OUT = process.env.E2E_OUT || path.join(ROOT, 'test-output');
-const CHROME = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+import { existsSync as __exists, readdirSync as __ls } from 'node:fs';
+const CHROME = process.env.CHROME || (() => {
+  const root = '/opt/pw-browsers';
+  const dirs = __exists(root) ? __ls(root).filter(d => /^chromium-\d+$/.test(d)).sort((a, b) => +b.split('-')[1] - +a.split('-')[1]) : [];
+  for (const d of dirs) for (const sub of ['chrome-linux64', 'chrome-linux']) { const p = `${root}/${d}/${sub}/chrome`; if (__exists(p)) return p; }
+  throw new Error('Chromium not found; set CHROME=/path/to/chrome');
+})();
+import { createHash as __hash } from 'node:crypto';
+import { realpathSync as __real } from 'node:fs';
+const unpackedId = (dir) => [...__hash('sha256').update(__real(dir)).digest('hex').slice(0, 32)].map((c) => String.fromCharCode(97 + parseInt(c, 16))).join('');
+
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -110,7 +120,7 @@ const proc = spawn(CHROME, [
   `--remote-debugging-port=${port}`,
   `--disable-extensions-except=${extDir}`,
   `--load-extension=${extDir}`,
-  '--no-first-run', '--no-default-browser-check', '--no-sandbox',
+  '--no-first-run', '--disable-features=DisableLoadExtensionCommandLineSwitch', '--no-default-browser-check', '--no-sandbox',
   '--window-size=1200,900', 'about:blank'
 ], { stdio: 'ignore' });
 
@@ -130,7 +140,7 @@ await cdp.send('Browser.setDownloadBehavior', { behavior: 'default' });
 let extId;
 for (let i = 0; i < 50 && !extId; i++) {
   const targets = await fetch(`http://127.0.0.1:${port}/json`).then((r) => r.json()).catch(() => []);
-  const t = targets.find((x) => x.type === 'service_worker' && x.url.startsWith('chrome-extension://'));
+  const t = targets.find((x) => x.type === 'service_worker' && new URL(x.url).host === unpackedId(extDir));
   if (t) extId = new URL(t.url).host;
   else await new Promise((r) => setTimeout(r, 200));
 }
