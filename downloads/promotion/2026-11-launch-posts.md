@@ -38,8 +38,7 @@ Good subreddits: r/chrome, r/chrome_extensions, r/DataHoarder (only for file-dow
 
 **Reply draft — bulk download question**
 > I ran into the same thing and ended up making a small extension for it: Quiet Bulk Downloader (disclosure: I'm the developer). Open it on the page and it lists every image/PDF/video/archive, sorted by type; untick what you don't want and it saves the rest into one folder. It picks the full-size version of responsive images, which was my main annoyance with other tools. Free for single pages. LINK
->
-> If you'd rather not install anything: in DevTools → Network, filter by Img and reload, then right-click → "Save all as HAR" — but that gets messy fast.
+
 
 **Reply draft — grayscale / distraction question**
 > If you want it per-site rather than for your whole screen, I built Quiet Grayscale (disclosure: mine, free, no tracking). You pick the sites — e.g. YouTube and Reddit go gray, everything else stays in color — and it remembers them. There's a strength slider too. LINK
